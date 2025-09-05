@@ -948,6 +948,32 @@ display: none;
       #A332:hover {
         background: #0e0e0e;
       }
+
+    #toggleControlsButton {
+    position: fixed;
+    top: 2px;
+    right: 10px;
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Без рамки */
+    color: #ffffff; /* Светло-серый цвет текста */
+    font-size: 1.2em; /* Размер значка */
+    cursor: pointer;
+    opacity: 0.8; /* Полупрозрачность */
+    transition: opacity 0.3s ease; /* Плавный переход прозрачности */
+  }
+
+  #toggleControlsButton:hover {
+    color: #d7d7d7; /* Более темный цвет текста при наведении */
+  }
+
+  /* Добавьте значок (например, шестеренку) с помощью CSS или Font Awesome */
+  #toggleControlsButton::before {
+    content: "\2699"; /* Unicode символ шестеренки */
+  }
+
+      #controlsContainer {
+      display: none; /* Скрываем блок по умолчанию */
+    }
 </style>
 </head>
 <body>
@@ -960,7 +986,9 @@ display: none;
 <button id="showTable5Btn" class="switch-button">Выбор ППО</button>
 </div>
 
+<button id="toggleControlsButton" style="font-size: 20px;">Настройки бинда для приложения</button>
 
+      <div id="controlsContainer">
 <div>
     <label for="shortcutInput" style="font-size: 20px;">Горячая клавиша:</label>
     <input type="text" id="shortcutInput" value="Insert">
@@ -968,6 +996,7 @@ display: none;
   </div>
 
 <div id="currentShortcut">Текущая горячая клавиша: </div> <button id="A332" onclick="window.api.reloadPage()">Перезагрузить страницу</button>
+</div>
 
 <section id="table1" class="sectionTWO">
 
@@ -8133,9 +8162,8 @@ display: none;
     <div>
     <h3>Уведомление об изменениях</h3>
     <p>&middot; Бренд Balenciaga теперь пишется не "БЛНСГ", а "Баленсия", посмотреть можно во вкладке "Обозначения".</p>
-    <p>&middot; В каждой таблице теперь есть покупка/продажа конкретного бизнеса в любом районе, посмотреть можете в Куплю бизнес и Продам бизнес. Вот примеры: Куплю бизнес АЗС в любом районе. Продам бизнес 24/7 в любом районе.</p>
-    <p>&middot; Была создана как бы новая версия таблицы ППО в формате приложения, скачать можно по ссылке в самой таблице, ссылка не прямая, вы там перейдете в Google диск и там просто скачайте этот файл, закройте уведомление и слева от названия таблицы, под кнопками переключения между таблицами, будет ссылка на скачивание.</p>
-    <p>&middot; Все обновленные данные будут подгружаться и в приложение, но для этого надо будет заново скачивать приложение, после каждого уведомления об изменениях, чтоб изменения вступили в силу, потому что пока синхронизация с сайтом не сделана, но я попытаюсь сделать так, чтоб данные обновлялись автоматически.</p>
+    <p>&middot; Теперь есть покупка/продажа конкретного бизнеса в любом районе, посмотреть можете в Куплю бизнес и Продам бизнес. Вот примеры: Куплю бизнес АЗС в любом районе. Продам бизнес 24/7 в любом районе.</p>
+    <p>&middot; Была создана как бы новая версия таблицы ППО в формате приложения, скачать можно по ссылке в самой таблице, закройте уведомление и слева от названия таблицы, под кнопками переключения между таблицами, будет ссылка на скачивание. Ссылка не прямая, вы там перейдете в Google диск и там просто скачайте файл Таблица ППО.7z. Теперь это приложение с автоматическим обновлением данных, то есть всё, что появляется на сайте, одновременно будет появляться и в приложении. В правом верхнем углу вы увидите "Настройки бинда" это для приложения, подробнее рассказал в инструкции к приложению, а если вы пользуетесь сайтом, то просто забейте, это вам не надо.</p>
   </div>
 </div>
 </div>
@@ -8557,11 +8585,48 @@ document.querySelectorAll('.item').forEach(item => {
     });
     </script>
 
-    <script>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const toggleControlsButton = document.getElementById('toggleControlsButton');
+        const controlsContainer = document.getElementById('controlsContainer');
+        const setShortcutButton = document.getElementById('setShortcutButton');
+        const shortcutInput = document.getElementById('shortcutInput');
+        const currentShortcut = document.getElementById('currentShortcut');
+
+        // Обработчик клика по кнопке-триггеру
+        toggleControlsButton.addEventListener('click', toggleControls);
+
+        setShortcutButton.addEventListener('click', () => {
+              const newShortcut = shortcutInput.value;
+              window.api.setShortcut(newShortcut);
+            });
+
+        // Функция для отображения/скрытия блока управления
+        function toggleControls() {
+          if (controlsContainer.style.display === 'none') {
+            controlsContainer.style.display = 'block'; // Показываем блок
+            toggleControlsButton.textContent = 'Закрыть настройки'; // Меняем текст кнопки
+          } else {
+            controlsContainer.style.display = 'none'; // Скрываем блок
+            toggleControlsButton.textContent = 'Настройки бинда для приложения'; // Меняем текст кнопки
+          }
+        }
+
+        
+
+
+        window.api.onShortcutChanged((event, shortcut) => {
+        currentShortcut.textContent = `Текущая горячая клавиша: ${shortcut}`; // Исправлено!
+        shortcutInput.value = shortcut;
+        });
+            });
+  </script>
+
+  <script>
 document.addEventListener('DOMContentLoaded', function() {
   const notification = document.getElementById('update-notification');
   const closeButton = document.getElementById('close-notification');
-  const currentVersion = '1.4'; // <--  УКАЖИТЕ ТЕКУЩУЮ ВЕРСИЮ ОБНОВЛЕНИЯ
+  const currentVersion = '1.5'; // <--  УКАЖИТЕ ТЕКУЩУЮ ВЕРСИЮ ОБНОВЛЕНИЯ
 
   function getCookie(name) { /* ... функция getCookie из предыдущих примеров ... */ }
   function setCookie(name, value, days) { /* ... функция setCookie из предыдущих примеров ... */ }
@@ -8585,25 +8650,7 @@ document.addEventListener('DOMContentLoaded', function() {
     notification.style.display = 'none';
   }
 });
-
 </script>
-
-<script>
-    const setShortcutButton = document.getElementById('setShortcutButton');
-    const shortcutInput = document.getElementById('shortcutInput');
-    const currentShortcut = document.getElementById('currentShortcut');
-
-    setShortcutButton.addEventListener('click', () => {
-      const newShortcut = shortcutInput.value;
-      window.api.setShortcut(newShortcut); // Отправляем новую горячую клавишу в основной процесс
-    });
-
-    window.api.onShortcutChanged((event, shortcut) => {
-      // Слушаем изменения горячей клавиши из основного процесса
-      currentShortcut.textContent = `Текущая горячая клавиша: ${shortcut}`; // Обновляем текст с текущей горячей клавишей
-      shortcutInput.value = shortcut; // Обновляем значение в поле ввода
-    });
-  </script>
 
 </body>
 </html>
