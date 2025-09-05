@@ -893,6 +893,14 @@ p {
           line-height: 1.2;
           text-align: left;
         }
+
+        #setShortcutButton {
+        font-size: 20px;
+      }
+
+        #shortcutInput {
+        font-size: 20px;
+      }
 </style>
 </head>
 <body>
@@ -907,14 +915,14 @@ p {
 
 
 <div>
-    <label for="shortcutInput">Горячая клавиша:</label>
+    <label for="shortcutInput" style="font-size: 20px;">Горячая клавиша:</label>
     <input type="text" id="shortcutInput" value="Insert">
     <button id="setShortcutButton">Установить клавишу</button>
   </div>
 
   <button onclick="window.api.reloadPage()">Перезагрузить страницу</button>
 
-  <p id="currentShortcut">Текущая горячая клавиша: Insert</p> <!-- Отображает текущую горячую клавишу -->
+  <p id="currentShortcut">Текущая горячая клавиша: </p> <!-- Отображает текущую горячую клавишу -->
 
 
 <section id="table1" class="sectionTWO">
