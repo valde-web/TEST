@@ -887,7 +887,7 @@ display: none;
     margin-bottom: -5px;
 }
 
-p {
+        p {
           font-size: 20px;
           color: #ffffff;
           line-height: 1.2;
@@ -914,9 +914,8 @@ p {
 
         #shortcutInput {
         font-size: 20px;
-        width: 140px;
+        width: 170px;
         display: block;
-
         padding: 10px 10px;
         border-radius: 8px;
         border: 1px solid #ffffff;
@@ -929,6 +928,25 @@ p {
 
         #currentShortcut {
         font-size: 20px;
+        display: inline-block;
+      }
+
+      #A332 {
+        font-size: 20px;
+        width: 260px;
+        display: block;
+        padding: 10px 10px;
+        border-radius: 8px;
+        border: 1px solid #ffffff;
+        background: #000000;
+        color: white;
+        display: inline-block; /* Добавлено */
+        margin-left: 25px;
+        cursor: pointer;
+      }
+
+      #A332:hover {
+        background: #0e0e0e;
       }
 </style>
 </head>
@@ -947,12 +965,9 @@ p {
     <label for="shortcutInput" style="font-size: 20px;">Горячая клавиша:</label>
     <input type="text" id="shortcutInput" value="Insert">
     <button id="setShortcutButton">Установить клавишу</button>
-    <div id="currentShortcut">Текущая горячая клавиша: <button onclick="window.api.reloadPage()">Перезагрузить страницу</button></div>
-    <button onclick="window.api.reloadPage()">Перезагрузить страницу</button>
   </div>
 
-  
-
+<div id="currentShortcut">Текущая горячая клавиша: </div> <button id="A332" onclick="window.api.reloadPage()">Перезагрузить страницу</button>
 
 <section id="table1" class="sectionTWO">
 
