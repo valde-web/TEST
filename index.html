@@ -926,6 +926,10 @@ p {
         margin-right: 5px; /* Добавлено для небольшого отступа */
         margin-left: 5px;
       }
+
+        #currentShortcut {
+        font-size: 20px;
+      }
 </style>
 </head>
 <body>
@@ -943,11 +947,11 @@ p {
     <label for="shortcutInput" style="font-size: 20px;">Горячая клавиша:</label>
     <input type="text" id="shortcutInput" value="Insert">
     <button id="setShortcutButton">Установить клавишу</button>
+    <div id="currentShortcut">Текущая горячая клавиша: <button onclick="window.api.reloadPage()">Перезагрузить страницу</button></div>
+    <button onclick="window.api.reloadPage()">Перезагрузить страницу</button>
   </div>
 
-  <button onclick="window.api.reloadPage()">Перезагрузить страницу</button>
-
-  <p id="currentShortcut">Текущая горячая клавиша: </p> <!-- Отображает текущую горячую клавишу -->
+  
 
 
 <section id="table1" class="sectionTWO">
