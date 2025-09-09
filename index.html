@@ -920,6 +920,22 @@ display: none;
         background: #0e0e0e;
       }
 
+      #clearShortcutButton {
+        font-size: 20px;
+        width: 100px;
+        display: block;
+        margin: 15px 0px;
+        padding: 10px 10px;
+        border-radius: 8px;
+        border: 1px solid #ffffff;
+        background: #000000;
+        color: white;
+        display: inline-block; /* Добавлено */
+        cursor: pointer;
+        margin-left: 5px;
+        margin-right: 5px;
+        }
+
         #shortcutInput {
         font-size: 20px;
         width: 170px;
@@ -1064,8 +1080,9 @@ display: none;
       <div id="controlsContainer" style="display: none;">
 <div>
     <label for="shortcutInput" style="font-size: 20px;">Назначить горячую клавишу:</label>
-    <input type="text" id="shortcutInput" value="Insert" readonly>Введите бинд...
+    <input type="text" id="shortcutInput" value="Введите бинд..." readonly>
     <button id="setShortcutButton">Установить клавишу</button>
+    <button id="clearShortcutButton">Стереть</button>
   </div>
 
 <div id="currentShortcut">Текущая горячая клавиша: </div> <button id="A332" onclick="window.api.reloadPage()">Перезагрузить страницу</button>
@@ -8531,19 +8548,26 @@ document.querySelectorAll('.item').forEach(item => {
       const toggleControlsButton = document.getElementById('toggleControlsButton');
       const controlsContainer = document.getElementById('controlsContainer');
       const setShortcutButton = document.getElementById('setShortcutButton');
+      const clearShortcutButton = document.getElementById('clearShortcutButton'); // Получаем кнопку "Стереть"
       const shortcutInput = document.getElementById('shortcutInput');
-      const currentShortcutElement = document.getElementById('currentShortcut'); // Изменено
+      const currentShortcutElement = document.getElementById('currentShortcut');
 
       let keys = [];
+      const defaultInputValue = "Введите бинд..."; // Дефолтное значение поля ввода
 
       // Обработчик клика по кнопке-триггеру
       toggleControlsButton.addEventListener('click', toggleControls);
 
       setShortcutButton.addEventListener('click', () => {
-        const newShortcut = shortcutInput.value;
+        const newShortcut = shortcutInput.value === defaultInputValue ? "" : shortcutInput.value; // Не сохраняем дефолтное значение
         window.api.setShortcut(newShortcut);
       });
 
+      // Обработчик кнопки "Стереть"
+      clearShortcutButton.addEventListener('click', () => {
+        keys = []; // Очищаем массив клавиш
+        shortcutInput.value = defaultInputValue;  // Возвращаем дефолтное значение
+      });
 
       // Функция для отображения/скрытия блока управления
       function toggleControls() {
@@ -8558,8 +8582,16 @@ document.querySelectorAll('.item').forEach(item => {
       }
 
       shortcutInput.addEventListener('focus', () => {
+        if (shortcutInput.value === defaultInputValue) {
+            shortcutInput.value = ''; // Очищаем поле ввода при фокусе, если там дефолтное значение
+        }
         keys = []; // Очищаем массив при фокусе на поле
-        shortcutInput.value = ''; // Очищаем поле ввода
+      });
+
+      shortcutInput.addEventListener('blur', () => {
+          if (shortcutInput.value === '') {
+              shortcutInput.value = defaultInputValue; // Возвращаем дефолтное значение, если поле пустое
+          }
       });
 
 
@@ -8567,7 +8599,12 @@ document.querySelectorAll('.item').forEach(item => {
         if (document.activeElement === shortcutInput && keys.length < 3) {
           event.preventDefault(); // Предотвращаем стандартное поведение (ввод символа)
 
-          const key = event.key === ' ' ? 'Space' : event.key; // Отображаем "Space" вместо пробела
+          let key = event.key === ' ' ? 'Space' : event.key; // Отображаем "Space" вместо пробела
+
+          // Обработка клавиш NumPad
+          if (event.location === 3) { // event.location === 3 - NumPad
+            key = 'Num' + key;
+          }
           if (!keys.includes(key)) {  // Проверка на дублирование клавиш
             keys.push(key);
             shortcutInput.value = keys.join('+');
@@ -8575,10 +8612,8 @@ document.querySelectorAll('.item').forEach(item => {
         }
       });
 
-
-
       window.api.onShortcutChanged((event, shortcut) => {
-        currentShortcutElement.textContent = `Текущая горячая клавиша: ${shortcut}`; // Изменено
+        currentShortcutElement.textContent = 'Текущая горячая клавиша: ${shortcut}';
         shortcutInput.value = shortcut;
       });
     });
