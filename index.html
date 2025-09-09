@@ -8594,7 +8594,7 @@ document.querySelectorAll('.item').forEach(item => {
         }
 
         function stopRecording() {
-                    document.removeEventListener('keydown', recordKey);
+            document.removeEventListener('keydown', recordKey);
             recording = false;
             shortcutInput.classList.remove('recording');
         }
@@ -8646,32 +8646,34 @@ document.querySelectorAll('.item').forEach(item => {
 
         setShortcutButton.addEventListener('click', () => {
             const shortcuts = recordedKeys;
-            window.api.setShortcuts(shortcuts);
+            window.api.setShortcut(shortcuts.join(' + '));
             currentBinds = shortcuts;
             setShortcutButton.disabled = true;
             updateCurrentShortcut(shortcuts.join(' + '));
             stopRecording();
         });
 
-    window.api.onShortcutChanged((event, shortcut) => { 
-    console.log('Shortcut changed event received:', shortcut);
-    currentBinds = shortcut;
-    updateCurrentShortcut(shortcut);
-    shortcutInput.value = shortcut;
-});
+         window.api.onShortcutChanged( (event, shortcut) => {
+                    console.log('Shortcut changed event received:', shortcut);
+                    currentBinds = shortcut;
+                    updateCurrentShortcut(shortcut);
+                    shortcutInput.value = shortcut;
+                }
+                );
 
-// Функция для обновления текста текущего шортката
-function updateCurrentShortcut(shortcuts) {
-    currentShortcut.textContent = `Текущая горячая клавиша: ${shortcuts.join(' + ')}`;
-}
+        // Функция для обновления текста текущего шортката
+        function updateCurrentShortcut(shortcut) {
+            currentShortcut.textContent = `Текущая горячая клавиша: ${shortcut}`;
+        }
 
-// При загрузке страницы получаем текущие шорткаты
-window.api.getShortcut((shortcut) => {
-    currentBinds = shortcut;
-    updateCurrentShortcut(shortcut);
-    shortcutInput.value = shortcut;
-});
-});
+        // При загрузке страницы получаем текущие шорткаты
+        window.api.getShortcut((shortcut) => {
+            console.log('Initial shortcut received:', shortcut);
+            currentBinds = shortcut;
+            updateCurrentShortcut(shortcut);
+            shortcutInput.value = shortcut;
+        });
+    });
 </script>
 
   <script>
