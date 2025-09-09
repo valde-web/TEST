@@ -8649,19 +8649,20 @@ document.querySelectorAll('.item').forEach(item => {
             window.api.setShortcuts(shortcuts);
             currentBinds = shortcuts;
             setShortcutButton.disabled = true;
-            updateCurrentShortcut(shortcuts);
+            updateCurrentShortcut(shortcuts.join(' + '));
             stopRecording();
         });
 
     window.api.onShortcutChanged((event, shortcut) => { 
-    currentBinds = shortcuts;
-    updateCurrentShortcut(shortcuts);
-    shortcutInput.value = shortcuts.join(' + ');
+    console.log('Shortcut changed event received:', shortcut);
+    currentBinds = shortcut;
+    updateCurrentShortcut(shortcut);
+    shortcutInput.value = shortcut;
 });
 
 // Функция для обновления текста текущего шортката
-function updateCurrentShortcut(shortcut) {
-    currentShortcut.textContent = `Текущая горячая клавиша: ${shortcut.join(' + ')}`;
+function updateCurrentShortcut(shortcuts) {
+    currentShortcut.textContent = `Текущая горячая клавиша: ${shortcuts.join(' + ')}`;
 }
 
 // При загрузке страницы получаем текущие шорткаты
