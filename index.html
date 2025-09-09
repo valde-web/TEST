@@ -922,7 +922,7 @@ display: none;
 
       #clearShortcutButton {
         font-size: 20px;
-        width: 100px;
+        width: 320px;
         display: block;
         margin: 15px 0px;
         padding: 10px 10px;
@@ -932,8 +932,7 @@ display: none;
         color: white;
         display: inline-block; /* Добавлено */
         cursor: pointer;
-        margin-left: 5px;
-        margin-right: 5px;
+        margin-left: 15px;
         }
 
         #shortcutInput {
@@ -953,24 +952,6 @@ display: none;
         #currentShortcut {
         font-size: 20px;
         display: inline-block;
-      }
-
-      #A332 {
-        font-size: 20px;
-        width: 260px;
-        display: block;
-        padding: 10px 10px;
-        border-radius: 8px;
-        border: 1px solid #ffffff;
-        background: #000000;
-        color: white;
-        display: inline-block; /* Добавлено */
-        margin-left: 25px;
-        cursor: pointer;
-      }
-
-      #A332:hover {
-        background: #0e0e0e;
       }
 
     #toggleControlsButton {
@@ -1082,10 +1063,9 @@ display: none;
     <label for="shortcutInput" style="font-size: 20px;">Назначить горячую клавишу:</label>
     <input type="text" id="shortcutInput" value="Введите бинд..." readonly>
     <button id="setShortcutButton">Установить клавишу</button>
-    <button id="clearShortcutButton">Стереть</button>
   </div>
 
-<div id="currentShortcut">Текущая горячая клавиша: </div> <button id="A332" onclick="window.api.reloadPage()">Перезагрузить страницу</button>
+<div id="currentShortcut">Текущая горячая клавиша: </div> <button id="clearShortcutButton">Стереть назначенную клавишу</button>
 </div>
 
 <section id="table1" class="sectionTWO">
