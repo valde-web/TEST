@@ -943,7 +943,7 @@ display: none;
         border-radius: 8px;
         border: 1px solid #ffffff;
         background: #000000;
-        color: white;
+        color: #ffffff83;
         display: inline-block; /* Добавлено */
         margin-right: 5px; /* Добавлено для небольшого отступа */
         margin-left: 5px;
@@ -8550,20 +8550,18 @@ document.querySelectorAll('.item').forEach(item => {
       }
     }
 
-
     toggleControlsButton.addEventListener('click', toggleControls);
 
     setShortcutButton.addEventListener('click', () => {
-      const newShortcut = shortcutInput.value === defaultInputValue ? "" : shortcutInput.value;
+      let newShortcut = shortcutInput.value === defaultInputValue ? "" : shortcutInput.value;
+      newShortcut = transliterate(newShortcut);  // Транслитерация
       setShortcut(newShortcut);  // Используем функцию setShortcut
     });
-
 
     clearShortcutButton.addEventListener('click', () => {
       keys = [];
       shortcutInput.value = defaultInputValue;
     });
-
 
     function toggleControls() {
       console.log("controlsContainer.style.display:", controlsContainer.style.display);
@@ -8576,21 +8574,20 @@ document.querySelectorAll('.item').forEach(item => {
       }
     }
 
-
     shortcutInput.addEventListener('focus', () => {
       if (shortcutInput.value === defaultInputValue) {
         shortcutInput.value = '';
       }
       keys = [];
+      shortcutInput.style.color = 'white'; // При фокусе - белый
     });
-
 
     shortcutInput.addEventListener('blur', () => {
       if (shortcutInput.value === '') {
-        shortcutInput.value = defaultInputValue;
+shortcutInput.value = defaultInputValue;
       }
+          shortcutInput.style.color = ''; // Убираем стиль при потере фокуса (возвращает к стилю по умолчанию)
     });
-
 
     document.addEventListener('keydown', (event) => {
       if (document.activeElement === shortcutInput && keys.length < 3) {
@@ -8608,18 +8605,32 @@ document.querySelectorAll('.item').forEach(item => {
       }
     });
 
+    // Функция для транслитерации
+  function transliterate(text) {
+      const transliterationMap = {
+        'а': 'f', 'б': ',', 'в': 'd'
+      };
+
+    let result = '';
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        result += transliterationMap[char] || char;
+      }
+      return result;
+    }
+
     // Обработчик для получения текущей горячей клавиши
     if (isApiReady()) {
         window.api.onShortcutChanged((event, shortcut) => {
             currentShortcutElement.textContent = `Текущая горячая клавиша: ${shortcut}`;
             shortcutInput.value = shortcut;
+              shortcutInput.style.color = ''; // Убираем стиль при получении нового значения из API
         });
     } else {
         console.warn('window.api не доступен при загрузке страницы. Обработчик onShortcutChanged не установлен.');
     }
-});
+  });
 </script>
-
 
   <script>
 document.addEventListener('DOMContentLoaded', function() {
