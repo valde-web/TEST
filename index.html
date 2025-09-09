@@ -1054,7 +1054,7 @@ display: none;
 
     #cancelShortcutButton {
     font-size: 20px;
-        width: 105px;
+        width: 110px;
         padding: 10px 10px;
         border-radius: 8px;
         border: 1px solid #ffffff;
@@ -8653,24 +8653,23 @@ document.querySelectorAll('.item').forEach(item => {
             stopRecording();
         });
 
-        window.api.onShortcutsChanged((event, shortcuts) => {
-            currentBinds = shortcuts;
-            updateCurrentShortcut(shortcuts);
-            shortcutInput.value = shortcuts.join(' + ');
-        });
+        window.api.onShortcutChanged((event, shortcuts) => {
+    currentBinds = shortcuts;
+    updateCurrentShortcut(shortcuts);
+    shortcutInput.value = shortcuts.join(' + ');
+});
 
-        // Функция для обновления текста текущего шортката
-        function updateCurrentShortcut(shortcuts) {
-            currentShortcut.textContent = `Текущая горячая клавиша: ${shortcuts.join(' + ')}`;
-        }
+// Функция для обновления текста текущего шортката
+function updateCurrentShortcut(shortcuts) {
+    currentShortcut.textContent = `Текущая горячая клавиша: ${shortcuts.join(' + ')}`;
+}
 
-        // При загрузке страницы получаем текущие шорткаты
-        window.api.getShortcuts((shortcuts) => {
-            currentBinds = shortcuts;
-            updateCurrentShortcut(shortcuts);
-            shortcutInput.value = shortcuts.join(' + ');
-        });
-    });
+// При загрузке страницы получаем текущие шорткаты
+window.api.getShortcut((shortcut) => {
+    currentBinds = shortcut;
+    updateCurrentShortcut(shortcut);
+    shortcutInput.value = shortcut;
+});
 </script>
 
   <script>
