@@ -8544,80 +8544,102 @@ document.querySelectorAll('.item').forEach(item => {
     </script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const toggleControlsButton = document.getElementById('toggleControlsButton');
-      const controlsContainer = document.getElementById('controlsContainer');
-      const setShortcutButton = document.getElementById('setShortcutButton');
-      const clearShortcutButton = document.getElementById('clearShortcutButton'); // Получаем кнопку "Стереть"
-      const shortcutInput = document.getElementById('shortcutInput');
-      const currentShortcutElement = document.getElementById('currentShortcut');
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleControlsButton = document.getElementById('toggleControlsButton');
+    const controlsContainer = document.getElementById('controlsContainer');
+    const setShortcutButton = document.getElementById('setShortcutButton');
+    const clearShortcutButton = document.getElementById('clearShortcutButton');
+    const shortcutInput = document.getElementById('shortcutInput');
+    const currentShortcutElement = document.getElementById('currentShortcut');
 
-      let keys = [];
-      const defaultInputValue = "Введите бинд..."; // Дефолтное значение поля ввода
+    let keys = [];
+    const defaultInputValue = "Введите бинд...";
 
-      // Обработчик клика по кнопке-триггеру
-      toggleControlsButton.addEventListener('click', toggleControls);
+    // Функция для проверки доступности window.api и setShortcut
+    function isApiReady() {
+      return typeof window.api !== 'undefined' && typeof window.api.setShortcut === 'function';
+    }
 
-      setShortcutButton.addEventListener('click', () => {
-        const newShortcut = shortcutInput.value === defaultInputValue ? "" : shortcutInput.value; // Не сохраняем дефолтное значение
+    // Функция для установки горячей клавиши, с проверкой API
+    function setShortcut(newShortcut) {
+      if (isApiReady()) {
         window.api.setShortcut(newShortcut);
-      });
+      } else {
+        console.error('window.api или window.api.setShortcut не определены.');
+        // Можно добавить здесь логику обработки ошибки, например, показать сообщение пользователю
+      }
+    }
 
-      // Обработчик кнопки "Стереть"
-      clearShortcutButton.addEventListener('click', () => {
-        keys = []; // Очищаем массив клавиш
-        shortcutInput.value = defaultInputValue;  // Возвращаем дефолтное значение
-      });
 
-      // Функция для отображения/скрытия блока управления
-      function toggleControls() {
-        console.log("controlsContainer.style.display:", controlsContainer.style.display);
-        if (controlsContainer.style.display === 'none') {
-          controlsContainer.style.display = 'block'; // Показываем блок
-          toggleControlsButton.textContent = 'Закрыть настройки'; // Меняем текст кнопки
-        } else {
-          controlsContainer.style.display = 'none'; // Скрываем блок
-          toggleControlsButton.textContent = 'Настройки бинда для приложения'; // Меняем текст кнопки
+    toggleControlsButton.addEventListener('click', toggleControls);
+
+    setShortcutButton.addEventListener('click', () => {
+      const newShortcut = shortcutInput.value === defaultInputValue ? "" : shortcutInput.value;
+      setShortcut(newShortcut);  // Используем функцию setShortcut
+    });
+
+
+    clearShortcutButton.addEventListener('click', () => {
+      keys = [];
+      shortcutInput.value = defaultInputValue;
+    });
+
+
+    function toggleControls() {
+      console.log("controlsContainer.style.display:", controlsContainer.style.display);
+      if (controlsContainer.style.display === 'none') {
+        controlsContainer.style.display = 'block';
+        toggleControlsButton.textContent = 'Закрыть настройки';
+      } else {
+        controlsContainer.style.display = 'none';
+        toggleControlsButton.textContent = 'Настройки бинда для приложения';
+      }
+    }
+
+
+    shortcutInput.addEventListener('focus', () => {
+      if (shortcutInput.value === defaultInputValue) {
+        shortcutInput.value = '';
+      }
+      keys = [];
+    });
+
+
+    shortcutInput.addEventListener('blur', () => {
+      if (shortcutInput.value === '') {
+        shortcutInput.value = defaultInputValue;
+      }
+    });
+
+
+    document.addEventListener('keydown', (event) => {
+      if (document.activeElement === shortcutInput && keys.length < 3) {
+        event.preventDefault();
+
+        let key = event.key === ' ' ? 'Space' : event.key;
+
+        if (event.location === 3) {
+          key = 'Num' + key;
+        }
+        if (!keys.includes(key)) {
+          keys.push(key);
+          shortcutInput.value = keys.join('+');
         }
       }
-
-      shortcutInput.addEventListener('focus', () => {
-        if (shortcutInput.value === defaultInputValue) {
-            shortcutInput.value = ''; // Очищаем поле ввода при фокусе, если там дефолтное значение
-        }
-        keys = []; // Очищаем массив при фокусе на поле
-      });
-
-      shortcutInput.addEventListener('blur', () => {
-          if (shortcutInput.value === '') {
-              shortcutInput.value = defaultInputValue; // Возвращаем дефолтное значение, если поле пустое
-          }
-      });
-
-
-      document.addEventListener('keydown', (event) => {
-        if (document.activeElement === shortcutInput && keys.length < 3) {
-          event.preventDefault(); // Предотвращаем стандартное поведение (ввод символа)
-
-          let key = event.key === ' ' ? 'Space' : event.key; // Отображаем "Space" вместо пробела
-
-          // Обработка клавиш NumPad
-          if (event.location === 3) { // event.location === 3 - NumPad
-            key = 'Num' + key;
-          }
-          if (!keys.includes(key)) {  // Проверка на дублирование клавиш
-            keys.push(key);
-            shortcutInput.value = keys.join('+');
-          }
-        }
-      });
-
-      window.api.onShortcutChanged((event, shortcut) => {
-        currentShortcutElement.textContent = 'Текущая горячая клавиша: ${shortcut}';
-        shortcutInput.value = shortcut;
-      });
     });
-  </script>
+
+    // Обработчик для получения текущей горячей клавиши
+    if (isApiReady()) {
+        window.api.onShortcutChanged((event, shortcut) => {
+            currentShortcutElement.textContent = `Текущая горячая клавиша: ${shortcut}`;
+            shortcutInput.value = shortcut;
+        });
+    } else {
+        console.warn('window.api не доступен при загрузке страницы. Обработчик onShortcutChanged не установлен.');
+    }
+});
+</script>
+
 
   <script>
 document.addEventListener('DOMContentLoaded', function() {
