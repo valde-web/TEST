@@ -8653,15 +8653,15 @@ document.querySelectorAll('.item').forEach(item => {
             stopRecording();
         });
 
-        window.api.onShortcutChanged((event, shortcuts) => {
+    window.api.onShortcutChanged((event, shortcut) => { 
     currentBinds = shortcuts;
     updateCurrentShortcut(shortcuts);
     shortcutInput.value = shortcuts.join(' + ');
 });
 
 // Функция для обновления текста текущего шортката
-function updateCurrentShortcut(shortcuts) {
-    currentShortcut.textContent = `Текущая горячая клавиша: ${shortcuts.join(' + ')}`;
+function updateCurrentShortcut(shortcut) {
+    currentShortcut.textContent = `Текущая горячая клавиша: ${shortcut.join(' + ')}`;
 }
 
 // При загрузке страницы получаем текущие шорткаты
@@ -8669,6 +8669,7 @@ window.api.getShortcut((shortcut) => {
     currentBinds = shortcut;
     updateCurrentShortcut(shortcut);
     shortcutInput.value = shortcut;
+});
 });
 </script>
 
