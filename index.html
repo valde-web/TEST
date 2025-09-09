@@ -1047,23 +1047,6 @@ display: none;
   opacity: 1;
   transform: translateY(-50%) translateX(100%); /* Выезд текста вправо */
 }
-
-#shortcutInput.recording {
-        background-color: rgb(18, 18, 18);
-    }
-
-    #cancelShortcutButton {
-    font-size: 20px;
-        width: 110px;
-        padding: 10px 10px;
-        border-radius: 8px;
-        border: 1px solid #ffffff;
-        background: #000000;
-        color: white;
-        display: inline-block; /* Добавлено */
-        margin-right: 5px; /* Добавлено для небольшого отступа */
-        margin-left: 5px;
-      }
 </style>
 </head>
 <body>
@@ -1081,9 +1064,8 @@ display: none;
       <div id="controlsContainer" style="display: none;">
 <div>
     <label for="shortcutInput" style="font-size: 20px;">Назначить горячую клавишу:</label>
-     <input type="text" id="shortcutInput" value="Insert" readonly placeholder="Введите бинд...">
+    <input type="text" id="shortcutInput" value="Insert" readonly>Введите бинд...
     <button id="setShortcutButton">Установить клавишу</button>
-    <button id="cancelShortcutButton">Очистить</button>
   </div>
 
 <div id="currentShortcut">Текущая горячая клавиша: </div> <button id="A332" onclick="window.api.reloadPage()">Перезагрузить страницу</button>
@@ -8134,12 +8116,7 @@ display: none;
     <button id="close-notification" class="close-button">&times;</button>
     <div>
     <h3>Уведомление об изменениях</h3>
-    <p>&middot; Бренд Balenciaga теперь пишется не "БЛНСГ", а "Баленсия", посмотреть можно во вкладке "Обозначения".</p>
-    <p>&middot; Теперь есть покупка/продажа конкретного бизнеса в любом районе, посмотреть можете в Куплю бизнес и Продам бизнес. Вот примеры: Куплю бизнес АЗС в любом районе. Продам бизнес 24/7 в любом районе.</p>
-    <p>&middot; Было а/м Мерин "Майб Г900" стало а/м МБ "Майб Г900".</p>
-    <p>&middot; Было а/м МБ ГЛЕ стало а/м МБ ГЛЕ Купе.</p>
-    <p>&middot; Было Шапку-Ушанку "ЛВ" стало шапку-ушанку "ЛВ".</p>
-    <p>&middot; Кто устанавливал приложение до 7 сентября перечитайте это уведомление и установите новую версию. Была создана как бы новая версия таблицы ППО в формате приложения, скачать можно по ссылке в самой таблице, закройте уведомление и слева от названия таблицы, под кнопками переключения между таблицами, будет ссылка на скачивание. Ссылка не прямая, вы там перейдете в Google диск и там просто скачайте файл Таблица ППО.7z. Теперь это приложение с автоматическим обновлением данных, то есть всё, что появляется на сайте, одновременно будет появляться и в приложении. В правом верхнем углу вы увидите "Настройки бинда" это для приложения, подробнее рассказал в инструкции к приложению, а если вы пользуетесь сайтом, то просто забейте, это вам не надо.</p>
+    <p>&middot; Для пользователей приложения - если вы хотите забиндить клавишу с нампада, то надо писать Num9 допустим, в общем не слово Numpad а Num и далее значение нужное вам.</p>
   </div>
 </div>
 </div>
@@ -8551,136 +8528,67 @@ document.querySelectorAll('.item').forEach(item => {
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const toggleControlsButton = document.getElementById('toggleControlsButton');
-        const controlsContainer = document.getElementById('controlsContainer');
-        const setShortcutButton = document.getElementById('setShortcutButton');
-        const cancelShortcutButton = document.getElementById('cancelShortcutButton');
-        const shortcutInput = document.getElementById('shortcutInput');
-        const currentShortcut = document.getElementById('currentShortcut');
+      const toggleControlsButton = document.getElementById('toggleControlsButton');
+      const controlsContainer = document.getElementById('controlsContainer');
+      const setShortcutButton = document.getElementById('setShortcutButton');
+      const shortcutInput = document.getElementById('shortcutInput');
+      const currentShortcutElement = document.getElementById('currentShortcut'); // Изменено
 
-        let recording = false;
-        let recordedKeys = [];
-        let currentBinds = [];
+      let keys = [];
 
-        // Обработчик клика по кнопке-триггеру
-        toggleControlsButton.addEventListener('click', toggleControls);
+      // Обработчик клика по кнопке-триггеру
+      toggleControlsButton.addEventListener('click', toggleControls);
 
-        function toggleControls() {
-            if (controlsContainer.style.display === 'none') {
-                controlsContainer.style.display = 'block';
-                toggleControlsButton.textContent = 'Закрыть настройки';
-            } else {
-                controlsContainer.style.display = 'none';
-                toggleControlsButton.textContent = 'Настройки бинда для приложения';
-                resetRecording();
-            }
+      setShortcutButton.addEventListener('click', () => {
+        const newShortcut = shortcutInput.value;
+        window.api.setShortcut(newShortcut);
+      });
+
+
+      // Функция для отображения/скрытия блока управления
+      function toggleControls() {
+        console.log("controlsContainer.style.display:", controlsContainer.style.display);
+        if (controlsContainer.style.display === 'none') {
+          controlsContainer.style.display = 'block'; // Показываем блок
+          toggleControlsButton.textContent = 'Закрыть настройки'; // Меняем текст кнопки
+        } else {
+          controlsContainer.style.display = 'none'; // Скрываем блок
+          toggleControlsButton.textContent = 'Настройки бинда для приложения'; // Меняем текст кнопки
         }
+      }
 
-        // Обработчик фокуса на поле ввода
-        shortcutInput.addEventListener('focus', () => {
-            startRecording();
-        });
+      shortcutInput.addEventListener('focus', () => {
+        keys = []; // Очищаем массив при фокусе на поле
+        shortcutInput.value = ''; // Очищаем поле ввода
+      });
 
-        function startRecording() {
-            if (!recording) {
-                recording = true;
-                recordedKeys = [];
-                shortcutInput.value = ''; // Очищаем поле ввода
-                shortcutInput.classList.add('recording');
-                setShortcutButton.disabled = true;
 
-                document.addEventListener('keydown', recordKey);
-            }
+      document.addEventListener('keydown', (event) => {
+        if (document.activeElement === shortcutInput && keys.length < 3) {
+          event.preventDefault(); // Предотвращаем стандартное поведение (ввод символа)
+
+          const key = event.key === ' ' ? 'Space' : event.key; // Отображаем "Space" вместо пробела
+          if (!keys.includes(key)) {  // Проверка на дублирование клавиш
+            keys.push(key);
+            shortcutInput.value = keys.join('+');
+          }
         }
+      });
 
-        function stopRecording() {
-            document.removeEventListener('keydown', recordKey);
-            recording = false;
-            shortcutInput.classList.remove('recording');
-        }
 
-        function resetRecording() {
-            stopRecording();
-            shortcutInput.value = currentBinds.join(' + ');
-        }
 
-        function recordKey(event) {
-            if (recording) {
-                event.preventDefault();
-                const key = event.code;
-
-                if (!recordedKeys.includes(key)) {
-                    recordedKeys.push(key);
-                }
-
-                shortcutInput.value = recordedKeys.join(' + ');
-
-                if (recordedKeys.length >= 3) {
-                    stopRecording();
-                    setShortcutButton.disabled = false;
-                }
-            }
-        }
-
-        // Обработчик расфокуса на поле ввода
-        shortcutInput.addEventListener('blur', () => {
-            // Задержка нужна, чтобы дать recordKey отработать перед остановкой записи
-            setTimeout(() => {
-                if (recording) {
-                  stopRecording();
-                  if(recordedKeys.length > 0){
-                      shortcutInput.value = recordedKeys.join(' + ');
-                  } else {
-                      shortcutInput.value = currentBinds.join(' + ');
-                  }
-
-                }
-
-            }, 100);
-        });
-
-        // Обработчик для кнопки "Отмена"
-        cancelShortcutButton.addEventListener('click', () => {
-            resetRecording();
-        });
-
-        setShortcutButton.addEventListener('click', () => {
-            const shortcuts = recordedKeys;
-            window.api.setShortcut(shortcuts.join(' + '));
-            currentBinds = shortcuts;
-            setShortcutButton.disabled = true;
-            updateCurrentShortcut(shortcuts.join(' + '));
-            stopRecording();
-        });
-
-         window.api.onShortcutChanged( (event, shortcut) => {
-                    console.log('Shortcut changed event received:', shortcut);
-                    currentBinds = shortcut;
-                    updateCurrentShortcut(shortcut);
-                    shortcutInput.value = shortcut;
-                }
-                );
-
-        // Функция для обновления текста текущего шортката
-        function updateCurrentShortcut(shortcut) {
-            currentShortcut.textContent = `Текущая горячая клавиша: ${shortcut}`;
-        }
-
-        // При загрузке страницы получаем текущие шорткаты
-        window.api.getShortcut((shortcut) => {
-            console.log('Initial shortcut received:', shortcut);
-            currentBinds = shortcut;
-            updateCurrentShortcut(shortcut);
-            shortcutInput.value = shortcut;
-        });
+      window.api.onShortcutChanged((event, shortcut) => {
+        currentShortcutElement.textContent = `Текущая горячая клавиша: ${shortcut}`; // Изменено
+        shortcutInput.value = shortcut;
+      });
     });
-</script>
+  </script>
 
   <script>
 document.addEventListener('DOMContentLoaded', function() {
   const notification = document.getElementById('update-notification');
   const closeButton = document.getElementById('close-notification');
-  const currentVersion = '1.6'; // <--  УКАЖИТЕ ТЕКУЩУЮ ВЕРСИЮ ОБНОВЛЕНИЯ
+  const currentVersion = '1.1'; // <--  УКАЖИТЕ ТЕКУЩУЮ ВЕРСИЮ ОБНОВЛЕНИЯ
 
   function getCookie(name) { /* ... функция getCookie из предыдущих примеров ... */ }
   function setCookie(name, value, days) { /* ... функция setCookie из предыдущих примеров ... */ }
