@@ -1065,7 +1065,7 @@ display: none;
     <button id="setShortcutButton">Установить клавишу</button>
   </div>
 
-<div id="currentShortcut">Текущая горячая клавиша: </div> <button id="clearShortcutButton">Стереть назначенную клавишу</button>
+<div id="currentShortcut">Текущая горячая клавиша: </div> <button id="clearShortcutButton">Стереть назначенную клавишу</button> <button id="toggleButton">Сделать поверх всех окон</button>
 </div>
 
 <section id="table1" class="sectionTWO">
@@ -8667,6 +8667,18 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+
+<script>
+    const { ipcRenderer } = require('electron');
+
+    const toggleButton = document.getElementById('toggleButton');
+    let isAlwaysOnTop = true;
+
+    toggleButton.addEventListener('click', () => {
+      isAlwaysOnTop = !isAlwaysOnTop;
+      ipcRenderer.send('toggle-always-on-top', isAlwaysOnTop); // Отправляем сообщение в главный процесс
+    });
+  </script>
 
 <script>
           // Скрипт обновления сайта при загрузке браузера
