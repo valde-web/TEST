@@ -1,0 +1,2001 @@
+  body {
+    font-family: Arial, sans-serif;
+    background: #131320;
+    color: white;
+    padding: 20px;
+    margin: 0;
+  }
+
+.table-title {
+    font-size: 26px;
+    cursor: pointer;
+    text-align: center;
+    border: 4px solid;
+    border-image: linear-gradient(45deg, #008fc2, #00ac89) 1;
+    border-radius: 8px;
+    max-width: 450px;
+    padding: 5px 13px 8px 13px;
+    margin-bottom: 15px;
+    margin-top: 18px;
+    position: relative; /*  позиционирование */
+    left: 50%; /* Сдвигаем на половину ширины контейнера */
+    transform: translateX(-50%); /* Сдвигаем обратно на половину ширины элемента, чтобы он был точно по центру */
+    display: inline-block; /* Чтобы width работала */
+    width: auto; /* Автоматическая ширина */
+    }
+
+   .table-header {
+     display: flex;
+     justify-content: space-between; /* Распределяем пространство между заголовком и кнопкой */
+    align-items: center; /*  элементы по вертикали */
+    position: relative; /*  для абсолютного позиционирования заголовка */
+    padding: 0 2px; /*  отступы по бокам */
+   }
+
+  .container {
+    max-width: 100vw; /* ширина по всей странице */
+    margin: 0 auto;
+    padding: 0 10px; /* небольшой отступ слева и справа */
+  }
+
+  .section {
+    border: 2px solid #008979;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .sectionTWO {
+    border-radius: 8px;
+    margin-bottom: 2px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    background-color: #008979;
+    padding: 15px 20px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .section-header:hover {
+    background-color: #01585b;
+  }
+
+  .toggle-icon {
+  display: inline-block;
+  }
+
+  .toggle-icon.collapsed {
+    transform: rotate(-180deg);
+  }
+
+  .items {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 колонок равной ширины */
+    gap: 15px;
+    padding: 15px 160px;
+  }
+
+  .item {
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 0 15px #006919;
+    border: 1px solid #006919;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+
+  .item-text {
+    padding: 10px 11px 10px; 
+    font-size: 17px;
+    flex-shrink: 0;
+    line-height: 1.2;
+  }
+
+.item.highlight {
+  box-shadow: 0 0 15px 3px #00de9b; /* яркая зелёная подсветка */
+  transition: box-shadow 0.3s ease;
+}
+
+    .text-block {
+    width: 500px;
+    box-sizing: border-box; /* чтобы padding и border учитывались внутри ширины */
+    box-shadow: 0 0 15px #006919;
+    border: 1px solid #006919;
+    padding: 30px;
+    border-radius: 30px;
+    font-size: 20px;
+    line-height: 1.3; /* Междустрочный интервал */
+    word-wrap: break-word;      /* Для большинства браузеров */
+    overflow-wrap: break-word; /* Для новых версий браузеров */
+}
+
+.text-block.right {
+    width: 490px;
+    border-radius: 30px;
+    word-wrap: break-word;      /* Для большинства браузеров */
+    overflow-wrap: break-word; /* Для новых версий браузеров */
+    box-sizing: border-box; /* чтобы padding и border учитывались внутри ширины */
+}
+
+.container-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px; /* маленький отступ между колонками */
+  box-sizing: border-box; /* чтобы padding учитывался внутри ширины */
+  padding: 200px 350px; /* большой отступ слева и справа от колонок до краёв */
+}
+
+  #legend-content {
+    overflow: hidden;
+    max-height: 1000px; /* открыто по умолчанию */
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  #legend-content.collapsed {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+/* Скрываем таблицу по умолчанию */
+.hidden {
+display: none;
+}
+
+  /* Стили для кнопки переключения */
+  .switch-button {
+    display: block;
+    margin: 0 auto 30px auto;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(45deg, #007daa, #00a282);
+    cursor: pointer;
+    display: inline-block; /* Добавлено */
+    margin-right: 15px; /* Добавлено для небольшого отступа */
+    margin-left: 5px;
+  }
+
+  .switch-button:hover {
+    background: linear-gradient(45deg, #00a282, #007daa);
+  }
+
+/* Контейнер для кнопок */
+  .button-container {
+  text-align: center; /* Центрирование внутри контейнера */
+  margin-top: 15px;
+  margin-bottom: -25px;
+}
+
+        .search-and-draft {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            justify-content: center
+        }
+
+        .search-input {
+            font-family: Arial, sans-serif;
+            padding: 17px;
+            min-width: 180px;
+            max-width: 400px;
+            height: 70.3px;
+            border: 2px solid #00685a;
+            font-size: 26px;
+            border-radius: 8px;
+            margin-right: 10px; /* Отступ справа от поля поиска */
+            outline: none; /*  Убираем стандартный outline чтоб после нажатия рамка была того же цвета */
+            word-break: break-word; /* Перенос длинных слов, если они не помещаются */
+            resize: none;
+            background-color: #00000000;
+            color: white;
+        }
+
+        .search-input::placeholder {
+            color: #888;
+        }
+
+        .draft-area {
+            padding: 14px;
+            width: 900px;
+            height: 109px;
+            border: 2px solid #00685a;
+            margin-left: 100px;
+            resize: none;
+            overflow: auto;
+            position: relative;
+            box-sizing: border-box;
+            border-radius: 8px;
+            font-size: 22px;
+            outline: none; /*  Убираем стандартный outline чтоб после нажатия рамка была того же цвета */
+        }
+
+        .draft-area::before {
+            content: attr(data-placeholder);
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            color: #888;
+            pointer-events: none;
+            opacity: 1;
+            font-size: 20px;
+        }
+
+        .hidden-cell {
+        display: none;
+        }
+
+        .draft-area:empty::before {
+            opacity: 1;
+        }
+
+        .draft-area:not(:empty)::before {
+            opacity: 0;
+        }
+
+        .cell {
+            box-shadow: 0 0 15px #006919;
+            border: 1px solid #006919;
+            text-align: left;
+            border-radius: 8px;
+            width: 100%; /* Важный момент: каждая ячейка занимает всю ширину своей колонки */
+            box-sizing: border-box;  /* Важно для учета padding и border */
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer; /* Изменяем курсор при наведении, чтобы показать, что ячейка кликабельна */
+        }
+
+    .cell.highlight {
+    box-shadow: 0 0 15px 3px #00b881; /* яркая зелёная подсветка */
+    transition: box-shadow 0.3s ease;
+  }
+
+  .cell-text {
+    padding: 10px 11px; 
+    font-size: 17px;
+    flex-shrink: 0;
+    line-height: 1.2;
+  }
+
+.container4 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(5, 1fr); /* 5 колонок равной ширины */
+            flex-wrap: wrap;        /* Разрешаем перенос на новую строку */
+            padding: 15px;
+            margin: 15px 140px; /* Отступ контейнера от краев страницы */
+            gap: 15px; /* Отступ между ячейками */
+        }
+
+    /*  Стили для колонок и элементов  */
+    .container5 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      text-align: left;
+      margin: 10px 0px;
+      justify-content: center;
+    }
+
+    .column {
+      border: 2px solid #008979;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 19px;
+      display: grid;
+      grid-template-columns: 7 2; 
+      grid-gap: 3px; /* Отступ между колонками */
+      height: 112px;
+      flex: 0 0 160px;
+    }
+
+    select {
+      width: 100%;
+      font-size: 18px;
+      border: 2px solid #008979;
+      border-radius: 8px;
+      height: 45px;
+      outline: none; /*  Убираем стандартный outline чтоб после нажатия рамка была того же цвета */
+      background-color: #131320;
+      color: white;
+    }
+
+    #result {
+      margin-top: 20px;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 2px solid #008979;
+      border-radius: 8px;
+      white-space: pre-wrap; /* Сохраняет форматирование текста */
+      min-height: 90px;
+      font-size: 26px;
+      text-align: center;
+      width: 98.5%;
+    }
+
+    .sww-button {
+    text-align: center;
+    }
+
+    .sw-button {
+    display: block;
+    margin: 0 auto 3px auto;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: inline-block; /* Добавлено */
+    margin-right: 28px; /* Добавлено для небольшого отступа */
+    margin-left: 5px;
+  }
+
+#copyButton {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border: 2px solid #008979;
+    border-radius: 8px;
+    font-size: 20px;
+    background-color: #00000000;
+    color: white;
+}
+
+#copyButton.copied {
+    border: 2px solid #00c58a;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+#clearButton {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border: 2px solid #008979;
+    border-radius: 8px;
+    font-size: 20px;
+    background-color: #00000000;
+    color: white;
+}
+
+#clearButton:active {
+    box-shadow: 0 0 15px #006919;
+}
+
+    #copyButton:hover {
+    background-color: #1b1b2d;
+  }
+
+    #clearButton:hover {
+    background-color: #1b1b2d;
+  }
+
+   .search-container {
+  position: relative; /*  Для позиционирования списка */
+}
+
+  #itemmSearch {
+  width: 100%; /*  Занимает всю ширину колонки */
+  padding: 5px;
+  margin-bottom: 6px;
+  box-sizing: border-box;
+  border: 2px solid #008979;
+  font-size: 18px;
+  border-radius: 8px;
+  outline: none; /*  Убираем стандартный outline чтоб после нажатия рамка была того же цвета */
+  background-color: #00000000;
+  color: white;
+}
+
+#itemm {
+    width: 100%;
+    box-sizing: border-box; /* Важно для правильной ширины с учетом padding и border */
+    background-color: #131320;
+    color: #ffffff;
+}
+
+  #itemmmSearch {
+  width: 100%; /*  Занимает всю ширину колонки */
+  padding: 5px;
+  margin-bottom: 6px;
+  box-sizing: border-box;
+  border: 2px solid #008979;
+  font-size: 18px;
+  border-radius: 8px;
+  outline: none; /*  Убираем стандартный outline чтоб после нажатия рамка была того же цвета */
+  background-color: #00000000;
+  color: white;
+}
+
+#itemmm {
+    width: 100%;
+    box-sizing: border-box; /* Важно для правильной ширины с учетом padding и border */
+    background-color: #131320;
+    color: white;
+}
+
+        #draft-area-5 {
+            padding: 14px;
+            height: 140px;
+            border: 2px solid #008979;
+            width: 100%;
+            resize: none;
+            overflow: auto;
+            position: relative;
+            box-sizing: border-box;
+            border-radius: 8px;
+            font-size: 22px;
+            margin-top: 15px;
+            outline: none; /*  Убираем стандартный outline чтоб после нажатия рамка была того же цвета */
+        }
+
+        #draft-area-5::before {
+            content: attr(data-placeholder);
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            color: #888;
+            pointer-events: none;
+            opacity: 1;
+            font-size: 20px;
+        }
+
+        #draft-area-5:empty::before {
+            opacity: 1;
+        }
+
+        #draft-area-5:not(:empty)::before {
+            opacity: 0;
+        }
+
+    .select-wrapper {
+      position: relative; /* Для позиционирования своей стрелки */
+      margin-top: auto;
+    }
+
+    .select-wrapper select {
+      appearance: none; /* Убираем стандартные стили стрелки */
+      -webkit-appearance: none; /* Для Safari */
+      -moz-appearance: none; /* Для Firefox */
+      padding: 7px;
+      width: 100%;
+      border: 2px solid #00685a;
+      border-radius: 8px;
+      box-sizing: border-box;
+      outline: none; /* Убираем стандартную обводку при фокусе */
+      cursor: pointer; /* Меняем курсор на указатель */
+      height: 45px;
+    }
+
+    /* Убираем отступы в IE */
+    select::-ms-expand {
+      display: none;
+    }
+
+    .select-wrapper::after {
+      content: '\25BC'; /* Код символа для стрелки вниз (▼) */
+      position: absolute;
+      /* top: 34%; */
+      top: 0; /* Привязываем к верху ячейки */
+      bottom: 0; /* Привязываем к низу ячейки */
+      align-items: center; /* Центрируем по вертикали */
+      right: 12px;
+      transform: translateY(-50%);
+      pointer-events: none; /* Чтобы клики проходили сквозь стрелку к select */
+      height: 45px; /* ОНО */
+      line-height: 92px;
+    }
+
+  /* Общие стили уведомления */
+.notification-container {
+  font-size: 20px;
+  position: fixed; /* Фиксированное положение на экране */
+  top: 20px; /* Отступ от верха */
+  left: 50%; /* Центрирование по горизонтали */
+  transform: translateX(-50%); /* Точное центрирование */
+  background-color: #000000;
+  border: 2px solid #b7b7b7;
+  padding: 15px;
+  z-index: 1000; /* Убедитесь, что уведомление поверх всего */
+  border-radius: 5px;
+  opacity: 0; /* Начальная прозрачность */
+  visibility: hidden; /* Скрыто изначально */
+  transition: all 0.3s ease-in-out; /* Плавные переходы */
+  width: 75%;
+}
+
+#update-notification {
+  text-align: center; /* Центрируем содержимое контейнера */
+}
+
+.notification-container.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  text-align: center; /* Центрируем текст внутри notification content*/
+  display: inline-block; /* Важно!  Позволяет контенту адаптироваться к ширине текста */
+  width: 100%; /* Текст будет занимать всю ширину рамки */
+}
+
+.notification-content p {
+  margin-top: 13px;
+  margin-bottom: 0;
+}
+
+.close-button {
+  position: absolute;
+  top: 1px;
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: white;
+}
+
+.close-button:hover {
+  color: #bcbcbc;
+}
+
+/* Анимация появления (пример) */
+@keyframes slideIn {
+  from {
+    transform: translateX(-50%) translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Анимация исчезновения (пример) */
+@keyframes slideOut {
+  from {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-50%) translateY(-50px);
+    opacity: 0;
+  }
+}
+
+.notification-container.show {
+  animation: slideIn 0.3s ease-in-out forwards;
+}
+
+.notification-content h3 {
+    margin: 0 0 5px 0; /* Отступ снизу */
+    font-size: 1.2em; /* Размер шрифта */
+    font-weight: bold; /* Жирный шрифт */
+    text-align: center;
+}
+
+#customPrice {
+    font-size: 16px;
+    width: 96%;
+    border: 1px solid #00685a;
+    border-radius: 5px;
+    margin-bottom: -2px;
+    margin-top: -5px;
+}
+
+#setPrice {
+    font-size: 14px;
+    width: 100%;
+    border: 1px solid #00685a;
+    border-radius: 5px;
+    margin-top: 0px;
+    margin-bottom: -5px;
+}
+
+        p {
+          font-size: 20px;
+          line-height: 1.2;
+          text-align: left;
+        }
+
+        #setShortcutButton {
+        font-size: 20px;
+        width: 220px;
+        display: block;
+        margin: 15px 0px;
+        padding: 10px 10px;
+        border-radius: 8px;
+        border: 1px solid #ffffff;
+        display: inline-block; /* Добавлено */
+        cursor: pointer;
+        color: #ffffff;
+        background-color: #000000;
+        }
+
+        #setShortcutButton:hover {
+        background: #0e0e0e;
+      }
+
+      #clearShortcutButton {
+        font-size: 20px;
+        width: 320px;
+        display: block;
+        margin: 15px 0px;
+        padding: 10px 10px;
+        border-radius: 8px;
+        border: 1px solid #ffffff;
+        background: #000000;
+        color: white;
+        display: inline-block; /* Добавлено */
+        cursor: pointer;
+        margin-left: 15px;
+        }
+
+        #clearShortcutButton:hover {
+        background: #0e0e0e;
+      }
+
+        #shortcutInput {
+        font-size: 20px;
+        width: 170px;
+        display: block;
+        padding: 10px 10px;
+        border-radius: 8px;
+        border: 1px solid #ffffff;
+        background: #000000;
+        color: #ffffff83;
+        display: inline-block; /* Добавлено */
+        margin-right: 5px; /* Добавлено для небольшого отступа */
+        margin-left: 5px;
+      }
+
+        #currentShortcut {
+        font-size: 20px;
+        display: inline-block;
+      }
+
+    #toggleControlsButton {
+    position: absolute;
+    right: 5px;
+    top: 14px;
+    transform: translateY(-50%);
+    width: 30px; /* Ширина полоски */
+    height: 30px; /* Высота полоски */
+    border: none;
+    cursor: pointer;
+    transition: width 0.3s ease; /* Плавное изменение ширины */
+    overflow: hidden; /* Скрываем текст, пока полоска узкая */
+    white-space: nowrap; /* Запрещаем перенос текста */
+    background-color: #00000000;
+    color: #ffffff;
+  }
+
+  #toggleControlsButton:hover {
+    width: 400px; /* Расширяем полоску при наведении */
+  }
+
+  /* Добавьте значок (например, шестеренку) с помощью CSS или Font Awesome */
+  #toggleControlsButton::before {
+    content: "\2699"; /* Unicode символ шестеренки */ 
+    margin-right: 7px;
+    font-size: 24px;
+  }
+
+      #controlsContainer {
+      display: none; /* Скрываем блок по умолчанию */
+      margin-left: 50px;
+      margin-top: 20px;
+    }
+
+.container93 {
+  display: flex;
+  flex-direction: column; /* Располагаем ссылки вертикально */
+  justify-content: flex-start; /* Выравниваем по верхнему краю */
+  align-items: flex-start; /* Выравниваем по левому краю */
+  margin-bottom: -75px;
+  margin-top: -10px;
+  margin-left: -7px;
+}
+
+.link-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 10px; /* Отступ между ссылками */
+}
+
+.image-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.image-link img {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.image-link:hover img {
+  transform: scale(1.1);
+}
+
+.image-link-text {
+  font-size: 18px;
+  white-space: nowrap;
+  position: absolute;   /* Абсолютное позиционирование */
+  top: 50%;              /* Центрирование по вертикали */
+  left: 0;               /* Выравнивание по левому краю контейнера */
+  transform: translateY(-50%) translateX(-100%); /* Для левой */
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1;
+  color: white;
+}
+
+.link-wrapper.left-linkk {
+margin-left: -2.8px;
+}
+
+/* Начальное положение текста и анимация для правой ссылки */
+.link-wrapper.left-link .image-link-text {
+  left: -100%; /* Начинаем с левого края картинки (правая ссылка) */
+  transform: translateY(-50%) translateX(40%); /* Скрываем текст сразу за границей */
+}
+
+.link-wrapper.left-link:hover .image-link-text {
+  opacity: 1;
+  transform: translateY(-45%) translateX(70%); /* Выезд текста вправо */
+}
+
+.link-wrapper.left-linkk .image-link-text {
+  left: -100%; /* Начинаем с левого края картинки (правая ссылка) */
+  transform: translateY(-50%) translateX(40%); /* Скрываем текст сразу за границей */
+}
+
+.link-wrapper.left-linkk:hover .image-link-text {
+  opacity: 1;
+  transform: translateY(-50%) translateX(70%); /* Выезд текста вправо */
+}
+
+/* Стили для выпадающего списка */
+.container57 {
+    display: flex;
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Выравниваем по вертикали (опционально) */
+  }
+
+  .header-wrapper {
+  width: 100%; /* Занимает всю ширину */
+  display: flex;
+  justify-content: center; /*Центрируем container */
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  align-items: center; /* Выравниваем по вертикали (опционально) */
+}
+
+.dropdown-button {
+  color: white;
+  background-color: #00000000;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 0px;
+  margin-right: -9px;
+  transform: translateY(-12%); /* Сдвигаем обратно на половину ширины элемента, чтобы он был точно по центру */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  border-radius: 6px; /* Закругленные углы */
+  border: 2px solid #008979;
+  font-size: 22px;
+  width: 98.5%;
+  margin-top: -10px;
+  background-color: #131320;
+}
+
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  color: white;
+}
+
+.dropdown-content a:hover {
+  background-color: #323232;
+  border-radius: 4px; /* Закругленные углы */
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Ползунок (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: #008979; /* Цвет ползунка */
+  border-radius: 100px;   /* Скругление углов ползунка */
+}
+
+/* Трек (track) */
+::-webkit-scrollbar-track {
+  background-color: #131320; /* Цвет фона трека */
+}
+
+/* Улучшение внешнего вида при наведении курсора на ползунок */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #01585b; /* Цвет ползунка при наведении */
+}
+
+/* Общая ширина полосы прокрутки */
+::-webkit-scrollbar {
+  width: 12px; /* Ширина вертикальной полосы прокрутки */
+  height: 12px; /* Высота горизонтальной полосы прокрутки */
+}
+
+.filterok {
+    /* margin-top: 150px; */
+    position: absolute; /*  Удаляем элемент из потока документа  */
+  width: 0;           /*  Зануляем ширину  */
+  height: 0;          /*  Зануляем высоту  */
+  overflow: hidden;    /*  Скрываем все, что выходит за границы  */
+  opacity: 0;         /* Делаем невидимым */
+  pointer-events: none; /*  Предотвращаем перехват событий мыши  */
+  }
+
+  /*--------------------------------------------------------------------------------------- Скрываем маски по умолчанию------------------------------------------------ */
+#itemm option:contains("маск") {
+  display: none;
+}
+
+.masked-hidden {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------------------------------------ Кнопка переключенния тем --------------------------------------- */
+:root{
+  --btn-size: 40px;
+  --r1: 1px; /* радиусы смещения для дуги (можно подправить) */
+  --r2: 1px;
+  --r3: 1px;
+  --r4: 1px;
+  --bg-dark:#000000;
+  --fg-dark:#ffffff;
+  --bg-light:#ffffff;
+  --fg-light:#000000;
+  --bg-pink:#ffffff;
+  --fg-pink:#fbc3d5;
+  --bg-gta:#ffffff;
+  --fg-gta:#FF7F50;
+  --accent:#008979;
+  --menu-bg:#131320;
+}
+
+/* Положение опций в дуге (подберите под себя) */
+.theme-arc.open .opt-1 { transform: translate(-45px, -60px); box-sizing: border-box; padding: 0 0 3.2px 0; background-color: #888888; } /* верхний */
+.theme-arc.open .opt-2 { transform: translate(-63px, -20px); box-sizing: border-box; padding: 0 0 1.5px 0; background-color: #888888; }   /* средний */
+.theme-arc.open .opt-3 { transform: translate(-45px, 20px); box-sizing: border-box; padding: 0 0 5px 0; background-color: #888888; }  /* нижний */
+.theme-arc.open .opt-4 { transform: translate(-2px, 30px); box-sizing: border-box; padding: 2px 0 0 0; background-color: #888888; }  /* нижний */
+
+/* Адаптация подсказки под текущую тему (чтобы на светлой теме подсказка была темной и наоборот) */
+html.light .theme-option::after{ background:#000000;color:#ffffff; }
+html.pink .theme-option::after{ background:#000000;color:#ffffff; }
+html.gta .theme-option::after{ background:#ffffff;color:#000000; }
+
+/* Немного стилизации для разных тем (кнопки) */
+html.light .theme-toggle,
+html.light .theme-option { background: #ffffff00; color: var(--fg-light); border-color: #000000;  }
+html.pink .theme-toggle,
+html.pink .theme-option { background: #fffbf000; color: var(--fg-pink); border-color: #fbc3d5; }
+html.gta .theme-toggle,
+html.gta .theme-option { background: #fffbf000; color: var(--fg-gta); border-color: #FF7F50; }
+  
+.theme-arc {
+  position: absolute;
+  right: 12px; /* ----------- Было -16 ------------- */
+  top: 65px;
+  transform: translateY(-50%);
+  width: calc(var(--btn-size));
+  height: calc(var(--btn-size));
+  pointer-events: none; /* по умолчанию клики проходят — включаем для открытых элементов */
+  z-index: 10000;
+}
+
+/* Стрелка-тоггл (видна всегда) */
+.theme-toggle {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  box-sizing: border-box;
+  padding: 0 2px 1.9px 0;
+  transform: translateY(-50%);
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border-radius: 1000px;
+  background: var(--menu-bg);
+  color: var(--fg-dark);
+  border: 2px solid var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform .2s ease, background .2s;
+}
+
+/* поворот стрелки когда открыт */
+.theme-arc.open .theme-toggle { transform: translateY(-50%) translateX(-10px) rotate(180deg); }
+
+/* общие стили для опций */
+.theme-option {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%); /* стартовая позиция — по центру стрелки */
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border-radius: 50%;
+  background: var(--menu-bg);
+  color: var(--fg-dark);
+  border: 2px solid var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  pointer-events: none; /* пока закрыто — не кликабельны */
+  opacity: 0;
+  transition: transform .35s cubic-bezier(.2,.9,.2,1), opacity .25s, box-shadow .2s;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+  font-size: 20px;
+  user-select: none;
+}
+
+/* Когда меню открыто — делаем опции видимыми и кликабельными */
+.theme-arc.open { pointer-events: auto; }
+.theme-arc.open .theme-option {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* hover эффект */
+.theme-option:hover { transform: scale(1.06); box-shadow: 0 10px 26px rgba(0,0,0,.35); }
+
+/* ---- Подсказки (tooltip) ---- */
+.theme-option::after{
+  content: attr(data-tip);
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  white-space: nowrap;
+  background: #ffffff;
+  color: #000000;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .12s, transform .12s;
+  box-shadow: 0 6px 18px rgba(0,0,0,.15);
+}
+
+/* Показ подсказки при hover и focus */
+.theme-option:hover::after,
+.theme-option:focus::after{
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Скрываем стрелку фокуса outline, но оставляем доступность */
+.theme-toggle:focus, .theme-option:focus { outline: 2px solid #00685a7e; outline-offset: 2px; }
+
+/* Убираем текстовый выбор */
+.theme-toggle, .theme-option { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+    /*----------------------------------------------------------------------------------- Светлая тема----------------------------------------------------------------- */
+  html.light body {
+    font-family: Arial, sans-serif;
+    background: white;
+    color: black;
+  }
+
+  html.light #toggleControlsButton {
+    background-color: #00000000;
+    color: #000000;
+  }
+
+  html.light .dropdown-button {
+    color: #000000;
+  }  
+
+  html.light .dropdown-content {
+  background-color: #ffffff;
+}
+
+  html.light .dropdown-content a {
+  color: #000000;
+}
+
+  html.light .dropdown-content a:hover {
+  background-color: #b9b9b9;
+}
+
+  html.light .image-link-text {
+  color: #000000;
+}
+
+  html.light select {
+      color: #000000;
+      background-color: #ffffff;
+    }
+
+  html.light #copyButton {
+    color: #000000;
+}
+
+  html.light #clearButton {
+    color: #000000;
+}
+
+  html.light #itemmSearch {
+  color: #000000;
+}
+
+  html.light #itemm {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+  html.light #itemmmSearch {
+  color: #000000;
+}
+
+  html.light #itemmm {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+  html.light .search-input {
+            color: #000000;
+        }
+
+  html.light #setShortcutButton {
+        margin: 15px 0px;
+        padding: 10px 10px;
+        border-radius: 8px;
+        border: 1px solid #000000;
+        color: #000000;
+        background-color: #ffffff;
+        }
+
+  html.light #setShortcutButton:hover {
+        background: #e3e3e3;
+      }
+
+  html.light #clearShortcutButton {
+        border: 1px solid #000000;
+        background: #ffffff;
+        color: #000000;
+        }
+
+  html.light #clearShortcutButton:hover {
+        background: #e3e3e3;
+      }
+
+  html.light #shortcutInput {
+        padding: 10px 10px;
+        border-radius: 8px;
+        border: 1px solid #000000;
+        background: #ffffff;
+        color: #949494db;
+      }
+
+  html.light .notification-container {
+  background-color: #ffffff;
+  border: 2px solid #000000;
+}
+
+  html.light .close-button {
+  color: #000000;
+}
+
+  html.light .close-button:hover {
+  color: #616161;
+}
+
+/* Ползунок (thumb) */
+html.light ::-webkit-scrollbar-thumb {
+  background-color: #008979; /* Цвет ползунка */
+}
+
+/* Трек (track) */
+html.light ::-webkit-scrollbar-track {
+  background-color: #ffffff; /* Цвет фона трека */
+}
+
+/* Улучшение внешнего вида при наведении курсора на ползунок */
+html.light ::-webkit-scrollbar-thumb:hover {
+  background-color: #01585b; /* Цвет ползунка при наведении */
+}
+
+html.light::-webkit-scrollbar-thumb {
+  background-color: #008979; /* Цвет ползунка */
+}
+
+/* Трек (track) */
+html.light::-webkit-scrollbar-track {
+  background-color: #ffffff; /* Цвет фона трека */
+}
+
+/* Улучшение внешнего вида при наведении курсора на ползунок */
+html.light::-webkit-scrollbar-thumb:hover {
+  background-color: #01585b; /* Цвет ползунка при наведении */
+}
+
+    /*----------------------------------------------------------------------------------- Пикми тема----------------------------------------------------------------- */
+
+  html.pink body {
+    font-family: Arial, sans-serif;
+    background: #fffbee;
+    color: #000000;
+  }
+
+  html.pink #toggleControlsButton {
+    color: #000000;
+  }
+
+  html.pink .dropdown-button {
+    color: #000000;
+  }  
+
+  html.pink .image-link-text {
+  color: #000000;
+}
+
+  html.pink #itemm {
+    color: #000000;
+    background-color: #fbc3d5;
+}
+
+  html.pink #itemmm {
+    color: #000000;
+    background-color: #fbc3d5;
+}
+
+    html.pink .items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;
+    padding: 20px 90px;
+    box-sizing: border-box;
+  }
+
+    html.pink .item {
+    width: 100%;
+    height: 0; /* Важно: высота 0 */
+    padding-bottom: 66%; /* соотношение 4:3*/
+    position: relative; 
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    background-image: url("cloud.svg");
+    background-size: cover;
+    background-repeat: no-repeat; 
+    box-shadow: none;
+    border: none;
+    filter: url(#glow-default);
+    margin-bottom: 5px;
+    background-position: center; /* Центрирует изображение фона */
+    box-sizing: border-box;
+    }
+
+    html.pink .item.highlight {
+    filter: url(#glow);
+    }
+
+    html.pink .item-text {
+    position: absolute;
+    top: 45.7%;
+    left: 21%;
+    right: 15.5%;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    pointer-events: none; /* Позволяет кликать сквозь текст */
+    font-size: 17px;
+    line-height: 1.2;
+    flex-shrink: 0;
+    box-sizing: border-box; /*  Важно!  Чтобы padding не ломал размеры */
+    z-index: 1;
+    padding: 0 0; 
+  }
+
+    html.pink .table-title {
+    background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+    }
+
+  html.pink .section {
+    border: 2px solid #000000;
+  }
+
+  html.pink .section-header {
+    background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+  }
+
+  html.pink .section-header:hover {
+    background-image: linear-gradient(160deg, #eecbd6, #e4a2b7);
+  }
+
+  html.pink .text-block {
+    box-shadow: 0 0 15px #ff77a2;
+    border: 1px solid #000000;
+    background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+}
+
+  html.pink .search-input {
+            font-family: Arial, sans-serif;
+            border: 2px solid #000000;
+            border-radius: 100px;
+            background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+            color: #000000;
+        }
+
+  html.pink .draft-area {
+            border: 2px solid #000000;
+            background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+            border-radius: 100px;
+        }
+
+  html.pink .container4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;
+    margin: 20px 90px;
+    padding: 0 0;
+    box-sizing: border-box;
+  }
+
+  html.pink .cell {
+    width: 100%;
+    height: 0; /* Важно: высота 0 */
+    padding-bottom: 66%; /* соотношение 4:3*/
+    position: relative; 
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 40px;
+    background-image: url("cloud.svg");
+    background-size: cover;
+    background-repeat: no-repeat; 
+    box-shadow: none;
+    border: none;
+    filter: url(#glow-default);
+    margin-bottom: 5px;
+    }
+
+  html.pink .cell.highlight {
+    filter: url(#glow);
+  }
+
+    html.pink .cell-text {
+    position: absolute;
+    top: 45.7%;
+    left: 21%;
+    right: 15.5%;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    pointer-events: none; /* Позволяет кликать сквозь текст */
+    font-size: 17px;
+    line-height: 1.2;
+    flex-shrink: 0;
+    box-sizing: border-box; /*  Важно!  Чтобы padding не ломал размеры */
+    z-index: 1;
+    padding: 0 0; 
+  }
+
+  html.pink .hidden-cell {
+  display: none !important;
+  }
+
+  html.pink .column {
+      border: 2px solid #000000;
+      background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+    }
+
+  html.pink select {
+      border: 2px solid #000000;
+      background-color: #fbc3d5;
+      color: #000000;
+    }
+
+  html.pink #result {
+      border: 2px solid #000000;
+      background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+      border-radius: 100px;
+    }
+
+  html.pink #copyButton {
+    border: 2px solid #000000;
+    border-radius: 100px;
+    background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+    color: #000000;
+}
+
+  html.pink #copyButton.copied {
+    border: 2px solid #838383;
+    border-radius: 100px;
+    box-shadow: 0 0 15px 3px #000000;
+}
+
+  html.pink #clearButton {
+    border: 2px solid #000000;
+    border-radius: 100px;
+    background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+    color: #000000;
+}
+
+  html.pink #copyButton:hover {
+    background-image: linear-gradient(160deg, #fcc4d5, #ffb7cc);
+  }
+
+  html.pink #clearButton:active {
+    box-shadow: 0 0 15px 2px #000000;
+}
+
+  html.pink #clearButton:hover {
+    background-image: linear-gradient(160deg, #fcc4d5, #ffb7cc);
+  }
+
+  html.pink #itemmSearch {
+  border: 2px solid #000000;
+  border-radius: 100px;
+  background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+  color: #000000;
+}
+
+  html.pink #itemmmSearch {
+  border: 2px solid #000000;
+  border-radius: 100px;
+  background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+  color: #000000;
+}
+
+  html.pink #draft-area-5 {
+            border: 2px solid #000000;
+            background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+            border-radius: 100px;
+            padding: 17px 20px 17px 20px;
+        }
+
+  html.pink .select-wrapper select {
+      border: 2px solid #000000;
+      border-radius: 100px;
+    }
+
+  html.pink #customPrice {
+    border: 1px solid #000000;
+    background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+    border-radius: 100px;
+}
+
+  html.pink #setPrice {
+    border: 1px solid #000000;
+    background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+    border-radius: 100px;
+}
+
+  html.pink .dropdown-content {
+  border: 2px solid #000000;
+  background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
+}
+
+  html.pink .dropdown-content a {
+  color: #000000;
+}
+
+  html.pink .dropdown-content a:hover {
+  background-image: linear-gradient(160deg, #eecbd6, #e4a2b7);
+}
+
+  html.pink #setShortcutButton {
+        margin: 15px 0px;
+        padding: 10px 10px;
+        border-radius: 100px;
+        border: 1px solid #000000;
+        color: #000000;
+        background-color: #ffffff;
+        }
+
+  html.pink #setShortcutButton:hover {
+        background: #e3e3e3;
+      }
+
+  html.pink #clearShortcutButton {
+        border-radius: 100px;
+        border: 1px solid #000000;
+        background: #ffffff;
+        color: #000000;
+        }
+
+  html.pink #clearShortcutButton:hover {
+        background: #e3e3e3;
+      }
+
+  html.pink #shortcutInput {
+        padding: 10px 10px;
+        border-radius: 100px;
+        border: 1px solid #000000;
+        background: #ffffff;
+        color: #949494db;
+      }
+
+  html.pink .notification-container {
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  padding: 20px;
+  border-radius: 50px;
+}
+
+  html.pink .close-button {
+  top: 10px;
+  right: 20px;
+  color: #000000;
+}
+
+  html.pink .close-button:hover {
+  color: #616161;
+}
+
+/* Ползунок (thumb) */
+html.pink::-webkit-scrollbar-thumb {
+  background-color: #fbc0d2; /* Цвет ползунка */
+}
+
+/* Трек (track) */
+html.pink::-webkit-scrollbar-track {
+  background-color: #fffbee; /* Цвет фона трека */
+}
+
+/* Улучшение внешнего вида при наведении курсора на ползунок */
+html.pink::-webkit-scrollbar-thumb:hover {
+  background-color: #e5b2c1; /* Цвет ползунка при наведении */
+}
+
+html.pink ::-webkit-scrollbar-thumb {
+  background-color: #fbc0d2; /* Цвет ползунка */
+}
+
+/* Трек (track) */
+html.pink ::-webkit-scrollbar-track {
+  background-color: #fffbee; /* Цвет фона трека */
+}
+
+/* Улучшение внешнего вида при наведении курсора на ползунок */
+html.pink ::-webkit-scrollbar-thumb:hover {
+  background-color: #e5b2c1; /* Цвет ползунка при наведении */
+}
+
+/*----------------------------------------------------------------------------------- GTA тема----------------------------------------------------------------- */
+
+  html.gta body {
+    font-family: Arial, sans-serif;
+    background: #1A2B3C;
+    color: #E0E0E0;
+  }
+
+  html.gta #toggleControlsButton {
+    color: #E0E0E0;
+  }
+
+  html.gta .dropdown-button {
+    color: #E0E0E0;
+  }  
+
+  html.gta .image-link-text {
+  color: #E0E0E0;
+}
+
+  html.gta #itemm {
+    color: #E0E0E0;
+    background-color: #2D3E50;
+}
+
+  html.gta #itemmm {
+    color: #E0E0E0;
+    background-color: #2D3E50;
+}
+
+    html.gta .item {
+    box-shadow: 0 0 15px #FF7F50;
+    border: 1px solid #FF7F50;
+    background-color: #2D3E50;
+    }
+
+    html.gta .table-title {
+    background-color: #2D3E50;
+    }
+
+  html.gta .item.highlight {
+  box-shadow: 0 0 15px 3px #ff9d7a; 
+}
+
+  html.gta .section {
+    border: 2px solid #c76542;
+  }
+
+  html.gta .section-header {
+    background-color: #c76542;
+    }
+
+  html.gta .section-header:hover {
+    background-color: #ab5739;
+    }
+
+  html.gta .text-block {
+    box-shadow: 0 0 15px #FF7F50;
+    border: 1px solid #FF7F50;
+    background-color: #2D3E50;
+    }
+
+  html.gta .search-input {
+            font-family: Arial, sans-serif;
+            border: 2px solid #FF7F50;
+            color: #E0E0E0;
+            background-color: #2D3E50;
+    }
+
+  html.gta .draft-area {
+            border: 2px solid #FF7F50;
+            background-color: #2D3E50;
+        }
+
+  html.gta .cell {
+            box-shadow: 0 0 15px #FF7F50;
+            border: 1px solid #FF7F50;
+            background-color: #2D3E50;
+        }
+
+  html.gta .cell.highlight {
+    box-shadow: 0 0 15px 3px #ff9d7a; /* яркая зелёная подсветка */
+    transition: box-shadow 0.3s ease;
+  }
+
+  html.gta .column {
+      border: 2px solid #FF7F50;
+    background-color: #2D3E50;
+    }
+
+  html.gta select {
+      border: 2px solid #FF7F50;
+      color: #E0E0E0;
+      background-color: #2D3E50;
+    }
+
+  html.gta #result {
+      border: 2px solid #FF7F50;
+      background-color: #2D3E50;
+    }
+
+  html.gta #copyButton {
+    border: 2px solid #FF7F50;
+    color: #E0E0E0;
+    background-color: #2D3E50;
+    }
+
+  html.gta #clearButton {
+    border: 2px solid #FF7F50;
+    color: #E0E0E0;
+    background-color: #2D3E50;
+    }
+
+  html.gta #copyButton.copied {
+    border: 2px solid #ff9d7a;
+    box-shadow: 0 0 15px 3px #ff9d7a;
+}
+
+  html.gta #clearButton:active {
+    box-shadow: 0 0 15px 2px #ff9d7a;
+}
+
+    html.gta #copyButton:hover {
+    background-color: #364b60;
+  }
+
+  html.gta #clearButton:hover {
+    background-color: #364b60;
+  }
+
+  html.gta #itemmSearch {
+  border: 2px solid #FF7F50;
+  color: #E0E0E0;
+  background-color: #2D3E50;
+  }
+
+  html.gta #itemmmSearch {
+  border: 2px solid #FF7F50;
+  color: #E0E0E0;
+  background-color: #2D3E50;
+  }
+
+  html.gta #draft-area-5 {
+            border: 2px solid #FF7F50;
+            background-color: #2D3E50;
+    }
+
+  html.gta .select-wrapper select {
+      border: 2px solid #FF7F50;
+    }
+
+  html.gta #customPrice {
+    border: 1px solid #FF7F50;
+    background-color: #2D3E50;
+    }
+
+  html.gta #setPrice {
+    border: 1px solid #FF7F50;
+    background-color: #2D3E50;
+    }
+
+  html.gta .dropdown-content {
+  border: 2px solid #FF7F50;
+    background-color: #2D3E50;
+    }
+
+  html.gta .dropdown-content a {
+  color: #E0E0E0;
+}
+
+  html.gta .dropdown-content a:hover {
+    background-color: #1b2530;
+    }
+
+  html.gta #setShortcutButton {
+        border: 1px solid #FF7F50;
+        color: #E0E0E0;
+        background-color: #000000;
+        }
+
+  html.gta #setShortcutButton:hover {
+        background: #000000;
+      }
+
+  html.gta #clearShortcutButton {
+        border: 1px solid #FF7F50;
+        background: #000000;
+        color: #E0E0E0;
+        }
+
+  html.gta #clearShortcutButton:hover {
+        background: #000000;
+      }
+
+  html.gta #shortcutInput {
+        border: 1px solid #FF7F50;
+        background: #000000;
+        color: #555555db;
+      }
+
+  html.gta .notification-container {
+  background-color: #000000;
+  border: 2px solid #8b8b8b;
+}
+
+  html.gta .close-button {
+  color: #ffffff;
+}
+
+  html.gta .close-button:hover {
+  color: #bcbcbc;
+}
+
+/* Ползунок (thumb) */
+html.gta::-webkit-scrollbar-thumb {
+    background-color: #FF7F50;
+    }
+
+/* Трек (track) */
+html.gta::-webkit-scrollbar-track {
+    background-color: #1A2B3C;
+    }
+
+/* Улучшение внешнего вида при наведении курсора на ползунок */
+html.gta::-webkit-scrollbar-thumb:hover {
+    background-color: #ff9d7a;
+    }
+
+html.gta ::-webkit-scrollbar-thumb {
+    background-color: #FF7F50;
+    }
+
+/* Трек (track) */
+html.gta ::-webkit-scrollbar-track {
+    background-color: #1A2B3C;
+    }
+
+/* Улучшение внешнего вида при наведении курсора на ползунок */
+html.gta ::-webkit-scrollbar-thumb:hover {
+    background-color: #ff9d7a;
+    }
+
+/*---------------------------------------------------------------------------------------- Медиа запросы----------------------------------------------------------------- */
+
+    @media (min-width: 1921px) {
+    .items {
+        grid-template-columns: repeat(7, 1fr); /* 7 колонок на широкоформатных мониторах */
+        gap: 20px; /* Увеличим отступ */
+        padding: 20px 250px; /* Увеличим padding */
+    }
+    .item-text {
+        font-size: 20px; /* Немного увеличим размер шрифта */
+    }
+    .container-columns {
+  padding: 200px 450px; /* большой отступ слева и справа от колонок до краёв */
+    }
+
+    html.pink .items {
+    grid-template-columns: repeat(5, 1fr) !important; 
+    padding: 20px 90px;
+  }
+
+  html.pink .container4 {
+    grid-template-columns: repeat(5, 1fr) !important; 
+    padding: 20px 90px;
+  }
+}
+
+    @media (max-width: 1920px) {
+  .container-columns {
+    align-items: center;             /* Центрируем элементы по горизонтали */
+    padding: 20%;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
+  }
+}
+
+    @media (max-width: 1700px) {
+  .container-columns {
+    padding: 13%;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
+  }
+
+  html.pink .items {
+    grid-template-columns: repeat(3, 1fr) !important; 
+    padding: 20px 90px;
+  }
+
+  html.pink .container4 {
+    grid-template-columns: repeat(3, 1fr) !important; 
+    margin: 20px 90px;
+  }
+}
+
+  @media (max-width: 1450px) {
+    .container-columns {
+    align-items: center;             /* Центрируем элементы по горизонтали */
+    padding: 5%;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
+  }
+
+  .items {
+      padding: 15px 15px;
+    }
+
+  .container3 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(4, 1fr); /* 5 колонок равной ширины */
+            flex-wrap: wrap;        /* Разрешаем перенос на новую строку */
+            padding: 15px;
+            margin: 15px 15px; /* Отступ контейнера от краев страницы */
+            gap: 15px; /* Отступ между ячейками */
+        }
+
+        .container4 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(4, 1fr); /* 5 колонок равной ширины */
+            flex-wrap: wrap;        /* Разрешаем перенос на новую строку */
+            padding: 15px;
+            margin: 15px 15px; /* Отступ контейнера от краев страницы */
+            gap: 15px; /* Отступ между ячейками */
+        }
+
+        .search-input {
+            margin-left: 10px;
+        }
+
+        .draft-area {
+            margin-left: 10px;
+        }
+
+        #result {
+          width: 98%;
+        }
+      }
+    
+  @media (max-width: 1350px) {
+    html.pink .items {
+    grid-template-columns: repeat(2, 1fr) !important; 
+    padding: 20px 50px !important;
+  }
+
+  html.pink .container4 {
+    grid-template-columns: repeat(2, 1fr) !important; 
+    margin: 20px 50px !important;
+  }
+}
+
+  @media (max-width: 1200px) {
+    .items {
+      grid-template-columns: repeat(4, 1fr); /* на средних экранах 4 в ряд */
+    }
+
+    .container-columns {
+    flex-direction: column;          /* Располагаем элементы вертикально */
+    align-items: center;             /* Центрируем элементы по горизонтали */
+    padding: 1px;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
+  }
+
+  .text-block {   /* Применяем ко всем блокам text-block, чтобы избежать проблем с приоритетом */
+    width: 60%;                      /* Делаем ширину блоков адаптивной (90% от ширины экрана) */
+    margin-left: 2%; /* Отступ слева (5% от ширины контейнера) */
+    margin-right: 2%; /* Отступ справа (5% от ширины контейнера) */
+    padding: 13px 30px;
+    margin-bottom: 7px;
+    margin-top: -11.5px;
+    }
+
+    .text-block.right {   /* Применяем ко всем блокам text-block, чтобы избежать проблем с приоритетом */
+    width: 60%;                      /* Делаем ширину блоков адаптивной (90% от ширины экрана) */
+    margin-left: 2%; /* Отступ слева (5% от ширины контейнера) */
+    margin-right: 2%; /* Отступ справа (5% от ширины контейнера) */
+    padding: 13px 30px;
+    margin-bottom: 7px;
+    margin-top: -20px;
+    }
+
+      .container3 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(4, 1fr); /* 5 колонок равной ширины */
+            flex-wrap: wrap;
+        }
+
+        .container4 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(4, 1fr); /* 5 колонок равной ширины */
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            margin-left: 1px;
+        }
+
+    .column {
+      font-size: 19px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .text-block, .text-block.right {   /* Применяем ко всем блокам text-block, чтобы избежать проблем с приоритетом */
+    width: 70%;  
+    }
+
+    .draft-area {
+            margin-left: 1px;
+        }
+
+        #result {
+          width: 96%;
+        }
+
+        .items {
+      grid-template-columns: repeat(3, 1fr); /* на мобильных 1 в ряд */
+    } 
+
+  html.pink .items {
+  grid-template-columns: repeat(2, 1fr) !important; 
+  padding: 15px 15px !important;
+  }
+
+  html.pink .container4 {
+  grid-template-columns: repeat(2, 1fr) !important; 
+  margin: 15px 15px !important;
+  }
+
+    .container3 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(3, 1fr); /* 5 колонок равной ширины */
+        }
+
+        .container4 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(3, 1fr); /* 5 колонок равной ширины */
+        }
+  }  
+
+  @media (max-width: 820px) {
+    html.pink .items {
+    grid-template-columns: repeat(1, 1fr) !important; 
+  }
+
+    html.pink .container4 {
+    grid-template-columns: repeat(1, 1fr) !important; 
+  }
+}
+
+  @media (max-width: 800px) {
+    .items {
+      grid-template-columns: repeat(2, 1fr); /* на мобильных 1 в ряд */
+    } 
+
+    .item-text {
+      margin-left: 1%; /* Отступ слева (1% от ширины контейнера) */
+      margin-right: 1%; /* Отступ справа (1% от ширины контейнера) */
+      font-size: 16px; /* Уменьшаем размер шрифта на маленьких экранах */
+    }
+
+    .container-columns {
+    display: flex;
+    flex-direction: column;          /* Располагаем элементы вертикально */
+    align-items: center;          /* Центрируем элементы по горизонтали */
+    padding: 1px;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
+  }
+
+  .text-block, .text-block.right {   /* Применяем ко всем блокам text-block, чтобы избежать проблем с приоритетом */
+    width: 80%;                      /* Делаем ширину блоков адаптивной (90% от ширины экрана) */
+    margin: auto;                /* Добавляем внешние отступы сверху и снизу и автоматически центрируем по горизонтали */
+    margin-left: 1%; /* Отступ слева (1% от ширины контейнера) */
+    margin-right: 1%; /* Отступ справа (1% от ширины контейнера) */
+    padding: 17px 30px;
+    margin-bottom: 7px;
+    margin-top: -5px;
+  }
+
+  .container5 {
+      display: flex;
+      flex-wrap: wrap; /* Перенос на новую строку, если не помещается */
+    }
+
+    .container3 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(2, 1fr); /* 5 колонок равной ширины */
+        }
+
+        .container4 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(2, 1fr); /* 5 колонок равной ширины */
+        }
+  }
+
+  @media (max-width: 600px) {
+    .items {
+      grid-template-columns: repeat(1, 1fr); /* на мобильных 1 в ряд */
+    } 
+
+    .container3 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(1, 1fr); /* 5 колонок равной ширины */
+        }
+
+        .container4 {
+            display: grid; /* Используем Grid */
+            grid-template-columns: repeat(1, 1fr); /* 5 колонок равной ширины */
+        }
+  }
