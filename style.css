@@ -84,26 +84,47 @@
   }
 
   .item {
-    border-radius: 8px;
+    /* border-radius: 8px;
     text-align: left;
     cursor: pointer;
     box-shadow: 0 0 15px #006919;
     border: 1px solid #006919;
     display: flex;
     flex-direction: column;
+    align-items: center; */
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    border: 0px solid transparent;
+    border-image-source: url("Ramka.svg"); 
+    border-image-slice: 0 0 0 0 fill;  
+    border-image-width: 0px; 
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    max-width: 300px;  
+    min-width: 100px; 
+    box-sizing: border-box; 
+    filter: url(#glow-default_2);
     }
 
   .item-text {
-    padding: 10px 11px 10px; 
+    /* padding: 10px 11px 10px; 
     font-size: 17px;
     flex-shrink: 0;
+    line-height: 1.2; */
+    padding: 14px 18px; 
+    font-size: 17px;
     line-height: 1.2;
+    flex-shrink: 0;
+    box-sizing: border-box; /*  Важно!  Чтобы padding не ломал размеры */
   }
 
 .item.highlight {
-  box-shadow: 0 0 15px 3px #00de9b; /* яркая зелёная подсветка */
-  transition: box-shadow 0.3s ease;
+  /* box-shadow: 0 0 15px 3px #00de9b; 
+  transition: box-shadow 0.3s ease;  */
+  filter: url(#glow_2);
 }
 
     .text-block {
@@ -246,27 +267,48 @@ display: none;
         }
 
         .cell {
-            box-shadow: 0 0 15px #006919;
-            border: 1px solid #006919;
-            text-align: left;
-            border-radius: 8px;
-            width: 100%; /* Важный момент: каждая ячейка занимает всю ширину своей колонки */
-            box-sizing: border-box;  /* Важно для учета padding и border */
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer; /* Изменяем курсор при наведении, чтобы показать, что ячейка кликабельна */
-        }
+      /* box-shadow: 0 0 15px #006919;
+      border: 1px solid #006919;
+    text-align: left;
+    border-radius: 8px;
+    width: 100%; 
+    box-sizing: border-box; 
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer; */
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0px solid transparent;
+    border-image-source: url("Ramka.svg"); 
+    border-image-slice: 0 0 0 0 fill;  
+    border-image-width: 0px; 
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    max-width: 300px;  
+    min-width: 100px; 
+    box-sizing: border-box; 
+    filter: url(#glow-default_2);
+    }
 
     .cell.highlight {
-    box-shadow: 0 0 15px 3px #00b881; /* яркая зелёная подсветка */
-    transition: box-shadow 0.3s ease;
+    /*box-shadow: 0 0 15px 3px #00b881;
+    transition: box-shadow 0.3s ease; */
+    filter: url(#glow_2);
   }
 
   .cell-text {
-    padding: 10px 11px; 
+    /* padding: 10px 11px; 
     font-size: 17px;
     flex-shrink: 0;
+    line-height: 1.2; */
+    padding: 14px 18px; 
+    font-size: 17px;
     line-height: 1.2;
+    flex-shrink: 0;
+    box-sizing: border-box; 
   }
 
 .container4 {
@@ -1016,6 +1058,14 @@ html.gta .theme-option { background: #fffbf000; color: var(--fg-gta); border-col
     color: black;
   }
 
+  html.light .item {
+  border-image-source: url("RamkaLight.svg"); 
+  }
+
+  html.light .cell {
+  border-image-source: url("RamkaLight.svg"); 
+  }
+
   html.light #toggleControlsButton {
     background-color: #00000000;
     color: #000000;
@@ -1207,6 +1257,8 @@ html.light::-webkit-scrollbar-thumb:hover {
     margin-bottom: 5px;
     background-position: center; /* Центрирует изображение фона */
     box-sizing: border-box;
+    max-width: 1000px;  
+    min-width: 10px; 
     }
 
     html.pink .item.highlight {
@@ -1293,6 +1345,8 @@ html.light::-webkit-scrollbar-thumb:hover {
     border: none;
     filter: url(#glow-default);
     margin-bottom: 5px;
+    max-width: 1000px;  
+    min-width: 10px; 
     }
 
   html.pink .cell.highlight {
@@ -1529,18 +1583,35 @@ html.pink ::-webkit-scrollbar-thumb:hover {
 }
 
     html.gta .item {
-    box-shadow: 0 0 15px #FF7F50;
+    /*box-shadow: 0 0 15px #FF7F50;
     border: 1px solid #FF7F50;
-    background-color: #2D3E50;
+    background-color: #2D3E50;*/
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0px solid transparent;
+    border-image-source: url("RamkaGTA.svg"); 
+    border-image-slice: 0 0 0 0 fill;  
+    border-image-width: 0px; 
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    max-width: 300px;  
+    min-width: 100px; 
+    box-sizing: border-box; 
+    filter: url(#glow-default_3);
+    }
+
+    html.gta .item.highlight {
+    /*box-shadow: 0 0 15px 3px #ff9d7a; 
+    transition: box-shadow 0.3s ease; */
+    filter: url(#glow_3);
     }
 
     html.gta .table-title {
     background-color: #2D3E50;
     }
-
-  html.gta .item.highlight {
-  box-shadow: 0 0 15px 3px #ff9d7a; 
-}
 
   html.gta .section {
     border: 2px solid #c76542;
@@ -1573,14 +1644,30 @@ html.pink ::-webkit-scrollbar-thumb:hover {
         }
 
   html.gta .cell {
-            box-shadow: 0 0 15px #FF7F50;
+            /*box-shadow: 0 0 15px #FF7F50;
             border: 1px solid #FF7F50;
             background-color: #2D3E50;
-        }
+            text-align: left;*/
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0px solid transparent;
+    border-image-source: url("RamkaGTA.svg"); 
+    border-image-slice: 0 0 0 0 fill;  
+    border-image-width: 0px; 
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    max-width: 300px;  
+    min-width: 100px; 
+    box-sizing: border-box; 
+    filter: url(#glow-default_3);
+    }
 
   html.gta .cell.highlight {
-    box-shadow: 0 0 15px 3px #ff9d7a; /* яркая зелёная подсветка */
-    transition: box-shadow 0.3s ease;
+    /*box-shadow: 0 0 15px 3px #ff9d7a; 
+    transition: box-shadow 0.3s ease; */
+    filter: url(#glow_3);
   }
 
   html.gta .column {
