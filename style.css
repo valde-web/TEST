@@ -646,6 +646,8 @@ display: none;
     font-size: 16px;
     width: 96%;
     border: 1px solid #00685a;
+    color: #ffffff;
+    background-color: #131320;
     border-radius: 5px;
     margin-bottom: -2px;
     margin-top: -5px;
@@ -658,6 +660,8 @@ display: none;
     border-radius: 5px;
     margin-top: 0px;
     margin-bottom: -5px;
+    color: #ffffff;
+    background-color: #131320;
 }
 
         p {
@@ -1121,6 +1125,14 @@ html.gta .theme-option { background: #fffbf000; color: var(--fg-gta); border-col
     color: #000000;
 }
 
+    html.light #copyButton:hover {
+    background-color: #e2e2e2;
+  }
+
+    html.light #clearButton:hover {
+    background-color: #e2e2e2;
+  }
+
   html.light #itemmSearch {
   color: #000000;
 }
@@ -1142,6 +1154,16 @@ html.gta .theme-option { background: #fffbf000; color: var(--fg-gta); border-col
   html.light .search-input {
             color: #000000;
         }
+
+  html.light #customPrice {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+html.light #setPrice {
+    color: #000000;
+    background-color: #ffffff;
+}
 
   html.light #setShortcutButton {
         margin: 15px 0px;
@@ -1474,12 +1496,14 @@ html.light::-webkit-scrollbar-thumb:hover {
     border: 1px solid #000000;
     background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
     border-radius: 100px;
+    color: #000000;
 }
 
   html.pink #setPrice {
     border: 1px solid #000000;
     background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
     border-radius: 100px;
+    color: #000000;
 }
 
   html.pink .dropdown-content {
@@ -1608,9 +1632,6 @@ html.pink ::-webkit-scrollbar-thumb:hover {
 }
 
     html.gta .item {
-    /*box-shadow: 0 0 15px #FF7F50;
-    border: 1px solid #FF7F50;
-    background-color: #2D3E50;*/
     text-align: left;
     cursor: pointer;
     display: flex;
@@ -1629,8 +1650,6 @@ html.pink ::-webkit-scrollbar-thumb:hover {
     }
 
     html.gta .item.highlight {
-    /*box-shadow: 0 0 15px 3px #ff9d7a; 
-    transition: box-shadow 0.3s ease; */
     filter: url(#glow_3);
     }
 
@@ -1669,10 +1688,6 @@ html.pink ::-webkit-scrollbar-thumb:hover {
         }
 
   html.gta .cell {
-            /*box-shadow: 0 0 15px #FF7F50;
-            border: 1px solid #FF7F50;
-            background-color: #2D3E50;
-            text-align: left;*/
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -1690,8 +1705,6 @@ html.pink ::-webkit-scrollbar-thumb:hover {
     }
 
   html.gta .cell.highlight {
-    /*box-shadow: 0 0 15px 3px #ff9d7a; 
-    transition: box-shadow 0.3s ease; */
     filter: url(#glow_3);
   }
 
@@ -1764,11 +1777,13 @@ html.pink ::-webkit-scrollbar-thumb:hover {
   html.gta #customPrice {
     border: 1px solid #FF7F50;
     background-color: #2D3E50;
+    color: #E0E0E0;
     }
 
   html.gta #setPrice {
     border: 1px solid #FF7F50;
     background-color: #2D3E50;
+    color: #E0E0E0;
     }
 
   html.gta .dropdown-content {

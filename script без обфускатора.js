@@ -76,6 +76,66 @@
     });
   }
 
+function loadOptionsFromFirebase(section, selectElementId) {
+  const dataRef = database.ref(section); // Путь к данным
+  const selectElement = document.getElementById(selectElementId);
+
+  if (!selectElement) {
+    console.error(`Элемент select с ID "${selectElementId}" не найден.`);
+    return;
+  }
+
+  dataRef.on('value', (snapshot) => {
+    // Сохраняем текущие option в массив
+    const existingOptions = Array.from(selectElement.options).map(option => ({
+      value: option.value,
+      text: option.text
+    }));
+
+    selectElement.innerHTML = ''; // Очистить select
+
+    // Сначала добавляем существующие option
+    existingOptions.forEach(option => {
+      const newOption = document.createElement('option');
+      newOption.value = option.value;
+      newOption.text = option.text;
+      selectElement.add(newOption);
+    });
+
+    if (!snapshot.exists()) {
+      console.log('Нет новых данных в Firebase.');
+      return;
+    }
+
+    snapshot.forEach((childSnapshot) => {
+      const itemData = childSnapshot.val();
+      const optionValue = itemData.value || itemData.text;  //  Предполагаем наличие поля "value" или используем "text"
+      const optionText = itemData.text; // Предполагаем наличие поля "text"
+
+      const newOption = document.createElement('option');
+      newOption.value = optionValue;
+      newOption.text = optionText;
+      selectElement.add(newOption);
+    });
+
+    // Убираем дубликаты
+    removeDuplicateOptions(selectElement);
+  });
+}
+
+function removeDuplicateOptions(selectElement) {
+    const seen = new Set();
+    for (let i = 0; i < selectElement.options.length; i++) {
+        const option = selectElement.options[i];
+        if (seen.has(option.value)) {
+            selectElement.remove(i);
+            i--; // Важно уменьшить индекс после удаления элемента
+        } else {
+            seen.add(option.value);
+        }
+    }
+}
+
     // Загрузка данных для каждой секции
     loadData('helper', 'helper');
     loadData('auto-buy', 'auto-buy');
@@ -135,27 +195,30 @@
     loadData('treasure-sell2', 'treasure-sell2');
     loadCellsFromFirebase('container1', 'container1');
     loadCellsFromFirebase('container2', 'container2');
+    loadData('helper5', 'helper5');
+    loadOptionsFromFirebase('action', 'action');
+    loadOptionsFromFirebase('itemmm', 'itemmm');
+    loadOptionsFromFirebase('itemm', 'itemm');
+    loadOptionsFromFirebase('tuning', 'tuning');
+    loadOptionsFromFirebase('price_type', 'price_type');
+    loadOptionsFromFirebase('price', 'price');
+    loadOptionsFromFirebase('trade', 'trade');
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
   const itemmSearchInput = document.getElementById('itemmSearch');
   const itemmSelect = document.getElementById('itemm');
+  const toggleMaskButton = document.getElementById('toggleMaskButton');
 
   if (!itemmSearchInput || !itemmSelect) {
     console.error('Не найдены элементы itemmSearch или itemm. Проверьте HTML.');
     return;
   }
 
-  // --- 1) кешируем данные (без постоянной работы с DOM)
-  const allOptionsData = Array.from(itemmSelect.options).map(opt => ({
-    text: opt.textContent.trim(),
-    value: opt.value,
-    lower: opt.textContent.trim().toLowerCase(),
-    // при желании флаги:
-    isMask: opt.textContent.toLowerCase().includes('маск')
-  }));
+  let maskVisible = false; // Флаг видимости масок
+  let allOptionsData = []; // Массив для хранения данных (изначальных и из Firebase)
 
-  // утилиты
+  // Утилиты
   function debounce(fn, wait) {
     let t;
     return (...args) => {
@@ -164,15 +227,42 @@ document.addEventListener('DOMContentLoaded', function() {
     };
   }
 
-  const maxResults = 500; // лимит результатов для предосторожности (поставь 200-1000)
+  const maxResults = 500;
 
-  // --- 2) функция, восстанавливающая/обновляющая options в DOM
+  // Функция для загрузки данных из Firebase
+  function loadOptionsFromFirebase(section, callback) {
+      // Инициализация Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
+
+    const dataRef = database.ref(section);
+
+    dataRef.once('value', (snapshot) => { // Используем once вместо on, чтобы избежать повторных загрузок
+      const firebaseData = [];
+
+      snapshot.forEach((childSnapshot) => {
+        const itemData = childSnapshot.val();
+        const optionValue = itemData.value || itemData.text || ''; //  Предполагаем наличие поля "value" или "text"
+        const optionText = itemData.text || optionValue || '';
+
+        // Добавляем данные в массив, учитывая "маск"
+        firebaseData.push({
+          text: optionText.trim(),
+          value: optionValue.trim(),
+          lower: optionText.trim().toLowerCase(),
+          isMask: optionText.toLowerCase().includes('маск') || optionText.toLowerCase().includes('балаклав')
+        });
+      });
+
+      callback(firebaseData); // Вызываем коллбэк с данными из Firebase
+    });
+  }
+
+  // Функция для отрисовки options в DOM
   function renderOptions(filteredArr, preserveValue) {
-    // сохраняем текущее выделение, чтобы потом попытаться восстановить
     const prev = preserveValue ? itemmSelect.value : null;
 
     const frag = document.createDocumentFragment();
-    // если хочешь заголовок "(Выберите)"
     const defaultOption = document.createElement('option');
     defaultOption.value = '';
     defaultOption.textContent = '(Выберите)';
@@ -186,25 +276,21 @@ document.addEventListener('DOMContentLoaded', function() {
       frag.appendChild(o);
     }
 
-    // Заменяем содержимое select ОДНОЙ операцией
     itemmSelect.innerHTML = '';
-    itemmSelect.appendChild(frag);
+        itemmSelect.appendChild(frag);
 
-    // восстанавливаем выбор, если он ещё присутствует
     if (prev) {
       const exists = Array.from(itemmSelect.options).some(opt => opt.value === prev);
       if (exists) itemmSelect.value = prev;
     }
   }
 
-  // --- 3) основная фильтрация (поиск по lower)
+  // Функция для фильтрации
   function doFilter() {
     const term = itemmSearchInput.value.trim().toLowerCase();
 
     const filtered = allOptionsData.filter(o => {
-      // условие по маске: включаем элемент если он не маска или если маски видимы
       const passesMask = !o.isMask || maskVisible;
-      // условие по поиску
       const passesSearch = term === '' || o.lower.includes(term);
       return passesMask && passesSearch;
     });
@@ -212,25 +298,44 @@ document.addEventListener('DOMContentLoaded', function() {
     renderOptions(filtered, true);
   }
 
-  // --- 4) повесим дебаунс на input
-  const debouncedFilter = debounce(doFilter, 10); // 150-250ms обычно комфортно
+  const debouncedFilter = debounce(doFilter, 150);
+
   itemmSearchInput.addEventListener('input', debouncedFilter);
 
-  // Инициализация: отрисовать всё один раз
-  renderOptions(allOptionsData, false);
-// Если у тебя toggleMaskButton — интеграция:
-  const toggleMaskButton = document.getElementById('toggleMaskButton');
-  let maskVisible = false;
+  // Инициализация:
+  loadOptionsFromFirebase('itemm', (firebaseData) => {
+    // 1) Сохраняем изначальные данные из select в allOptionsData
+    const initialOptionsData = Array.from(itemmSelect.options).map(opt => ({
+        text: opt.textContent.trim(),
+        value: opt.value,
+        lower: opt.textContent.trim().toLowerCase(),
+        isMask: opt.textContent.toLowerCase().includes('маск') || opt.textContent.toLowerCase().includes('балаклав')
+    }));
+
+   // Функция для добавления данных с проверкой на дубликаты
+   function addOptionWithCheck(option) {
+    const isDuplicate = allOptionsData.some(existingOption => existingOption.value === option.value);
+    if (!isDuplicate) {
+      allOptionsData.push(option);
+    }
+  }
+  initialOptionsData.forEach(addOptionWithCheck);
+    firebaseData.forEach(addOptionWithCheck);
+
+    // 2) Отрисовываем всё
+    renderOptions(allOptionsData, false);
+  });
+
+   // --- 5) Маски
   if (toggleMaskButton) {
     toggleMaskButton.addEventListener('click', () => {
       maskVisible = !maskVisible;
-      // при фильтрации учитывать maskVisible
-      const term = itemmSearchInput.value.trim().toLowerCase();
-      const filtered = allOptionsData.filter(o => (maskVisible != o.isMask) && (term === '' || o.lower.includes(term)));
-      renderOptions(filtered, true);
-  });
-}
+
+      doFilter();
+    });
+  }
 });
+
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
   const actionSelect = document.getElementById('action');
