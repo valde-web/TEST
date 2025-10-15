@@ -128,11 +128,12 @@
 }
 
     .text-block {
-    width: 500px;
+    flex-basis: 500px;
+    flex-shrink: 0;
     box-sizing: border-box; /* чтобы padding и border учитывались внутри ширины */
     box-shadow: 0 0 15px #006919;
     border: 1px solid #006919;
-    padding: 30px;
+    padding: 20px 25px;
     border-radius: 30px;
     font-size: 20px;
     line-height: 1.3; /* Междустрочный интервал */
@@ -141,19 +142,31 @@
 }
 
 .text-block.right {
-    width: 490px;
+    flex-basis: 650px;
+    flex-shrink: 0;
     border-radius: 30px;
     word-wrap: break-word;      /* Для большинства браузеров */
     overflow-wrap: break-word; /* Для новых версий браузеров */
     box-sizing: border-box; /* чтобы padding и border учитывались внутри ширины */
 }
 
+.text-block.right > div {
+  columns: 2; /* Два столбца */
+  column-gap: 20px; /* Расстояние между столбцами */
+  column-rule: 1px solid #ffffff; /* Вертикальная черта между столбцами */
+}
+
+.text-block.right strong {
+  display: block; /* Заголовок на всю ширину */
+  margin-bottom: -25px;
+}
+
 .container-columns {
   display: flex;
   justify-content: space-between;
-  gap: 15px; /* маленький отступ между колонками */
+  gap: 20px; /* маленький отступ между колонками */
   box-sizing: border-box; /* чтобы padding учитывался внутри ширины */
-  padding: 200px 350px; /* большой отступ слева и справа от колонок до краёв */
+  padding: 100px 100px; /* большой отступ слева и справа от колонок до краёв */
 }
 
   #legend-content {
@@ -1058,6 +1071,10 @@ html.gta .theme-option { background: #fffbf000; color: var(--fg-gta); border-col
     color: black;
   }
 
+  html.light .text-block.right > div {
+  column-rule: 1px solid #000000; /* Вертикальная черта между столбцами */
+}
+
   html.light .item {
   border-image-source: url("RamkaLight.svg"); 
   }
@@ -1206,6 +1223,10 @@ html.light::-webkit-scrollbar-thumb:hover {
     background: #fffbee;
     color: #000000;
   }
+
+  html.pink .text-block.right > div {
+  column-rule: 1px solid #000000; /* Вертикальная черта между столбцами */
+}
 
   html.pink #toggleControlsButton {
     color: #000000;
@@ -1560,6 +1581,10 @@ html.pink ::-webkit-scrollbar-thumb:hover {
     color: #E0E0E0;
   }
 
+  html.gta .text-block.right > div {
+  column-rule: 1px solid #E0E0E0; /* Вертикальная черта между столбцами */
+}
+
   html.gta #toggleControlsButton {
     color: #E0E0E0;
   }
@@ -1879,7 +1904,7 @@ html.gta ::-webkit-scrollbar-thumb:hover {
   @media (max-width: 1450px) {
     .container-columns {
     align-items: center;             /* Центрируем элементы по горизонтали */
-    padding: 5%;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
+    padding: 1%;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
   }
 
   .items {
@@ -1981,7 +2006,7 @@ html.gta ::-webkit-scrollbar-thumb:hover {
 
   @media (max-width: 1000px) {
     .text-block, .text-block.right {   /* Применяем ко всем блокам text-block, чтобы избежать проблем с приоритетом */
-    width: 70%;  
+    width: 95%;  
     }
 
     .draft-area {
@@ -2046,7 +2071,7 @@ html.gta ::-webkit-scrollbar-thumb:hover {
   }
 
   .text-block, .text-block.right {   /* Применяем ко всем блокам text-block, чтобы избежать проблем с приоритетом */
-    width: 80%;                      /* Делаем ширину блоков адаптивной (90% от ширины экрана) */
+    width: 95%;                      /* Делаем ширину блоков адаптивной (90% от ширины экрана) */
     margin: auto;                /* Добавляем внешние отступы сверху и снизу и автоматически центрируем по горизонтали */
     margin-left: 1%; /* Отступ слева (1% от ширины контейнера) */
     margin-right: 1%; /* Отступ справа (1% от ширины контейнера) */
