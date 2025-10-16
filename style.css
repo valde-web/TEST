@@ -127,7 +127,7 @@
 }
 
 .text-block.right {
-    flex-basis: 650px;
+    flex-basis: 690px;
     flex-shrink: 0;
     border-radius: 30px;
     word-wrap: break-word;      /* Для большинства браузеров */
