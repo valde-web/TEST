@@ -304,7 +304,7 @@ display: none;
     min-width: 100px; 
     box-sizing: border-box; 
     filter: url(#glow-default_2);
-    }
+  }
 
     .cell.highlight {
     /*box-shadow: 0 0 15px 3px #00b881;
@@ -322,6 +322,10 @@ display: none;
     line-height: 1.2;
     flex-shrink: 0;
     box-sizing: border-box; 
+  }
+
+  .hidden-cell {
+  display: none;
   }
 
 .container4 {
@@ -1706,6 +1710,10 @@ html.pink ::-webkit-scrollbar-thumb:hover {
 
   html.gta .cell.highlight {
     filter: url(#glow_3);
+  }
+
+  html.gta .hidden-cell {
+  display: none;
   }
 
   html.gta .column {
