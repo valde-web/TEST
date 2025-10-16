@@ -109,7 +109,7 @@
   }
 
 .item.highlight {
-  filter: drop-shadow(0 0 8px #00de9b);
+  filter: drop-shadow(0 0 8px #006919);
 }
 
     .text-block {
@@ -127,7 +127,7 @@
 }
 
 .text-block.right {
-    flex-basis: 690px;
+    flex-basis: 650px;
     flex-shrink: 0;
     border-radius: 30px;
     word-wrap: break-word;      /* Для большинства браузеров */
@@ -282,7 +282,7 @@ display: none;
   }
 
     .cell.highlight {
-    filter: drop-shadow(0 0 8px #00de9b);
+    filter: drop-shadow(0 0 8px #006919);
   }
 
   .cell-text {
@@ -1368,7 +1368,7 @@ html.light::-webkit-scrollbar-thumb:hover {
     }
 
   html.pink .cell.highlight {
-  filter: drop-shadow(0 0 8px #ff77a2);
+    filter: drop-shadow(0 0 8px #ff77a2);
   }
 
     html.pink .cell-text {
@@ -1624,7 +1624,7 @@ html.pink ::-webkit-scrollbar-thumb:hover {
     }
 
     html.gta .item.highlight {
-    filter: drop-shadow(0 0 8px #ff9d7a);
+    filter: drop-shadow(0 0 8px #FF7F50);
     }
 
     html.gta .table-title {
@@ -1678,7 +1678,7 @@ html.pink ::-webkit-scrollbar-thumb:hover {
     }
 
   html.gta .cell.highlight {
-  filter: drop-shadow(0 0 8px #ff9d7a);
+    filter: drop-shadow(0 0 8px #FF7F50);
   }
 
   html.gta .hidden-cell {
