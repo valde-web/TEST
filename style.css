@@ -1091,6 +1091,10 @@ html.gta .theme-option { background: #fffbf000; color: var(--fg-gta); border-col
   border-image-source: url("RamkaLight.svg"); 
   }
 
+  html.light .hidden-cell {
+  display: none;
+  }
+
   html.light #toggleControlsButton {
     background-color: #00000000;
     color: #000000;
