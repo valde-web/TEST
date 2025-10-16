@@ -84,14 +84,6 @@
   }
 
   .item {
-    /* border-radius: 8px;
-    text-align: left;
-    cursor: pointer;
-    box-shadow: 0 0 15px #006919;
-    border: 1px solid #006919;
-    display: flex;
-    flex-direction: column;
-    align-items: center; */
     text-align: left;
     cursor: pointer;
     display: flex;
@@ -106,14 +98,9 @@
     max-width: 300px;  
     min-width: 100px; 
     box-sizing: border-box; 
-    filter: url(#glow-default_2);
     }
 
   .item-text {
-    /* padding: 10px 11px 10px; 
-    font-size: 17px;
-    flex-shrink: 0;
-    line-height: 1.2; */
     padding: 14px 18px; 
     font-size: 17px;
     line-height: 1.2;
@@ -122,9 +109,7 @@
   }
 
 .item.highlight {
-  /* box-shadow: 0 0 15px 3px #00de9b; 
-  transition: box-shadow 0.3s ease;  */
-  filter: url(#glow_2);
+  filter: drop-shadow(0 0 8px #00de9b);
 }
 
     .text-block {
@@ -280,15 +265,6 @@ display: none;
         }
 
         .cell {
-      /* box-shadow: 0 0 15px #006919;
-      border: 1px solid #006919;
-    text-align: left;
-    border-radius: 8px;
-    width: 100%; 
-    box-sizing: border-box; 
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer; */
     text-align: left;
     cursor: pointer;
     display: flex;
@@ -303,20 +279,13 @@ display: none;
     max-width: 300px;  
     min-width: 100px; 
     box-sizing: border-box; 
-    filter: url(#glow-default_2);
   }
 
     .cell.highlight {
-    /*box-shadow: 0 0 15px 3px #00b881;
-    transition: box-shadow 0.3s ease; */
-    filter: url(#glow_2);
+    filter: drop-shadow(0 0 8px #00de9b);
   }
 
   .cell-text {
-    /* padding: 10px 11px; 
-    font-size: 17px;
-    flex-shrink: 0;
-    line-height: 1.2; */
     padding: 14px 18px; 
     font-size: 17px;
     line-height: 1.2;
@@ -1304,7 +1273,6 @@ html.light::-webkit-scrollbar-thumb:hover {
     background-repeat: no-repeat; 
     box-shadow: none;
     border: none;
-    filter: url(#glow-default);
     margin-bottom: 5px;
     background-position: center; /* Центрирует изображение фона */
     box-sizing: border-box;
@@ -1313,7 +1281,7 @@ html.light::-webkit-scrollbar-thumb:hover {
     }
 
     html.pink .item.highlight {
-    filter: url(#glow);
+    filter: drop-shadow(0 0 8px #ff77a2);
     }
 
     html.pink .item-text {
@@ -1394,14 +1362,13 @@ html.light::-webkit-scrollbar-thumb:hover {
     background-repeat: no-repeat; 
     box-shadow: none;
     border: none;
-    filter: url(#glow-default);
     margin-bottom: 5px;
     max-width: 1000px;  
     min-width: 10px; 
     }
 
   html.pink .cell.highlight {
-    filter: url(#glow);
+  filter: drop-shadow(0 0 8px #ff77a2);
   }
 
     html.pink .cell-text {
@@ -1654,11 +1621,10 @@ html.pink ::-webkit-scrollbar-thumb:hover {
     max-width: 300px;  
     min-width: 100px; 
     box-sizing: border-box; 
-    filter: url(#glow-default_3);
     }
 
     html.gta .item.highlight {
-    filter: url(#glow_3);
+    filter: drop-shadow(0 0 8px #ff9d7a);
     }
 
     html.gta .table-title {
@@ -1709,11 +1675,10 @@ html.pink ::-webkit-scrollbar-thumb:hover {
     max-width: 300px;  
     min-width: 100px; 
     box-sizing: border-box; 
-    filter: url(#glow-default_3);
     }
 
   html.gta .cell.highlight {
-    filter: url(#glow_3);
+  filter: drop-shadow(0 0 8px #ff9d7a);
   }
 
   html.gta .hidden-cell {
