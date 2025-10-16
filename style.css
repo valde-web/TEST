@@ -1281,7 +1281,7 @@ html.light::-webkit-scrollbar-thumb:hover {
     }
 
     html.pink .item.highlight {
-    filter: drop-shadow(0 0 8px #ff77a2);
+    filter: drop-shadow(0 0 14px #ff77a2);
     }
 
     html.pink .item-text {
@@ -1368,7 +1368,7 @@ html.light::-webkit-scrollbar-thumb:hover {
     }
 
   html.pink .cell.highlight {
-    filter: drop-shadow(0 0 8px #ff77a2);
+    filter: drop-shadow(0 0 14px #ff77a2);
   }
 
     html.pink .cell-text {
