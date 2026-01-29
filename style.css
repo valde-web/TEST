@@ -25,8 +25,8 @@
     }
 
    .table-header {
-     display: flex;
-     justify-content: space-between; /* Распределяем пространство между заголовком и кнопкой */
+    display: flex;
+    justify-content: space-between; /* Распределяем пространство между заголовком и кнопкой */
     align-items: center; /*  элементы по вертикали */
     position: relative; /*  для абсолютного позиционирования заголовка */
     padding: 0 2px; /*  отступы по бокам */
@@ -97,74 +97,92 @@
     border-image-repeat: stretch;
     max-width: 300px;  
     min-width: 100px; 
-    box-sizing: border-box; 
-    }
+    box-sizing: border-box;
+}
 
   .item-text {
     padding: 14px 18px; 
     font-size: 17px;
     line-height: 1.2;
     flex-shrink: 0;
-    box-sizing: border-box; /*  Важно!  Чтобы padding не ломал размеры */
+    box-sizing: border-box; 
   }
 
 .item.highlight {
   filter: drop-shadow(0 0 8px #006919);
 }
 
-    .text-block {
-    flex-basis: 500px;
-    flex-shrink: 0;
-    box-sizing: border-box; /* чтобы padding и border учитывались внутри ширины */
-    box-shadow: 0 0 15px #006919;
-    border: 1px solid #006919;
-    padding: 20px 25px;
-    border-radius: 30px;
-    font-size: 20px;
-    line-height: 1.3; /* Междустрочный интервал */
-    word-wrap: break-word;      /* Для большинства браузеров */
-    overflow-wrap: break-word; /* Для новых версий браузеров */
+.main-container {
+  max-width: 1100px;
+  margin: 20px auto;
+  flex-shrink: 0;
+  box-sizing: border-box; /* чтобы padding и border учитывались внутри ширины */
+  box-shadow: 0 0 15px #006919;
+  border: 2px solid #006919;
+  padding: 15px 25px;
+  border-radius: 30px;
+  font-size: 19px;
+  line-height: 1.3; /* Междустрочный интервал */
+  word-wrap: break-word;      /* Для большинства браузеров */
+  overflow-wrap: break-word; /* Для новых версий браузеров */
 }
 
-.text-block.right {
-    flex-basis: 650px;
-    flex-shrink: 0;
-    border-radius: 30px;
-    word-wrap: break-word;      /* Для большинства браузеров */
-    overflow-wrap: break-word; /* Для новых версий браузеров */
-    box-sizing: border-box; /* чтобы padding и border учитывались внутри ширины */
+/* --- ВЕРХНИЙ БЛОК --- */
+.top-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Тюнинг занимает 1 часть, Бренды 2 части */
+  border-bottom: 2px solid white; /* Горизонтальная линия между верхом и низом */
 }
 
-.text-block.right > div {
-  columns: 2; /* Два столбца */
-  column-gap: 20px; /* Расстояние между столбцами */
-  column-rule: 1px solid #ffffff; /* Вертикальная черта между столбцами */
+.tuning-col {
+  padding: 10px;
+  border-right: 2px solid white; /* Белая линия между Тюнингом и Брендами */
+  margin-right: -90px;
 }
 
-.text-block.right strong {
-  display: block; /* Заголовок на всю ширину */
-  margin-bottom: -25px;
+.brands-wrapper {
+  padding: 10px 10px 10px 113px;
 }
 
-.container-columns {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px; /* маленький отступ между колонками */
-  box-sizing: border-box; /* чтобы padding учитывался внутри ширины */
-  padding: 100px 100px; /* большой отступ слева и справа от колонок до краёв */
+/* АВТОМАТИЧЕСКОЕ РАЗБИЕНИЕ НА 2 КОЛОНКИ */
+.autocolumns-2 {
+  column-count: 2;        /* Количество колонок */
+  column-gap: 40px;       /* Расстояние между колонками */
+  column-rule: 1px solid white; /* БЕЛАЯ ЛИНИЯ МЕЖДУ КОЛОНКАМИ */
+  margin-right: -10px;
+}
+
+/* НИЖНИЙ БЛОК */
+.bottom-section {
+  padding: 20px 10px 10px 10px;
+}
+
+/* АВТОМАТИЧЕСКОЕ РАЗБИЕНИЕ НА 4 КОЛОНКИ */
+.autocolumns-4 {
+  column-count: 4;        /* Количество колонок */
+  column-gap: 40px;       /* Расстояние между колонками */
+  column-rule: 1px solid white; /* БЕЛАЯ ЛИНИЯ МЕЖДУ КОЛОНКАМИ */
+}
+
+/* Общие стили заголовков и элементов */
+h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
   #legend-content {
     overflow: hidden;
-    max-height: 1000px; /* открыто по умолчанию */
-    padding-top: 15px;
-    padding-bottom: 15px;
   }
 
   #legend-content.collapsed {
     max-height: 0;
     padding-top: 0;
     padding-bottom: 0;
+  }
+  
+  /* Когда добавлен класс open — показываем */
+  .legend-content.open {
+    display: block;
   }
 
 /* Скрываем таблицу по умолчанию */
@@ -264,7 +282,7 @@ display: none;
             opacity: 0;
         }
 
-        .cell {
+    .cell {
     text-align: left;
     cursor: pointer;
     display: flex;
@@ -740,6 +758,7 @@ display: none;
   margin-bottom: -75px;
   margin-top: -10px;
   margin-left: -7px;
+  z-index: 9997;
 }
 
 .link-wrapper {
@@ -860,6 +879,128 @@ margin-left: -2.8px;
   display: block;
 }
 
+#start-tutorial-btn {
+position: absolute; 
+top: 43px; 
+right: 70px; 
+padding: 10px 18px; 
+background-color: #595959; 
+color: white; 
+border: none; 
+border-radius: 5px; 
+cursor: pointer; 
+z-index: 9990;
+}
+
+/* Стили для оверлея */
+#tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Полупрозрачный черный фон */
+    z-index: 9998; /* Должен быть ниже инструкций, но выше контента */
+    transition: opacity 0.3s ease;
+}
+
+/* Стили для блока с инструкциями */
+#tutorial-box {
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    max-width: 550px;
+    z-index: 10001; /* Выше оверлея */
+    color: #333;
+    font-family: Arial, sans-serif;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0; /* Изначально скрыт */
+    transform: translateY(20px);
+}
+
+#tutorial-box p {
+    margin-top: 0;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+/* Кнопка закрытия внутри блока инструкций */
+.tutorial-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+}
+.tutorial-close-btn:hover {
+    color: #333;
+}
+
+/* Кнопки навигации */
+.tutorial-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.tutorial-nav-btn {
+    background-color: #000f20;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tutorial-nav-btn:hover:not(:disabled) {
+    background-color: #002f62;
+}
+
+.tutorial-nav-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#tutorial-step-counter {
+    font-size: 14px;
+    color: #555;
+    white-space: nowrap;
+}
+
+/* Стили для выделяемого элемента */
+.tutorial-highlighted {
+    position: relative; /* Важно для z-index */
+    z-index: 9999; /* Поднимаем элемент над оверлеем */
+    box-shadow: 0 0 0 5px rgba(0, 45, 93, 0.8), 0 0 15px rgba(0, 45, 93, 0.8); /* Яркая синяя рамка и свечение */
+    border-radius: 5px; /* Скругление углов для рамки */
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+/* Optional: пульсирующий эффект для привлечения внимания */
+.tutorial-highlighted.pulsing {
+    animation: pulseHighlight 1.5s infinite alternate;
+}
+
+@keyframes pulseHighlight {
+    from {
+        box-shadow: 0 0 0 5px rgba(0, 45, 93, 0.8), 0 0 15px rgba(0, 45, 93, 0.8);
+    }
+    to {
+        box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.6), 0 0 25px rgba(0, 123, 255, 1);
+    }
+}
+
 /* Ползунок (thumb) */
 ::-webkit-scrollbar-thumb {
   background-color: #008979; /* Цвет ползунка */
@@ -908,6 +1049,7 @@ margin-left: -2.8px;
   --r2: 1px;
   --r3: 1px;
   --r4: 1px;
+  --r5: 1px;
   --bg-dark:#000000;
   --fg-dark:#ffffff;
   --bg-light:#ffffff;
@@ -916,6 +1058,8 @@ margin-left: -2.8px;
   --fg-pink:#fbc3d5;
   --bg-gta:#ffffff;
   --fg-gta:#FF7F50;
+  --bg-NewYear: #ffffff;
+  --fg-NewYear: #940000;
   --accent:#008979;
   --menu-bg:#131320;
 }
@@ -925,11 +1069,13 @@ margin-left: -2.8px;
 .theme-arc.open .opt-2 { transform: translate(-63px, -20px); box-sizing: border-box; padding: 0 0 1.5px 0; background-color: #888888; }   /* средний */
 .theme-arc.open .opt-3 { transform: translate(-45px, 20px); box-sizing: border-box; padding: 0 0 5px 0; background-color: #888888; }  /* нижний */
 .theme-arc.open .opt-4 { transform: translate(-2px, 30px); box-sizing: border-box; padding: 2px 0 0 0; background-color: #888888; }  /* нижний */
+.theme-arc.open .opt-5 { transform: translate(-3px, 75px); box-sizing: border-box; padding: -1px 0 0 0; background-color: #888888; }  /* нижний */
 
 /* Адаптация подсказки под текущую тему (чтобы на светлой теме подсказка была темной и наоборот) */
 html.light .theme-option::after{ background:#000000;color:#ffffff; }
 html.pink .theme-option::after{ background:#000000;color:#ffffff; }
 html.gta .theme-option::after{ background:#ffffff;color:#000000; }
+html.NewYear .theme-option::after{ background:#ffffff;color:#000000; }
 
 /* Немного стилизации для разных тем (кнопки) */
 html.light .theme-toggle,
@@ -938,11 +1084,13 @@ html.pink .theme-toggle,
 html.pink .theme-option { background: #fffbf000; color: var(--fg-pink); border-color: #fbc3d5; }
 html.gta .theme-toggle,
 html.gta .theme-option { background: #fffbf000; color: var(--fg-gta); border-color: #FF7F50; }
+html.NewYear .theme-toggle,
+html.NewYear .theme-option { background: #fffbf000; color: var(--fg-NewYear); border-color: #940000; }
   
 .theme-arc {
   position: absolute;
-  right: 12px; /* ----------- Было -16 ------------- */
-  top: 65px;
+  right: 12px; 
+  top: 61.2px;
   transform: translateY(-50%);
   width: calc(var(--btn-size));
   height: calc(var(--btn-size));
@@ -1048,9 +1196,17 @@ html.gta .theme-option { background: #fffbf000; color: var(--fg-gta); border-col
     color: black;
   }
 
-  html.light .text-block.right > div {
-  column-rule: 1px solid #000000; /* Вертикальная черта между столбцами */
-}
+  html.light .tuning-col {
+    border-right: 2px solid #000000; /* Белая линия между Тюнингом и Брендами */
+    }
+
+  html.light .top-section {
+    border-bottom: 2px solid #000000; /* Горизонтальная линия между верхом и низом */
+    }
+
+  html.light .autocolumns-4, html.light .autocolumns-2  {
+    column-rule: 1px solid #000000;
+    }
 
   html.light .item {
   border-image-source: url("RamkaLight.svg"); 
@@ -1223,9 +1379,17 @@ html.light::-webkit-scrollbar-thumb:hover {
     color: #000000;
   }
 
-  html.pink .text-block.right > div {
-  column-rule: 1px solid #000000; /* Вертикальная черта между столбцами */
-}
+  html.pink .tuning-col {
+    border-right: 2px solid #000000; /* Белая линия между Тюнингом и Брендами */
+    }
+    
+  html.pink .top-section {
+    border-bottom: 2px solid #000000; /* Горизонтальная линия между верхом и низом */
+    }
+    
+  html.pink .autocolumns-4, html.pink .autocolumns-2  {
+    column-rule: 1px solid #000000;
+    }
 
   html.pink #toggleControlsButton {
     color: #000000;
@@ -1260,7 +1424,7 @@ html.light::-webkit-scrollbar-thumb:hover {
     html.pink .item {
     width: 100%;
     height: 0; /* Важно: высота 0 */
-    padding-bottom: 66%; /* соотношение 4:3*/
+    padding-bottom: 62%; /* соотношение 4:3*/
     position: relative; 
     text-align: left;
     cursor: pointer;
@@ -1286,15 +1450,16 @@ html.light::-webkit-scrollbar-thumb:hover {
 
     html.pink .item-text {
     position: absolute;
-    top: 45.7%;
-    left: 21%;
-    right: 15.5%;
+    left: 18.3%;
+    right: 13.53%;
+    top: 36%;
+    bottom: 26.72%;
     font-weight: 400;
     display: flex;
     align-items: center;
     pointer-events: none; /* Позволяет кликать сквозь текст */
     font-size: 17px;
-    line-height: 1.2;
+    line-height: 1.1;
     flex-shrink: 0;
     box-sizing: border-box; /*  Важно!  Чтобы padding не ломал размеры */
     z-index: 1;
@@ -1317,9 +1482,9 @@ html.light::-webkit-scrollbar-thumb:hover {
     background-image: linear-gradient(160deg, #eecbd6, #e4a2b7);
   }
 
-  html.pink .text-block {
+  html.pink .main-container {
     box-shadow: 0 0 15px #ff77a2;
-    border: 1px solid #000000;
+    border: 2px solid #000000;
     background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
 }
 
@@ -1349,7 +1514,7 @@ html.light::-webkit-scrollbar-thumb:hover {
   html.pink .cell {
     width: 100%;
     height: 0; /* Важно: высота 0 */
-    padding-bottom: 66%; /* соотношение 4:3*/
+    padding-bottom: 62%; /* соотношение 4:3*/
     position: relative; 
     text-align: left;
     cursor: pointer;
@@ -1373,9 +1538,10 @@ html.light::-webkit-scrollbar-thumb:hover {
 
     html.pink .cell-text {
     position: absolute;
-    top: 45.7%;
-    left: 21%;
-    right: 15.5%;
+    left: 18.3%;
+    right: 13.53%;
+    top: 36%;
+    bottom: 26.72%;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -1580,9 +1746,17 @@ html.pink ::-webkit-scrollbar-thumb:hover {
     color: #E0E0E0;
   }
 
-  html.gta .text-block.right > div {
-  column-rule: 1px solid #E0E0E0; /* Вертикальная черта между столбцами */
-}
+  html.gta .tuning-col {
+    border-right: 2px solid #E0E0E0; /* Белая линия между Тюнингом и Брендами */
+    }
+    
+  html.gta .top-section {
+    border-bottom: 2px solid #E0E0E0; /* Горизонтальная линия между верхом и низом */
+    }
+
+  html.gta .autocolumns-4, html.gta .autocolumns-2  {
+    column-rule: 1px solid #E0E0E0;
+    }
 
   html.gta #toggleControlsButton {
     color: #E0E0E0;
@@ -1643,9 +1817,9 @@ html.pink ::-webkit-scrollbar-thumb:hover {
     background-color: #ab5739;
     }
 
-  html.gta .text-block {
+  html.gta .main-container {
     box-shadow: 0 0 15px #FF7F50;
-    border: 1px solid #FF7F50;
+    border: 2px solid #FF7F50;
     background-color: #2D3E50;
     }
 
@@ -1844,19 +2018,357 @@ html.gta ::-webkit-scrollbar-thumb:hover {
     background-color: #ff9d7a;
     }
 
+
+/*----------------------------------------------------------------------------------- NewYear тема----------------------------------------------------------------- */
+
+  html.NewYear body {
+    font-family: Arial, sans-serif;
+    background: #022b00;
+    color: #ffffff;
+  }
+
+  html.NewYear .tuning-col {
+    border-right: 2px solid #B38728; /* Белая линия между Тюнингом и Брендами */
+    }
+
+  html.NewYear .top-section {
+    border-bottom: 2px solid #B38728; /* Горизонтальная линия между верхом и низом */
+    }
+
+  html.NewYear .autocolumns-4, html.NewYear .autocolumns-2  {
+    column-rule: 1px solid #B38728;
+    }
+
+  html.NewYear #toggleControlsButton {
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  html.NewYear .dropdown-button {
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }  
+
+  html.NewYear .image-link-text {
+  background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+  html.NewYear #itemm {
+    color: #ffffff;
+    background-color: #022b00;
+}
+
+  html.NewYear #itemmm {
+    color: #ffffff;
+    background-color: #022b00;
+}
+
+    html.NewYear .item {
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0px solid transparent;
+    border-image-source: url("RamkaNewYear.svg"); 
+    border-image-slice: 0 0 0 0 fill;  
+    border-image-width: 0px; 
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    max-width: 300px;  
+    min-width: 100px; 
+    box-sizing: border-box; 
+    
+    }
+
+    html.NewYear .item-text {
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    }
+
+    html.NewYear .item.highlight {
+    filter: drop-shadow(0 0 8px #940000);
+    }
+
+    html.NewYear .table-title {
+    background-color: #022b00;
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    }
+
+  html.NewYear .section {
+    border: 2px solid #940000;
+  }
+
+  html.NewYear .section-header {
+    background-color: #940000;
+    }
+
+  html.NewYear .section-header:hover {
+    background-color: #ac0000;
+    }
+
+  html.NewYear .main-container {
+    box-shadow: 0 0 15px #940000;
+    border: 1px solid #940000;
+    background-color: #022b00;
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    }
+
+  html.NewYear .search-input {
+            font-family: Arial, sans-serif;
+            border: 2px solid #940000;
+            color: #ffffff;
+            background-color: #022b00;
+    }
+
+  html.NewYear .draft-area {
+            border: 2px solid #940000;
+            background-color: #022b00;
+        }
+
+  html.NewYear .cell {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0px solid transparent;
+    border-image-source: url("RamkaNewYear.svg"); 
+    border-image-slice: 0 0 0 0 fill;  
+    border-image-width: 0px; 
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    max-width: 300px;  
+    min-width: 100px; 
+    box-sizing: border-box; 
+    }
+
+    html.NewYear .cell-text {
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    }
+
+  html.NewYear .cell.highlight {
+    filter: drop-shadow(0 0 8px #940000);
+  }
+
+  html.NewYear .hidden-cell {
+  display: none;
+  }
+
+  html.NewYear .column {
+      border: 2px solid #940000;
+    background-color: #022b00;
+    
+    }
+
+  html.NewYear select {
+      border: 2px solid #940000;
+      color: #ffffff;
+      background-color: #022b00;
+    }
+
+  html.NewYear #result {
+      border: 2px solid #940000;
+      background-color: #022b00;
+      background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    }
+
+  html.NewYear #copyButton {
+    border: 2px solid #940000;
+    background-color: #022b00;
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    }
+
+  html.NewYear #clearButton {
+    border: 2px solid #940000;
+    background-color: #022b00;
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    }
+
+  html.NewYear #copyButton.copied {
+    border: 2px solid #ac0000;
+    box-shadow: 0 0 15px 3px #ac0000;
+}
+
+  html.NewYear #clearButton:active {
+    box-shadow: 0 0 15px 2px #ac0000;
+}
+
+    html.NewYear #copyButton:hover {
+    background-color: #364b60;
+  }
+
+  html.NewYear #clearButton:hover {
+    background-color: #364b60;
+  }
+
+  html.NewYear #itemmSearch {
+  border: 2px solid #940000;
+  color: #ffffff;
+  background-color: #022b00;
+  }
+
+  html.NewYear #itemmmSearch {
+  border: 2px solid #940000;
+  color: #ffffff;
+  background-color: #022b00;
+  }
+
+  html.NewYear #draft-area-5 {
+            border: 2px solid #940000;
+            background-color: #022b00;
+    }
+
+  html.NewYear .select-wrapper select {
+      border: 2px solid #940000;
+    }
+
+  html.NewYear #customPrice {
+    border: 1px solid #940000;
+    background-color: #022b00;
+    color: #ffffff;
+    }
+
+  html.NewYear #setPrice {
+    border: 1px solid #940000;
+    background-color: #022b00;
+    color: #ffffff;
+    }
+
+  html.NewYear .dropdown-content {
+  border: 2px solid #940000;
+    background-color: #022b00;
+    }
+
+  html.NewYear .dropdown-content a {
+  background-color: #022b00;
+}
+
+  html.NewYear .dropdown-content a:hover {
+    background-color: #033e00;
+    }
+
+  html.NewYear #setShortcutButton {
+        border: 1px solid #940000;
+        color: #ffffff;
+        background-color: #000000;
+        }
+
+  html.NewYear #setShortcutButton:hover {
+        background: #000000;
+      }
+
+  html.NewYear #clearShortcutButton {
+        border: 1px solid #940000;
+        background: #000000;
+        color: #ffffff;
+        }
+
+  html.NewYear #clearShortcutButton:hover {
+        background: #000000;
+      }
+
+  html.NewYear #shortcutInput {
+        border: 1px solid #940000;
+        background: #000000;
+        color: #555555db;
+      }
+
+  html.NewYear .notification-container {
+  background-color: #000000;
+  border: 2px solid #8b8b8b;
+}
+
+  html.NewYear .close-button {
+  color: #ffffff;
+}
+
+  html.NewYear .close-button:hover {
+  color: #bcbcbc;
+}
+
+/* Ползунок (thumb) */
+html.NewYear::-webkit-scrollbar-thumb {
+    background-color: #940000;
+    }
+
+/* Трек (track) */
+html.NewYear::-webkit-scrollbar-track {
+    background-color: #022b00;
+    }
+
+/* Улучшение внешнего вида при наведении курсора на ползунок */
+html.NewYear::-webkit-scrollbar-thumb:hover {
+    background-color: #ac0000;
+    }
+
+html.NewYear ::-webkit-scrollbar-thumb {
+    background-color: #940000;
+    }
+
+/* Трек (track) */
+html.NewYear ::-webkit-scrollbar-track {
+    background-color: #022b00;
+    }
+
+/* Улучшение внешнего вида при наведении курсора на ползунок */
+html.NewYear ::-webkit-scrollbar-thumb:hover {
+    background-color: #ac0000;
+    }
+
 /*---------------------------------------------------------------------------------------- Медиа запросы----------------------------------------------------------------- */
 
     @media (min-width: 1921px) {
+      .main-container {
+        max-width: 1300px;
+        font-size: 20px;
+        line-height: 1.4; /* Междустрочный интервал */
+      }
+    
     .items {
         grid-template-columns: repeat(7, 1fr); /* 7 колонок на широкоформатных мониторах */
         gap: 20px; /* Увеличим отступ */
         padding: 20px 250px; /* Увеличим padding */
     }
+
     .item-text {
         font-size: 20px; /* Немного увеличим размер шрифта */
-    }
-    .container-columns {
-  padding: 200px 450px; /* большой отступ слева и справа от колонок до краёв */
     }
 
     html.pink .items {
@@ -1869,19 +2381,8 @@ html.gta ::-webkit-scrollbar-thumb:hover {
     padding: 20px 90px;
   }
 }
-
-    @media (max-width: 1920px) {
-  .container-columns {
-    align-items: center;             /* Центрируем элементы по горизонтали */
-    padding: 20%;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
-  }
-}
-
+/*--------------- */
     @media (max-width: 1700px) {
-  .container-columns {
-    padding: 13%;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
-  }
-
   html.pink .items {
     grid-template-columns: repeat(3, 1fr) !important; 
     padding: 20px 90px;
@@ -1892,13 +2393,8 @@ html.gta ::-webkit-scrollbar-thumb:hover {
     margin: 20px 90px;
   }
 }
-
+/*--------------- */
   @media (max-width: 1450px) {
-    .container-columns {
-    align-items: center;             /* Центрируем элементы по горизонтали */
-    padding: 1%;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
-  }
-
   .items {
       padding: 15px 15px;
     }
@@ -1933,7 +2429,7 @@ html.gta ::-webkit-scrollbar-thumb:hover {
           width: 98%;
         }
       }
-    
+/*--------------- */
   @media (max-width: 1350px) {
     html.pink .items {
     grid-template-columns: repeat(2, 1fr) !important; 
@@ -1945,34 +2441,68 @@ html.gta ::-webkit-scrollbar-thumb:hover {
     margin: 20px 50px !important;
   }
 }
-
+/*--------------- */
   @media (max-width: 1200px) {
+    .main-container {
+      max-width: auto;
+      margin: 20px 20px;
+      padding: 10px 25px;
+      font-size: 18px;
+    }
+
+    .top-section {
+      display: block; /* Выключаем сетку, делаем блоки друг под другом */
+    }
+    
+    .tuning-col {
+      border-right: none; /* Убираем вертикальную линию */
+      border-bottom: 2px solid white; /* Добавляем горизонтальную линию между блоками */
+      padding: 10px 0 20px 0;
+      margin-right: 0;
+    }
+
+    html.light .tuning-col {
+      border-right: none; /* Убираем вертикальную линию */
+      border-bottom: 2px solid #000000; /* Добавляем горизонтальную линию между блоками */
+      padding: 10px 0 20px 0;
+    }
+    
+    html.pink .tuning-col {
+      border-right: none; /* Убираем вертикальную линию */
+      border-bottom: 2px solid #000000; /* Добавляем горизонтальную линию между блоками */
+      padding: 10px 0 20px 0;
+    }
+
+    html.gta .tuning-col {
+      border-right: none; /* Убираем вертикальную линию */
+      border-bottom: 2px solid #E0E0E0; /* Добавляем горизонтальную линию между блоками */
+      padding: 10px 0 20px 0;
+    }
+
+    html.NewYear .tuning-col {
+      border-right: none; /* Убираем вертикальную линию */
+      border-bottom: 2px solid #B38728; /* Добавляем горизонтальную линию между блоками */
+      padding: 10px 0 20px 0;
+    }
+    
+    .brands-wrapper {
+      padding: 10px 0px;
+    }
+
+    .autocolumns-2 {
+      margin-right: 0;
+    }
+
+    .bottom-section {
+      padding: 10px 0px;
+    }
+    
+    .autocolumns-4 {
+      column-count: 2;        /* Количество колонок */
+    }
+
     .items {
       grid-template-columns: repeat(4, 1fr); /* на средних экранах 4 в ряд */
-    }
-
-    .container-columns {
-    flex-direction: column;          /* Располагаем элементы вертикально */
-    align-items: center;             /* Центрируем элементы по горизонтали */
-    padding: 1px;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
-  }
-
-  .text-block {   /* Применяем ко всем блокам text-block, чтобы избежать проблем с приоритетом */
-    width: 60%;                      /* Делаем ширину блоков адаптивной (90% от ширины экрана) */
-    margin-left: 2%; /* Отступ слева (5% от ширины контейнера) */
-    margin-right: 2%; /* Отступ справа (5% от ширины контейнера) */
-    padding: 13px 30px;
-    margin-bottom: 7px;
-    margin-top: -11.5px;
-    }
-
-    .text-block.right {   /* Применяем ко всем блокам text-block, чтобы избежать проблем с приоритетом */
-    width: 60%;                      /* Делаем ширину блоков адаптивной (90% от ширины экрана) */
-    margin-left: 2%; /* Отступ слева (5% от ширины контейнера) */
-    margin-right: 2%; /* Отступ справа (5% от ширины контейнера) */
-    padding: 13px 30px;
-    margin-bottom: 7px;
-    margin-top: -20px;
     }
 
       .container3 {
@@ -1995,12 +2525,8 @@ html.gta ::-webkit-scrollbar-thumb:hover {
       font-size: 19px;
     }
   }
-
+/*--------------- */
   @media (max-width: 1000px) {
-    .text-block, .text-block.right {   /* Применяем ко всем блокам text-block, чтобы избежать проблем с приоритетом */
-    width: 95%;  
-    }
-
     .draft-area {
             margin-left: 1px;
         }
@@ -2022,7 +2548,7 @@ html.gta ::-webkit-scrollbar-thumb:hover {
   grid-template-columns: repeat(2, 1fr) !important; 
   margin: 15px 15px !important;
   }
-
+  
     .container3 {
             display: grid; /* Используем Grid */
             grid-template-columns: repeat(3, 1fr); /* 5 колонок равной ширины */
@@ -2033,7 +2559,7 @@ html.gta ::-webkit-scrollbar-thumb:hover {
             grid-template-columns: repeat(3, 1fr); /* 5 колонок равной ширины */
         }
   }  
-
+/*--------------- */
   @media (max-width: 820px) {
     html.pink .items {
     grid-template-columns: repeat(1, 1fr) !important; 
@@ -2043,7 +2569,7 @@ html.gta ::-webkit-scrollbar-thumb:hover {
     grid-template-columns: repeat(1, 1fr) !important; 
   }
 }
-
+/*--------------- */
   @media (max-width: 800px) {
     .items {
       grid-template-columns: repeat(2, 1fr); /* на мобильных 1 в ряд */
@@ -2054,23 +2580,6 @@ html.gta ::-webkit-scrollbar-thumb:hover {
       margin-right: 1%; /* Отступ справа (1% от ширины контейнера) */
       font-size: 16px; /* Уменьшаем размер шрифта на маленьких экранах */
     }
-
-    .container-columns {
-    display: flex;
-    flex-direction: column;          /* Располагаем элементы вертикально */
-    align-items: center;          /* Центрируем элементы по горизонтали */
-    padding: 1px;                  /* Уменьшаем отступы, чтобы колонки не были слишком далеко от краев экрана */
-  }
-
-  .text-block, .text-block.right {   /* Применяем ко всем блокам text-block, чтобы избежать проблем с приоритетом */
-    width: 95%;                      /* Делаем ширину блоков адаптивной (90% от ширины экрана) */
-    margin: auto;                /* Добавляем внешние отступы сверху и снизу и автоматически центрируем по горизонтали */
-    margin-left: 1%; /* Отступ слева (1% от ширины контейнера) */
-    margin-right: 1%; /* Отступ справа (1% от ширины контейнера) */
-    padding: 17px 30px;
-    margin-bottom: 7px;
-    margin-top: -5px;
-  }
 
   .container5 {
       display: flex;
@@ -2087,11 +2596,38 @@ html.gta ::-webkit-scrollbar-thumb:hover {
             grid-template-columns: repeat(2, 1fr); /* 5 колонок равной ширины */
         }
   }
-
+/*--------------- */
   @media (max-width: 600px) {
     .items {
       grid-template-columns: repeat(1, 1fr); /* на мобильных 1 в ряд */
     } 
+
+    label[for="tuning"], label[for="itemmm"], label[for="action"], label[for="itemm"], label[for="price_type"], label[for="price"], label[for="trade"] { 
+      font-size: 17px;
+    }
+
+    .container93 {
+      flex-direction: row; 
+      margin-bottom: 35px;
+      margin-top: 15px;
+    }  
+
+    #start-tutorial-btn {
+      top: 80px; 
+      right: 110px;
+    }
+
+    .theme-arc {
+      top: 100px;
+    }
+  
+    .link-wrapper.left-linkk {
+      margin-right: 145px;
+    }
+
+    .table-title {
+      font-size: 24px;
+    }
 
     .container3 {
             display: grid; /* Используем Grid */
