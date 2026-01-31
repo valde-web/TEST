@@ -69,19 +69,26 @@ function loadData(section, elementId) {
 
       snapshot.forEach((childSnapshot) => {
         const itemData = childSnapshot.val();
-        const cellTextContent = itemData.text; // Предполагается, что у каждого элемента есть поле "text"
+        const cellTextContent = itemData.text; 
 
+        // 1. Создаем внешний cell-wrapper
+        const cellWrapper = document.createElement('div');
+        cellWrapper.classList.add('cell-wrapper');
+        cellWrapper.dataset.copy = cellTextContent; // Сохраняем текст для копирования
+
+        // 2. Создаем промежуточный cell
         const cellDiv = document.createElement('div');
         cellDiv.classList.add('cell');
-        // Опционально: можно добавить data-copy, чтобы точно знать, что копировать
-        // cellDiv.dataset.copy = cellTextContent; // Текст для копирования
 
+        // 3. Создаем внутренний cell-text
         const cellTextDiv = document.createElement('div');
-        cellTextDiv.classList.add('cell-text'); // Класс для текста внутри cell
+        cellTextDiv.classList.add('cell-text');
         cellTextDiv.textContent = cellTextContent;
 
+        // Собираем матрешку: cell-text -> cell -> cell-wrapper
         cellDiv.appendChild(cellTextDiv);
-        itemsContainer.appendChild(cellDiv);
+        cellWrapper.appendChild(cellDiv);
+        itemsContainer.appendChild(cellWrapper);
       });
     });
   }
@@ -487,71 +494,78 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
-  // Список ID контейнеров, в которых нужно обрабатывать копирование .cell
+  // Список ID контейнеров, в которых нужно обрабатывать копирование
   const targetContainerIds = ['container1', 'container2'];
 
-  // Это гарантирует, что он будет работать для любых элементов, добавленных динамически в любой из целевых контейнеров.
   document.addEventListener('click', async (e) => {
-    // 1) Проверяем, не выделил ли пользователь текст вручную (чтобы не перебивать его)
+    // 1) Проверяем, не выделил ли пользователь текст вручную
     const selection = (window.getSelection && window.getSelection().toString()) || '';
     if (selection && selection.trim().length > 0) return;
 
-    // 2) Находим ближайший элемент с классом 'cell'
-    const clickedCell = e.target.closest('.cell');
-    if (!clickedCell) return; // Клик был не по ячейке
+    // 2) Находим ближайший ОБЕРТОЧНЫЙ элемент .cell-wrapper
+    const wrapper = e.target.closest('.cell-wrapper');
+    if (!wrapper) return;
 
-    // 3) Проверяем, находится ли найденный 'cell' внутри одного из наших целевых контейнеров
+    // 3) Проверяем, находится ли wrapper внутри целевых контейнеров
     let isInTargetContainer = false;
     for (const containerId of targetContainerIds) {
       const container = document.getElementById(containerId);
-      if (container && container.contains(clickedCell)) {
+      if (container && container.contains(wrapper)) {
         isInTargetContainer = true;
         break;
       }
     }
-    if (!isInTargetContainer) return; // Если cell не находится в одном из целевых контейнеров, игнорируем клик
+    if (!isInTargetContainer) return;
 
-    // 4) Извлекаем текст для копирования
-    // Приоритет: 1. data-copy атрибут на .cell, 2. текст из .cell-text
-    let textToCopy = clickedCell.dataset.copy || '';
-    if (!textToCopy) {
-      const textElem = clickedCell.querySelector('.cell-text');
-      if (textElem) {
-        textToCopy = (textElem.innerText || textElem.textContent || '').trim();
-      }
-    }
+    // 4) Находим элемент с текстом (.cell-text) внутри этого wrapper
+    const textElem = wrapper.querySelector('.cell-text');
+    if (!textElem) return;
 
-    if (!textToCopy) return; // Нет текста для копирования
+    // Извлекаем текст (приоритет: data-copy на wrapper, затем содержимое textElem)
+    let textToCopy = wrapper.dataset.copy || textElem.innerText.trim();
+    if (!textToCopy) return;
 
-    // 5) Копируем текст в буфер обмена
+    // Если уже идет процесс анимации "Скопировано", выходим
+    if (wrapper.classList.contains('highlight')) return;
+
+    // 5) Копируем текст
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(textToCopy);
       } else {
-        // Fallback для старых браузеров
         copyTextFallback(textToCopy);
       }
 
-      // 6) Добавляем подсветку и убираем ее через 1.5 секунды
-      clickedCell.classList.add('highlight');
+      // --- 6) ВИЗУАЛЬНЫЙ ЭФФЕКТ ---
+      
+      const originalText = textElem.innerText;
+      
+      // Измеряем и фиксируем высоту, чтобы ячейка не прыгала
+      const computedStyle = window.getComputedStyle(textElem);
+      const currentHeight = computedStyle.height;
+      textElem.style.height = currentHeight;
+      textElem.style.minHeight = currentHeight;
+      
+      // Добавляем класс подсветки именно на WRAPPER
+      wrapper.classList.add('highlight');
+      // Меняем текст на уведомление
+      textElem.innerText = 'Скопировано';
+
+      // Возвращаем исходное состояние через 1.5 сек
       setTimeout(() => {
-        clickedCell.classList.remove('highlight');
+        wrapper.classList.remove('highlight');
+        textElem.innerText = originalText;
+        
+        // Сбрасываем фиксацию высоты
+        textElem.style.height = '';
+        textElem.style.minHeight = '';
       }, 1500);
 
     } catch (err) {
       console.error('Не удалось скопировать текст:', err);
-      // Повторная попытка fallback, если основной не сработал по какой-то причине
-      try {
-        copyTextFallback(textToCopy);
-        clickedCell.classList.add('highlight');
-        setTimeout(() => clickedCell.classList.remove('highlight'), 1500);
-      } catch (err2) {
-        console.error('Fallback копирования также не сработал:', err2);
-      }
     }
   });
 
-  // --- Fallback функция для копирования ---
   function copyTextFallback(text) {
     const ta = document.createElement('textarea');
     ta.value = text;
@@ -561,10 +575,9 @@ document.addEventListener('DOMContentLoaded', function () {
     ta.style.top = '0';
     document.body.appendChild(ta);
     ta.select();
-    ta.setSelectionRange(0, ta.value.length);
     const successful = document.execCommand('copy');
     document.body.removeChild(ta);
-    if (!successful) throw new Error('execCommand copy failed');
+    if (!successful) throw new Error('Fallback failed');
   }
 });
 
@@ -610,7 +623,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const searchTerm = (inputEl.value || '').trim().toLowerCase();
 
       // Получаем актуальный список .cell (учитываем динамическую подгрузку)
-      const cells = Array.from(container.getElementsByClassName('cell'));
+      const cells = Array.from(container.getElementsByClassName('cell-wrapper'));
 
       // Если строка поиска пустая — просто убираем класс hidden у всех ячеек
       if (searchTerm === '') {

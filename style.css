@@ -93,8 +93,6 @@
     max-width: 300px;  
     min-width: 100px; 
     box-sizing: border-box;
-    /* ------------------------------------------------------------------------- */
-    padding: 6px;
   --accent-color: #008f7e; 
   --bg-color: #131320;     
   --border-width: 6px;    
@@ -131,8 +129,7 @@
 
 .item-wrapper {
   transition: filter 0.3s ease;
-  /* Убираем лишние отступы, чтобы обертка была вплотную к элементу */
-  display: inline-block; 
+  display: flex; 
   width: 100%;
 }
 
@@ -330,27 +327,65 @@ display: none;
     flex-direction: column;
     align-items: center;
     border: 0px solid transparent;
-    border-image-source: url("Ramka.svg"); 
-    border-image-slice: 0 0 0 0 fill;  
-    border-image-width: 0px; 
-    border-image-outset: 0;
-    border-image-repeat: stretch;
     max-width: 300px;  
     min-width: 100px; 
-    box-sizing: border-box; 
-  }
+    box-sizing: border-box;
+  --accent-color: #008f7e; 
+  --bg-color: #131320;     
+  --border-width: 6px;    
+  --cut-size: 15px;        
+  position: relative;
+  width: 100%;
+  min-height: 80px;
+  display: flex;
+  cursor: pointer;
+  transition: transform 0.1s;
+  background: #008f7e;
+  padding: var(--border-width); 
 
-    .cell.highlight {
-    filter: drop-shadow(0 0 8px #006919);
+  clip-path: polygon(
+    var(--cut-size) 0%, 100% 0%, 100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%, 0% 100%, 0% var(--cut-size));
   }
 
   .cell-text {
-    padding: 14px 18px; 
+    padding: 12px 16px; 
     font-size: 17px;
     line-height: 1.2;
     flex-shrink: 0;
     box-sizing: border-box; 
+    flex: 1;
+    display: flex;
+    width: 100%;
+    background: #131320;
+
+  clip-path: polygon(
+    calc(1.5% + (var(--cut-size) - var(--border-width))) 0%, 100% 0%, 100% calc(97% - (var(--cut-size) - var(--border-width))), 
+    calc(98.5% - (var(--cut-size) - var(--border-width))) 100%, 0% 100%, 0% calc(3% + (var(--cut-size) - var(--border-width)))
+    );
   }
+
+.cell-wrapper {
+  transition: filter 0.3s ease;
+  display: flex;
+  width: 100%;
+}
+
+.cell-wrapper.highlight {
+  filter: drop-shadow(0 0 10px #006919);
+  transform: scale(1.02);
+}
+
+.cell-wrapper.highlight .cell-text {
+  justify-content: center;
+  align-items: center;         
+  text-align: center;
+  font-size: 22px;
+}
+
+.cell:hover {
+  transform: scale(1.05);
+  background-color: #00bda6; 
+}
 
   .hidden-cell {
   display: none;
