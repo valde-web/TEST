@@ -94,7 +94,8 @@
     min-width: 100px; 
     box-sizing: border-box;
     /* ------------------------------------------------------------------------- */
-  --accent-color: #008979; 
+    padding: 6px;
+  --accent-color: #008f7e; 
   --bg-color: #131320;     
   --border-width: 6px;    
   --cut-size: 15px;        
@@ -104,13 +105,12 @@
   display: flex;
   cursor: pointer;
   transition: transform 0.1s;
-  background: #008979;
+  background: #008f7e;
   padding: var(--border-width); 
 
   clip-path: polygon(
-    var(--cut-size) 0%, 100% 0%, 100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%, 0% 100%, 0% var(--cut-size)
-  );
-}
+    var(--cut-size) 0%, 100% 0%, 100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%, 0% 100%, 0% var(--cut-size));
+  }
 
   .item-text {
     padding: 12px 16px; 
@@ -120,6 +120,7 @@
     box-sizing: border-box; 
     flex: 1;
     display: flex;
+    width: 100%;
     background: #131320;
 
   clip-path: polygon(
@@ -128,15 +129,28 @@
     );
   }
 
-.item.highlight {
-  filter: drop-shadow(0 0 8px #006919);
+.item-wrapper {
+  transition: filter 0.3s ease;
+  /* Убираем лишние отступы, чтобы обертка была вплотную к элементу */
+  display: inline-block; 
+  width: 100%;
 }
 
-.item:active {
-  transform: scale(0.97);
+.item-wrapper.highlight {
+  filter: drop-shadow(0 0 10px #006919);
+  transform: scale(1.02);
 }
-.item:active .item-text {
-  background: #1c1c2e; /* Чуть светлеет фон при клике */
+
+.item-wrapper.highlight .item-text {
+  justify-content: center;
+  align-items: center;         
+  text-align: center;
+  font-size: 22px;
+}
+
+.item:hover {
+  transform: scale(1.05);
+  background-color: #00bda6; 
 }
 
 .main-container {
