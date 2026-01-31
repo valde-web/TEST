@@ -475,9 +475,7 @@ display: none;
 }
 
 #copyButton.copied {
-    border: 2px solid #00c58a;
-    border-radius: 8px;
-    font-size: 20px;
+    box-shadow: 0 0 15px #006919;
 }
 
 #clearButton {
@@ -2307,11 +2305,11 @@ html.gta ::-webkit-scrollbar-thumb:hover {
 }
 
     html.NewYear #copyButton:hover {
-    background-color: #364b60;
+    background-color: #034100;
   }
 
   html.NewYear #clearButton:hover {
-    background-color: #364b60;
+    background-color: #034100;
   }
 
   html.NewYear #itemmSearch {
