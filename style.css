@@ -1282,13 +1282,23 @@ html.NewYear .theme-option { background: #fffbf000; color: var(--fg-NewYear); bo
     column-rule: 1px solid #000000;
     }
 
-  html.light .item {
-  border-image-source: url("RamkaLight.svg"); 
+  html.light .item-text {
+  background: #ffffff;
   }
 
-  html.light .cell {
-  border-image-source: url("RamkaLight.svg"); 
+  html.light .item:hover {
+  transform: scale(1.05);
+  background-color: #00695d; 
+}
+
+  html.light .cell-text {
+  background: #ffffff;
   }
+
+  html.light .cell:hover {
+  transform: scale(1.05);
+  background-color: #00695d; 
+}
 
   html.light .hidden-cell {
   display: none;
@@ -1496,6 +1506,7 @@ html.light::-webkit-scrollbar-thumb:hover {
   }
 
     html.pink .item {
+    all: unset;
     width: 100%;
     height: 0; /* Важно: высота 0 */
     padding-bottom: 62%; /* соотношение 4:3*/
@@ -1515,14 +1526,16 @@ html.light::-webkit-scrollbar-thumb:hover {
     background-position: center; /* Центрирует изображение фона */
     box-sizing: border-box;
     max-width: 1000px;  
-    min-width: 10px; 
+    min-width: 10px;  
     }
 
-    html.pink .item.highlight {
+    html.pink .item-wrapper.highlight {
     filter: drop-shadow(0 0 14px #ff77a2);
+    transform: scale(1.02);
     }
 
     html.pink .item-text {
+    all: unset;
     position: absolute;
     left: 18.3%;
     right: 13.53%;
@@ -1586,6 +1599,7 @@ html.light::-webkit-scrollbar-thumb:hover {
   }
 
   html.pink .cell {
+    all: unset;
     width: 100%;
     height: 0; /* Важно: высота 0 */
     padding-bottom: 62%; /* соотношение 4:3*/
@@ -1602,15 +1616,19 @@ html.light::-webkit-scrollbar-thumb:hover {
     box-shadow: none;
     border: none;
     margin-bottom: 5px;
+    background-position: center; /* Центрирует изображение фона */
+    box-sizing: border-box;
     max-width: 1000px;  
-    min-width: 10px; 
+    min-width: 10px;  
     }
 
-  html.pink .cell.highlight {
+    html.pink .cell-wrapper.highlight {
     filter: drop-shadow(0 0 14px #ff77a2);
-  }
+    transform: scale(1.02);
+    }
 
     html.pink .cell-text {
+    all: unset;
     position: absolute;
     left: 18.3%;
     right: 13.53%;
@@ -1621,7 +1639,7 @@ html.light::-webkit-scrollbar-thumb:hover {
     align-items: center;
     pointer-events: none; /* Позволяет кликать сквозь текст */
     font-size: 17px;
-    line-height: 1.2;
+    line-height: 1.1;
     flex-shrink: 0;
     box-sizing: border-box; /*  Важно!  Чтобы padding не ломал размеры */
     z-index: 1;
@@ -1853,27 +1871,41 @@ html.pink ::-webkit-scrollbar-thumb:hover {
     color: #E0E0E0;
     background-color: #2D3E50;
 }
+  html.gta .item {
+  background: #FF7F50;
+  }
 
-    html.gta .item {
-    text-align: left;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 0px solid transparent;
-    border-image-source: url("RamkaGTA.svg"); 
-    border-image-slice: 0 0 0 0 fill;  
-    border-image-width: 0px; 
-    border-image-outset: 0;
-    border-image-repeat: stretch;
-    max-width: 300px;  
-    min-width: 100px; 
-    box-sizing: border-box; 
-    }
+  html.gta .item-text {
+  background: #2D3E50;
+  }
 
-    html.gta .item.highlight {
-    filter: drop-shadow(0 0 8px #FF7F50);
-    }
+  html.gta .item-wrapper.highlight {
+  filter: drop-shadow(0 0 10px #FF7F50);
+  transform: scale(1.02);
+}
+
+  html.gta .item:hover {
+  transform: scale(1.05);
+  background-color: #fe9771; 
+}
+
+  html.gta .cell {
+    background: #FF7F50;
+  }
+
+  html.gta .cell-text {
+  background: #2D3E50;
+  }
+
+  html.gta .cell-wrapper.highlight {
+  filter: drop-shadow(0 0 10px #FF7F50);
+  transform: scale(1.02);
+}
+
+  html.gta .cell:hover {
+  transform: scale(1.05);
+  background-color: #fe9771; 
+}
 
     html.gta .table-title {
     background-color: #2D3E50;
@@ -1908,26 +1940,6 @@ html.pink ::-webkit-scrollbar-thumb:hover {
             border: 2px solid #FF7F50;
             background-color: #2D3E50;
         }
-
-  html.gta .cell {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 0px solid transparent;
-    border-image-source: url("RamkaGTA.svg"); 
-    border-image-slice: 0 0 0 0 fill;  
-    border-image-width: 0px; 
-    border-image-outset: 0;
-    border-image-repeat: stretch;
-    max-width: 300px;  
-    min-width: 100px; 
-    box-sizing: border-box; 
-    }
-
-  html.gta .cell.highlight {
-    filter: drop-shadow(0 0 8px #FF7F50);
-  }
 
   html.gta .hidden-cell {
   display: none;
@@ -2147,35 +2159,75 @@ html.gta ::-webkit-scrollbar-thumb:hover {
     background-color: #022b00;
 }
 
-    html.NewYear .item {
-    text-align: left;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 0px solid transparent;
-    border-image-source: url("RamkaNewYear.svg"); 
-    border-image-slice: 0 0 0 0 fill;  
-    border-image-width: 0px; 
-    border-image-outset: 0;
-    border-image-repeat: stretch;
-    max-width: 300px;  
-    min-width: 100px; 
-    box-sizing: border-box; 
-    
-    }
+  html.NewYear .item {
+  background: repeating-linear-gradient(
+        45deg,
+        #AF0202,
+        #AF0202 20px,      /* Красный идет от 0 до 20px */
+        white 20px,    /* Белый начинается ровно на 20px */
+        white 40px     /* И заканчивается на 40px */
+    );
+  }
 
-    html.NewYear .item-text {
-    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
-    -webkit-background-clip: text;
+  html.NewYear .item-text {
+  background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B),
+  linear-gradient(#022b00, #022b00);
+    -webkit-background-clip: text, padding-box;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background-clip: text, padding-box;
     color: transparent;
-    }
+  }
 
-    html.NewYear .item.highlight {
-    filter: drop-shadow(0 0 8px #940000);
-    }
+  html.NewYear .item-wrapper.highlight {
+  filter: drop-shadow(0 0 10px #940000);
+  transform: scale(1.02);
+}
+
+  html.NewYear .item:hover {
+  transform: scale(1.05);
+  background: repeating-linear-gradient(
+        45deg,
+        white,
+        white 20px,      /* Красный идет от 0 до 20px */
+        #AF0202 20px,    /* Белый начинается ровно на 20px */
+        #AF0202 40px     /* И заканчивается на 40px */
+    );
+}
+
+  html.NewYear .cell {
+  background: repeating-linear-gradient(
+        45deg,
+        #AF0202,
+        #AF0202 20px,      /* Красный идет от 0 до 20px */
+        white 20px,    /* Белый начинается ровно на 20px */
+        white 40px     /* И заканчивается на 40px */
+    );
+  }
+
+  html.NewYear .cell-text {
+  background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B),
+  linear-gradient(#022b00, #022b00);
+    -webkit-background-clip: text, padding-box;
+    -webkit-text-fill-color: transparent;
+    background-clip: text, padding-box;
+    color: transparent;
+  }
+
+  html.NewYear .cell-wrapper.highlight {
+  filter: drop-shadow(0 0 10px #940000);
+  transform: scale(1.02);
+}
+
+  html.NewYear .cell:hover {
+  transform: scale(1.05);
+  background: repeating-linear-gradient(
+        45deg,
+        white,
+        white 20px,      /* Красный идет от 0 до 20px */
+        #AF0202 20px,    /* Белый начинается ровно на 20px */
+        #AF0202 40px     /* И заканчивается на 40px */
+    );
+}
 
     html.NewYear .table-title {
     background-color: #022b00;
@@ -2220,34 +2272,6 @@ html.gta ::-webkit-scrollbar-thumb:hover {
             border: 2px solid #940000;
             background-color: #022b00;
         }
-
-  html.NewYear .cell {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 0px solid transparent;
-    border-image-source: url("RamkaNewYear.svg"); 
-    border-image-slice: 0 0 0 0 fill;  
-    border-image-width: 0px; 
-    border-image-outset: 0;
-    border-image-repeat: stretch;
-    max-width: 300px;  
-    min-width: 100px; 
-    box-sizing: border-box; 
-    }
-
-    html.NewYear .cell-text {
-    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771B);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-    }
-
-  html.NewYear .cell.highlight {
-    filter: drop-shadow(0 0 8px #940000);
-  }
 
   html.NewYear .hidden-cell {
   display: none;
