@@ -6,6 +6,10 @@ body {
   margin: 0;
 }
 
+html {
+scrollbar-gutter: stable;
+}
+
 body::selection { background: #008979; color: #000000; }
 html.light body::selection { background: #008979; color: #ffffff; }
 html.pink body::selection { background: #000000; color: #ffffff; }
@@ -469,6 +473,10 @@ display: none;
       background-color: #131320;
       color: white;
     }
+
+    select option {
+    background-color: #131320; /* цвет background выпадающего списка в выбор ппо секции тюнинг и прочие все, кроме знач и знач с тюном */
+  }
 
     #result {
       margin-top: 20px;
@@ -1118,7 +1126,9 @@ transform: scale(1.1);
 }
 
 /* Ползунок (thumb) */
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb,
+select::-webkit-scrollbar-thumb,
+select::-webkit-scrollbar-thumb:hover {
   background-color: #008979; /* Цвет ползунка */
   border-radius: 100px;   /* Скругление углов ползунка */
 }
@@ -1372,6 +1382,10 @@ html.anime .theme-toggle, html.anime .theme-option { background: #fffbf000; colo
       background-color: #ffffff;
     }
 
+  html.light select option {
+    background-color: #ffffff;
+  }
+
   html.light #copyButton {
     color: #000000;
 }
@@ -1469,33 +1483,24 @@ color: #000000;
 }
 
 /* Ползунок (thumb) */
-html.light ::-webkit-scrollbar-thumb {
-  background-color: #008979; /* Цвет ползунка */
-}
+html.light::-webkit-scrollbar-thumb,
+html.light ::-webkit-scrollbar-thumb,
+html.light select::-webkit-scrollbar-thumb,
+html.light select::-webkit-scrollbar-thumb:hover {
+    background-color: #008979;
+    }
 
 /* Трек (track) */
+html.light::-webkit-scrollbar-track,
 html.light ::-webkit-scrollbar-track {
-  background-color: #ffffff; /* Цвет фона трека */
-}
+    background-color: #ffffff;
+    }
 
 /* Улучшение внешнего вида при наведении курсора на ползунок */
+html.light::-webkit-scrollbar-thumb:hover, 
 html.light ::-webkit-scrollbar-thumb:hover {
-  background-color: #01585b; /* Цвет ползунка при наведении */
-}
-
-html.light::-webkit-scrollbar-thumb {
-  background-color: #008979; /* Цвет ползунка */
-}
-
-/* Трек (track) */
-html.light::-webkit-scrollbar-track {
-  background-color: #ffffff; /* Цвет фона трека */
-}
-
-/* Улучшение внешнего вида при наведении курсора на ползунок */
-html.light::-webkit-scrollbar-thumb:hover {
-  background-color: #01585b; /* Цвет ползунка при наведении */
-}
+    background-color: #01585b;
+    }
 
     /*----------------------------------------------------------------------------------- Пикми тема----------------------------------------------------------------- */
 
@@ -1710,6 +1715,10 @@ html.light::-webkit-scrollbar-thumb:hover {
       color: #000000;
     }
 
+  html.pink select option {
+    background-color: #fbc3d5;
+  }
+
   html.pink #result {
       border: 2px solid #000000;
       background-image: linear-gradient(160deg, #ffd6e3, #fbc0d2);
@@ -1860,33 +1869,24 @@ background-image: linear-gradient(160deg, #eecbd6, #e4a2b7);
 }
 
 /* Ползунок (thumb) */
-html.pink::-webkit-scrollbar-thumb {
-  background-color: #fbc0d2; /* Цвет ползунка */
-}
+html.pink::-webkit-scrollbar-thumb,
+html.pink ::-webkit-scrollbar-thumb,
+html.pink select::-webkit-scrollbar-thumb,
+html.pink select::-webkit-scrollbar-thumb:hover {
+    background-color: #fbc0d2;
+    }
 
 /* Трек (track) */
-html.pink::-webkit-scrollbar-track {
-  background-color: #fffbee; /* Цвет фона трека */
-}
-
-/* Улучшение внешнего вида при наведении курсора на ползунок */
-html.pink::-webkit-scrollbar-thumb:hover {
-  background-color: #e5b2c1; /* Цвет ползунка при наведении */
-}
-
-html.pink ::-webkit-scrollbar-thumb {
-  background-color: #fbc0d2; /* Цвет ползунка */
-}
-
-/* Трек (track) */
+html.pink::-webkit-scrollbar-track,
 html.pink ::-webkit-scrollbar-track {
-  background-color: #fffbee; /* Цвет фона трека */
-}
+    background-color: #fffbee;
+    }
 
 /* Улучшение внешнего вида при наведении курсора на ползунок */
+html.pink::-webkit-scrollbar-thumb:hover, 
 html.pink ::-webkit-scrollbar-thumb:hover {
-  background-color: #e5b2c1; /* Цвет ползунка при наведении */
-}
+    background-color: #e5b2c1;
+    }
 
 /*----------------------------------------------------------------------------------- GTA тема----------------------------------------------------------------- */
 
@@ -2008,7 +2008,12 @@ html.pink ::-webkit-scrollbar-thumb:hover {
       border: 2px solid #FF7F50;
       color: #E0E0E0;
       background-color: #2D3E50;
+      color-scheme: dark !important;
     }
+
+  html.gta select option {
+    background-color: #2D3E50;
+  }
 
   html.gta #result {
       border: 2px solid #FF7F50;
@@ -2139,34 +2144,24 @@ background-color: #ab5739;
 }
 
 /* Ползунок (thumb) */
-html.gta::-webkit-scrollbar-thumb {
+html.gta::-webkit-scrollbar-thumb,
+html.gta ::-webkit-scrollbar-thumb,
+html.gta select::-webkit-scrollbar-thumb,
+html.gta select::-webkit-scrollbar-thumb:hover {
     background-color: #FF7F50;
     }
 
 /* Трек (track) */
-html.gta::-webkit-scrollbar-track {
-    background-color: #1A2B3C;
-    }
-
-/* Улучшение внешнего вида при наведении курсора на ползунок */
-html.gta::-webkit-scrollbar-thumb:hover {
-    background-color: #ff9d7a;
-    }
-
-html.gta ::-webkit-scrollbar-thumb {
-    background-color: #FF7F50;
-    }
-
-/* Трек (track) */
+html.gta::-webkit-scrollbar-track,
 html.gta ::-webkit-scrollbar-track {
     background-color: #1A2B3C;
     }
 
 /* Улучшение внешнего вида при наведении курсора на ползунок */
+html.gta::-webkit-scrollbar-thumb:hover, 
 html.gta ::-webkit-scrollbar-thumb:hover {
     background-color: #ff9d7a;
-    }
-
+}
 
 /*----------------------------------------------------------------------------------- NewYear тема----------------------------------------------------------------- */
 
@@ -2350,6 +2345,10 @@ html.gta ::-webkit-scrollbar-thumb:hover {
       background-color: #022b00;
     }
 
+  html.NewYear select option {
+    background-color: #022b00;
+  }
+
   html.NewYear #result {
       border: 2px solid #940000;
       background-color: #022b00;
@@ -2492,40 +2491,32 @@ background-color: #ac0000;
 }
 
 /* Ползунок (thumb) */
-html.NewYear::-webkit-scrollbar-thumb {
+html.NewYear::-webkit-scrollbar-thumb,
+html.NewYear ::-webkit-scrollbar-thumb,
+html.NewYear select::-webkit-scrollbar-thumb,
+html.NewYear select::-webkit-scrollbar-thumb:hover {
     background-color: #940000;
     }
 
 /* Трек (track) */
-html.NewYear::-webkit-scrollbar-track {
-    background-color: #022b00;
-    }
-
-/* Улучшение внешнего вида при наведении курсора на ползунок */
-html.NewYear::-webkit-scrollbar-thumb:hover {
-    background-color: #ac0000;
-    }
-
-html.NewYear ::-webkit-scrollbar-thumb {
-    background-color: #940000;
-    }
-
-/* Трек (track) */
+html.NewYear::-webkit-scrollbar-track,
 html.NewYear ::-webkit-scrollbar-track {
     background-color: #022b00;
     }
 
 /* Улучшение внешнего вида при наведении курсора на ползунок */
+html.NewYear::-webkit-scrollbar-thumb:hover, 
 html.NewYear ::-webkit-scrollbar-thumb:hover {
     background-color: #ac0000;
     }
-
 /*---------------------------------------------------------------------------------------- Аниме тема ----------------------------------------------------------------- */
 
   html.anime body {
     font-family: Arial, sans-serif;
-    background: #1b1238;
+    background: url('anime.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: #e2d9f3;
+    background-color: #1a1235;
   }
 
   html.anime .tuning-col {
@@ -2542,6 +2533,13 @@ html.NewYear ::-webkit-scrollbar-thumb:hover {
 
   html.anime #toggleControlsButton {
     color: #e2d9f3;
+    text-shadow: 
+    -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000,  1px  1px 0 #000,
+    -2px -2px 0 #000,  2px -2px 0 #000, -2px  2px 0 #000,  2px  2px 0 #000,
+    -2px  0px 0 #000,  2px  0px 0 #000,  0px -2px 0 #000,  0px  2px 0 #000,
+    -1px -2px 0 #000,  1px -2px 0 #000, -1px  2px 0 #000,  1px  2px 0 #000,
+    -2px -1px 0 #000,  2px -1px 0 #000, -2px  1px 0 #000,  2px  1px 0 #000;
+    letter-spacing: 1px;
   }
 
   html.anime .dropdown-button {
@@ -2550,52 +2548,51 @@ html.NewYear ::-webkit-scrollbar-thumb:hover {
 
   html.anime .image-link-text {
   color: #e2d9f3;
+  text-shadow: 
+    -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000,  1px  1px 0 #000,
+    -2px -2px 0 #000,  2px -2px 0 #000, -2px  2px 0 #000,  2px  2px 0 #000,
+    -2px  0px 0 #000,  2px  0px 0 #000,  0px -2px 0 #000,  0px  2px 0 #000,
+    -1px -2px 0 #000,  1px -2px 0 #000, -1px  2px 0 #000,  1px  2px 0 #000,
+    -2px -1px 0 #000,  2px -1px 0 #000, -2px  1px 0 #000,  2px  1px 0 #000;
+    letter-spacing: 1px;
 }
 
 html.anime #itemm {
     color: #e2d9f3;
-    background-color: #120c27;
+    background-color: #120c2791;
 }
 
   html.anime #itemmm {
     color: #e2d9f3;
-    background-color: #120c27;
+    background-color: #120c2791;
 }
 
   html.anime .item {
-  background: #00f0ff66;
+  background: #00000000;
   }
 
   html.anime .item-text {
-  background: #120c27;
+  background: #120c2791;
   }
 
   html.anime .item-wrapper.highlight {
   filter: drop-shadow(0 0 10px #00f0ff66);
 }
 
-  html.anime .item:hover {
-  background-color: #00eeff83;
-}
-
 html.anime .cell {
-  background: #00f0ff66;
+  background: #00000000; 
   }
 
   html.anime .cell-text {
-  background: #120c27;
+  background: #120c2791;
   }
 
   html.anime .cell-wrapper.highlight {
   filter: drop-shadow(0 0 10px #00f0ff66);
 }
 
-  html.anime .cell:hover {
-  background-color: #00eeff83;
-}
-
     html.anime .table-title {
-    background-color: rgba(22, 16, 42, 0.75);
+    background-color: #120c27c0;
     }
 
   html.anime .section {
@@ -2604,6 +2601,13 @@ html.anime .cell {
 
   html.anime .section-header {
     background-color: #00f0ff66;
+    text-shadow: 
+    -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000,  1px  1px 0 #000,
+    -2px -2px 0 #000,  2px -2px 0 #000, -2px  2px 0 #000,  2px  2px 0 #000,
+    -2px  0px 0 #000,  2px  0px 0 #000,  0px -2px 0 #000,  0px  2px 0 #000,
+    -1px -2px 0 #000,  1px -2px 0 #000, -1px  2px 0 #000,  1px  2px 0 #000,
+    -2px -1px 0 #000,  2px -1px 0 #000, -2px  1px 0 #000,  2px  1px 0 #000;
+    letter-spacing: 1px;
     }
 
   html.anime .section-header:hover {
@@ -2612,7 +2616,7 @@ html.anime .cell {
 
   html.anime .main-container {
     border: 2px solid #00f0ff66;
-    background-color: #120c27;
+    background-color: #120c2791;
     box-shadow: none;
     }
 
@@ -2620,12 +2624,12 @@ html.anime .cell {
             font-family: Arial, sans-serif;
             border: 2px solid #00f0ff66;
             color: #e2d9f3;
-            background-color: #120c27;
+            background-color: #120c2791;
     }
 
   html.anime .draft-area {
             border: 2px solid #00f0ff66;
-            background-color: #120c27;
+            background-color: #120c2791;
         }
 
   html.anime .hidden-cell {
@@ -2634,30 +2638,35 @@ html.anime .cell {
 
   html.anime .column {
     border: 2px solid #00f0ff66;
-    background-color: #120c27;
+    background-color: #120c2791;
     }
 
   html.anime select {
       border: 2px solid #00f0ff66;
       color: #e2d9f3;
-      background-color: #120c27;
+      background-color: #120c2791;
+      color-scheme: dark !important;
     }
+
+  html.anime select option {
+    background-color: #1b1238;
+  }
 
   html.anime #result {
       border: 2px solid #00f0ff66;
-      background-color: #120c27;
+      background-color: #120c2791;
     }
 
   html.anime #copyButton {
     border: 2px solid #00f0ff66;
     color: #e2d9f3;
-    background-color: #120c27;
+    background-color: #120c2791;
     }
 
   html.anime #clearButton {
     border: 2px solid #00f0ff66;
     color: #e2d9f3;
-    background-color: #120c27;
+    background-color: #120c2791;
     }
 
   html.anime #copyButton.copied {
@@ -2680,18 +2689,18 @@ html.anime .cell {
   html.anime #itemmSearch {
   border: 2px solid #00f0ff66;
   color: #e2d9f3;
-  background-color: #120c27;
+  background-color: #120c2791;
   }
 
   html.anime #itemmmSearch {
   border: 2px solid #00f0ff66;
   color: #e2d9f3;
-  background-color: #120c27;
+  background-color: #120c2791;
   }
 
   html.anime #draft-area-5 {
             border: 2px solid #00f0ff66;
-            background-color: #120c27;
+            background-color: #120c2791;
     }
 
   html.anime .select-wrapper select {
@@ -2700,19 +2709,19 @@ html.anime .cell {
 
   html.anime #customPrice {
     border: 1px solid #00f0ff66;
-    background-color: #120c27;
+    background-color: #120c2791;
     color: #e2d9f3;
     }
 
   html.anime #setPrice {
     border: 1px solid #00f0ff66;
-    background-color: #120c27;
+    background-color: #120c2791;
     color: #e2d9f3;
     }
 
   html.anime .dropdown-content {
   border: 2px solid #00f0ff66;
-  background-color: #120c27;
+  background-color: #1b1238;
     }
 
   html.anime .dropdown-content a {
@@ -2749,6 +2758,20 @@ html.anime .cell {
         color: #555555db;
       }
 
+#toggleControlsButton:hover {
+    width: 430px; /* Расширяем полоску при наведении */
+}
+
+html.anime .OnlyForAnimeThemeStyleText {
+  text-shadow: 
+    -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000,  1px  1px 0 #000,
+    -2px -2px 0 #000,  2px -2px 0 #000, -2px  2px 0 #000,  2px  2px 0 #000,
+    -2px  0px 0 #000,  2px  0px 0 #000,  0px -2px 0 #000,  0px  2px 0 #000,
+    -1px -2px 0 #000,  1px -2px 0 #000, -1px  2px 0 #000,  1px  2px 0 #000,
+    -2px -1px 0 #000,  2px -1px 0 #000, -2px  1px 0 #000,  2px  1px 0 #000;
+  letter-spacing: 1px;
+}
+
   html.anime .notification-container {
   background-color: #000000;
   border: 2px solid #8b8b8b;
@@ -2764,7 +2787,14 @@ html.anime .cell {
 
 html.anime #start-tutorial-btn {
 background-color: #00f0ff66;
-color: #ffffff; 
+color: #e2d9f3;
+text-shadow: 
+    -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000,  1px  1px 0 #000,
+    -2px -2px 0 #000,  2px -2px 0 #000, -2px  2px 0 #000,  2px  2px 0 #000,
+    -2px  0px 0 #000,  2px  0px 0 #000,  0px -2px 0 #000,  0px  2px 0 #000,
+    -1px -2px 0 #000,  1px -2px 0 #000, -1px  2px 0 #000,  1px  2px 0 #000,
+    -2px -1px 0 #000,  2px -1px 0 #000, -2px  1px 0 #000,  2px  1px 0 #000;
+letter-spacing: 1px;
 }
 
 html.anime #start-tutorial-btn:hover {
@@ -2772,34 +2802,24 @@ background-color: #00a3af66;
 }
 
 /* Ползунок (thumb) */
-html.anime::-webkit-scrollbar-thumb {
+html.anime::-webkit-scrollbar-thumb,
+html.anime ::-webkit-scrollbar-thumb,
+html.anime select::-webkit-scrollbar-thumb,
+html.anime select::-webkit-scrollbar-thumb:hover {
     background-color: #00f0ff66;
     }
 
 /* Трек (track) */
-html.anime::-webkit-scrollbar-track {
-    background-color: #1a1235;
-    }
-
-/* Улучшение внешнего вида при наведении курсора на ползунок */
-html.anime::-webkit-scrollbar-thumb:hover {
-    background-color: #00a3af66;
-    }
-
-html.anime ::-webkit-scrollbar-thumb {
-    background-color: #00f0ff66;
-    }
-
-/* Трек (track) */
+html.anime::-webkit-scrollbar-track,
 html.anime ::-webkit-scrollbar-track {
     background-color: #1a1235;
     }
 
 /* Улучшение внешнего вида при наведении курсора на ползунок */
+html.anime::-webkit-scrollbar-thumb:hover, 
 html.anime ::-webkit-scrollbar-thumb:hover {
     background-color: #00a3af66;
     }
-
 
 /*---------------------------------------------------------------------------------------- Медиа запросы----------------------------------------------------------------- */
 

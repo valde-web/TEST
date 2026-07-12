@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="App.png" type="image/png">
+<meta name="description" content="Ваш гид по созданию объявлений на RMRP! Здесь собраны в точности правильные названия авто, одежды и всего прочего для корректной подачи объявлений.">
+<meta property="og:title" content="Таблица ППО ♡ RMRP">
+<meta property="og:description" content="Ваш гид по созданию объявлений на RMRP! Здесь собраны в точности правильные названия авто, одежды и всего прочего для корректной подачи объявлений.">
+<meta property="og:image" content="App.png">
+<meta property="og:url" content="https://www.table-ppo.ru/">
+<meta property="og:type" content="website">
+<title>Таблица ППО ♡ RMRP</title>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+<script>
+    (function() {
+        const savedTheme = localStorage.getItem('site-theme'); 
+        if (savedTheme && savedTheme !== 'dark') {
+            document.documentElement.classList.add(savedTheme); 
+        } else if (!savedTheme) {
+            localStorage.setItem('site-theme', 'dark');
+        }
+        })();
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container93">
+<div class="link-wrapper left-linkk">
+    <a class="image-link" href="https://discord.gg/NURVUYuanQ" target="_blank" rel="noopener noreferrer">
+      <img src="discord.png" alt="Discord" width="38" height="29">
+      <span class="image-link-text">Связь дискорд</span>
+    </a>
+  </div>
+
+  <div class="link-wrapper left-link">
+    <a class="image-link" href="https://drive.google.com/file/d/1Rnq6N7Kxvve6iFEuRyJbXh_a5YZMQGiJ/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
+      <img src="App.png" alt="Приложение" width="32" height="32">
+      <span class="image-link-text">Приложение</span>
+    </a>
+  </div>
+</div>
+
+  <!-- Элементы для пошаговой инструкции -->
+<div id="tutorial-overlay" style="display: none;"></div>
+
+<div id="tutorial-box" style="display: none;">
+    <button id="tutorial-close-btn" class="tutorial-close-btn">×</button>
+    <p id="tutorial-text"></p>
+    <div class="tutorial-navigation">
+        <button id="tutorial-prev-btn" class="tutorial-nav-btn" disabled>← Назад</button>
+        <span id="tutorial-step-counter"></span>
+        <button id="tutorial-next-btn" class="tutorial-nav-btn">Далее →</button>
+    </div>
+</div>
+
+<button id="start-tutorial-btn">Инструкция</button>
+
+<button id="toggleControlsButton" style="font-size: 22px;">Настройки бинда для приложения</button>
+
+      <div id="controlsContainer" style="display: none;">
+<div>
+    <label for="shortcutInput" class="OnlyForAnimeThemeStyleText" style="font-size: 20px;">Назначить горячую клавишу:</label>
+    <input type="text" id="shortcutInput" value="Введите бинд..." readonly style="outline-color: #000000;">
+    <button id="setShortcutButton">Установить клавишу</button>
+  </div>
+
+<div id="currentShortcut" class="OnlyForAnimeThemeStyleText">Текущая горячая клавиша: </div> <button id="clearShortcutButton">Стереть назначенную клавишу</button> 
+</div>
+
+<button id="toggleMaskButton" style="display: none">Показать Маски</button><!-----Кнопка скрытая для показа масок в Выбор ППО, без нее не робит, поэтому скрыта, появятся маски убрать её вообще------>
+<button id="toggle-mask-btn" style="display: none">Показать объявления с "маск"</button><!----------Кнопка скрытая для показа масок во всех таблицах ППО, появятся маски убрать её вообще---------->
+
+<div class="theme-arc" id="themeArc">
+  <button class="theme-toggle" id="themeToggle" aria-label="Открыть выбор темы" title="Выбрать тему">◀</button>
+
+  <button class="theme-option opt-1" data-theme="light" data-tip="Светлая тема" aria-label="Светлая тема">🤍</button>
+  <button class="theme-option opt-2" data-theme="dark"  data-tip="Тёмная тема" aria-label="Тёмная тема">&#128420;</button>
+  <button class="theme-option opt-3" data-theme="pink"  data-tip="PickMe тема" aria-label="Пикми тема">🩷</button>
+  <button class="theme-option opt-4" data-theme="gta"  data-tip="GTA тема" aria-label="GTA тема">𝐕</button>
+  <button class="theme-option opt-5" data-theme="NewYear"  data-tip="New Year тема" aria-label="New Year тема">🎄</button>
+  <button class="theme-option opt-6" data-theme="anime"  data-tip="Anime тема" aria-label="Аниме тянки">⛩️</button>
+</div>
+
+<section id="table1" class="sectionTWO table-section">
+  <div class="container">
+  <div class="header-wrapper">
+  <div class="container57">
+    <div class="table-header"><div class="dropdown">
+      <h2 class="table-title">Таблица ППО &#9825; RMRP<button class="dropdown-button">&#9660;</button></h2>
+        <div class="dropdown-content">
+          <a href="./">Таблица ППО</a>
+          <a href="./table-ppo-2/">Таблица ППО 2.0</a>
+          <a href="./search-ppo/">Поиск ППО</a>
+          <a href="./search-ppo-2/">Поиск ППО 2.0</a>
+          <a href="./choice-ppo/">Выбор ППО</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="legend-section"> 
+  <div class="section-header toggle-legend" id="legend-header" tabindex="0" style="cursor: pointer; user-select: none;">
+    Обозначения
+    <span class="legend-icon">&#9650;</span>
+  </div> 
+    <div id="legend-content" class="legend-content">
+      <div class="main-container">
+        <div class="top-section">
+            <div class="tuning-col">
+    <h3>Сокращения:</h3>
+    а/м - Автомобиль<br>
+    г/н - Государственный номер<br>
+    г/м - Гаражное место<br>
+    Склад 5х36 - Размер склада в недвижимости<br><br>
+          
+    <h3>Сокращения тюнинга:</h3>
+    FT - Полная комплектация тюнинга<br>
+    ET - С элементами тюнинга<br>
+    DT - Без тюнинга (стоковая комплектация)<br>
+    CT-FT - Полная комплектация чип тюнинга<br>
+    CT-ЕT - С элементами чип тюнинга<br>
+    на СГУ - Полицейский гудок для автомобилей<br><br>
+
+    <h3>Сокращения стран для г/н:</h3>
+    RU - Россия | RU А777АА/77<br>
+    KZ - Казахстан | KZ 001ААА/01<br>
+    BY - Беларусь | BY 1111/АА-1<br>
+    GE - Грузия | GE АВ-001-ВА<br>
+    AM - Армения | AM 77/АА777<br>
+    SRB - Сербия | SRB BB/777AA<br>
+  </div>
+
+  <div class="brands-wrapper">
+  <h3>Наименования брендов:</h3>
+  <div class="autocolumns-2">
+    Gucci - ГЧ, G<br>
+    Louis Vuitton - ЛВ, ЛУИК<br>
+    Nike - НК, Чаечка, Нэйк<br>
+    Adidas - Адики, Адик<br>
+    Versace - MEDUSA<br>
+    Yeezy - Изики<br>
+    Balenciaga - Баленсия<br>
+    Off-White - О-Уайт, УАЙТЫ<br>
+    Tommy Hilfiger - Томик<br>
+    Supreme - SUP, Suprime<br>
+    Bape - ЭЙП, БП<br>
+    Palm Angels - ЭЙНДЖЕЛЗ<br>
+    Saint Lauren - Лорен<br>
+    Levi's - L.STRAUSS<br>
+    Stone Island - Стоник<br>
+    Comme Des Garcons - Де-Гарсон<br>
+    Prada - Прадик, Прадики<br>
+    Casio - Касики Илюмы<br>
+    Ray-Ban - Rey Ban<br>
+    Loro Piana - Лора Пьяно<br>
+    Amiri - AMIRE<br>
+    DIOR - DEOR<br>
+    Converse - Конверсы, Convers<br>
+    The North Face - THF<br>
+    Arcteryx - ARC'OPTRYX<br>
+    Hugo Boss - H-BOSS<br>
+    Richard Mille - Ришар М<br>
+    Crocs - Крокерсы<br>
+    New Rock - Роки<br>
+    G-SHOCK - Г-Шокичи<br>
+    Timberland - Тимбирленды<br>
+    Carhartt - Кархарт<br>
+    Burberry - Barberry<br>
+    C.P. Company - СиПи Компани<br>
+    Reebok - Рибок<br>
+    Vetements - Ветмо<br>
+    Miu Miu - Мяу-Мяу<br>
+    Lacoste - Ла-Кост<br>
+    Moncler - MONCLAR<br>
+    Rhude - Rhud<br>
+    Dr. Martens - Мартинсы<br>
+    Maison Margiela Tabi - Таби Мейсон<br>
+    CLOT - Клот<br>
+    Diesel - Дизель<br>
+    Chrome Hearts - Chrom Heart<br>
+    Christian Louboutin - Лабутены<br>
+    Rick Owens - Рик Венc<br>
+    Chanel - Чанель<br>
+    Kappa - Kuppa<br>
+    Corteiz - Cartiez<br> 
+    Cinzia Araia - чинция Ара<br>
+    New Balance - И-Balance<br> 
+    Enfants Riches Déprimés - ЕРД<br> 
+    </div>
+  </div>
+</div>
+
+     <!-- НИЖНИЙ БЛОК (Марки авто, разбитые на 4 колонки) -->
+     <div class="bottom-section">
+      <h3>Наименования марок автомобилей:</h3>
+      <div class="autocolumns-4">
+      BMW - Бумер<br>
+      Mercedes-Benz - МБ<br>
+      Land Rover - Ровер<br>
+      Volkswagen - Фолькс, Фольцвагер<br>
+      Toyota - Тойода<br>
+      Lexus - Лекс<br>
+      Porsche - Поршак<br>
+      Nissan - Ниса<br>
+      Bentley - Бент<br>
+      Alfa Romeo - Альфа<br>
+      Chevrolet - Шевик<br>
+      Lamborghini - Ламба<br>
+      Rolls-Royce - РР<br>
+      Ferrari - Ферра<br>
+      McLaren - Мак<br>
+      Ford - Фордер<br>
+      Citroën - Ситруэн<br>
+      Audi - Аудитор<br>
+      Aurus - Аура<br>
+      Tesla - Т<br>
+      Dodge - Доджер<br>
+      Subaru - Субарь<br>
+      Honda - Хонд<br>
+      Jaguar - Ягуар<br>
+      Bugatti - Буггате<br>
+      Hummer – Хамер, Н1<br>
+      Aston Martin - Мартин<br>
+      Maserati - Мазер<br>
+      Skoda - Шкова<br>
+      Koenigsegg - Кёниг<br>
+      Jeep - Ранглер<br>
+      Mazda - Маздыч<br>
+      Kia - Кия<br>
+      Pagani - Паганий<br>
+      Infiniti - Инфиник<br>
+      Hyundai - Хэндэ<br>
+      Mini - Купер<br>
+      Cadillac - Какдилак<br>
+      Hongqi - Хуньцэ<br>
+      LiXiang - Лис-9<br>
+      Zeekr - Зик<br>
+      Italdesign - Итал<br>
+      Yangwang - ЯнгВонг<br>
+      Tank - Танк<br>
+      HiPhi - ХиПи 2024<br>
+      Haval - Хавал<br>
+      Suzuki - Джимни "Пж-20"<br>
+      Rivian - Риван<br>
+      Москвич - Москвович<br>
+      Lada Niva - Нивасик, "Шнива"<br>
+      ГАЗ - Газелька, Газик<br>
+      УАЗ - Буханка, Хантер<br>
+      ЛуАЗ - 969М "Волынь"<br>
+      РАФ - РАФИК<br>
+      ЗАЗ - ЗАЗИК<br>
+      Xiaomi - Ксяоми<br>
+      Renault - Рино<br>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Отказы / полезное
+      <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="helper">
+</div>
+</div>
+
+<div class="section">
+    <div class="section-header">
+      Куплю автомобиль
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="auto-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам автомобиль
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="auto-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю велосипед / мотоцикл
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="moto-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам велосипед / мотоцикл
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="moto-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю служебный транспорт
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="specauto-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам служебный транспорт
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="specauto-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю вертолет
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="copter-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам вертолет
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="copter-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю лодку
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="ship-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам лодку
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="ship-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Предоставляю услуги
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="service-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Требуются услуги
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="service-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю флаг
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="flag-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам флаг
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="flag-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю недвижимость
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="home-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам недвижимость
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="home-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю рыбу
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="fish-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам рыбу
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="fish-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю бизнес
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="biz-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам бизнес
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="biz-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю одежду / аксессуар
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="cloth-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам одежду / аксессуар
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="cloth-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю клад
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="treasure-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам клад
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="treasure-sell">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Передаю привет фракции
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="hello">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Куплю номерную рамку
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="frame-buy">
+</div>
+</div>
+
+  <div class="section">
+    <div class="section-header">
+      Продам номерную рамку
+    <span class="toggle-icon" id="icon-section-automobiles">&#9650;</span>
+    </div>
+    <div class="items" id="frame-sell">
+</div>
+</div>
+</section>
+
+<div id="update-notification" class="notification-container">
+  <div class="notification-content">
+    <button id="close-notification" class="close-button">&times;</button>
+    <div>
+    <h3>Уведомление</h3>
+    <p>&middot; Добавлено всё из нового БП.
+    </p>
+  </div>
+</div>
+</div>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/all.js"></script>
+</body>
+</html>
